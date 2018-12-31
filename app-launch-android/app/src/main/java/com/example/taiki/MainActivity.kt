@@ -4,48 +4,47 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-
 
 class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+                val input = inputData[0]
+                message.setText(input.second)
+                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+                val input = inputData[1]
+                message.setText(input.second)
+                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                message.setText(R.string.title_notifications)
-
-                openApp("com.android.chrome")
-
+                val input = inputData[2]
+                message.setText(input.second)
+                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
+    private val inputData: Array<Pair<String, String>> = arrayOf(
+        Pair("Chrome", "com.android.chrome"),
+        Pair("Gmail", "com.google.android.gm"),
+        Pair("Youtube", "com.google.android.youtube")
+    )
+    private lateinit var appLinkInfo: AppLinkInfo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-    }
-
-    private fun openApp(packageName: String) {
-        val pm = getPackageManager()
-        var intent = pm.getLaunchIntentForPackage(packageName)
-        if (intent == null) {
-            intent = Intent(Intent.ACTION_VIEW)
-            intent!!.setData(Uri.parse("market://details?id=$packageName"))
+        appLinkInfo = AppLinkInfo(getPackageManager())
+        inputData.forEach {
+            appLinkInfo.addPackageInfo(it.second)
         }
-        startActivity(intent)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 }
