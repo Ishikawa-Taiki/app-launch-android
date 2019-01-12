@@ -36,19 +36,17 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : ListViewAdapter.onItemClickListener {
             override fun onItemClick(data: RowData) {
-                Toast.makeText(this@MainActivity, data.title+":"+data.detail, Toast.LENGTH_SHORT).show()
+                data.detail?.let { startActivity(appLinkInfo.getPackageInfo(it)?.intent) }
             }
         })
     }
 
     private fun createDataset(): List<RowData> {
-
-        val dataset = ArrayList<RowData>()
-        for (i in 0..49) {
+        val dataset = inputData.map {
             val data = RowData()
-            data.title = inputData[i%3].first
-            data.detail = inputData[i%3].second
-            dataset.add(data)
+            data.title = it.first
+            data.detail = it.second
+            data
         }
         return dataset
     }
