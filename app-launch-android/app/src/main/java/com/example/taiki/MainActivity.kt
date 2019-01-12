@@ -1,38 +1,12 @@
 package com.example.taiki
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-
-
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-
-//    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-//        when (item.itemId) {
-//            R.id.navigation_home -> {
-//                val input = inputData[0]
-////                message.setText(input.second)
-//                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_dashboard -> {
-//                val input = inputData[1]
-////                message.setText(input.second)
-//                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_notifications -> {
-//                val input = inputData[2]
-////                message.setText(input.second)
-//                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-//                return@OnNavigationItemSelectedListener true
-//            }
-//        }
-//        false
-//    }
 
     private val inputData: Array<Pair<String, String>> = arrayOf(
         Pair("Chrome", "com.android.chrome"),
@@ -60,7 +34,11 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = llm
 
         rv.adapter = adapter
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        adapter.setOnItemClickListener(object : ListViewAdapter.onItemClickListener {
+            override fun onItemClick(data: RowData) {
+                Toast.makeText(this@MainActivity, data.title+":"+data.detail, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun createDataset(): List<RowData> {
