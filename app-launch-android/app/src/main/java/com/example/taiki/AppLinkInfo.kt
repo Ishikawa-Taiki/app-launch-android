@@ -30,7 +30,7 @@ class AppLinkInfo(pm: PackageManager) {
     }
 
     private fun getAppIcon(packageName: String): Drawable? {
-        var icon = pm.getApplicationIcon(packageName)
+        var icon: Drawable? = try { pm.getApplicationIcon(packageName) } catch (e: PackageManager.NameNotFoundException) { null }
         return icon
     }
 }
