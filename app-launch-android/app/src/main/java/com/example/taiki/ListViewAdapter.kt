@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View
 
-class ListViewAdapter(list: List<RowData>): RecyclerView.Adapter<ListViewHolder>() {
+// TODO: データ引き渡しの構造と責務が気持ち悪いので整理する
+class ListViewAdapter(list: List<RowData>, appLinkInfo: AppLinkInfo): RecyclerView.Adapter<ListViewHolder>() {
     private val list = list
+    private val appLinkInfo = appLinkInfo
     private var listener: onItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -21,8 +23,12 @@ class ListViewAdapter(list: List<RowData>): RecyclerView.Adapter<ListViewHolder>
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.titleView.setText(list.get(position).title)
-        holder.detailView.setText(list.get(position).detail)
+        val title = list.get(position).title
+        val detail = list.get(position).detail
+        val image = detail?.let { appLinkInfo.getPackageInfo(it)?.icon }
+        holder.titleView.setText(title)
+        holder.detailView.setText(detail)
+        image?.let { holder.iconView.setImageDrawable(image) }
     }
 
     override fun getItemCount(): Int {

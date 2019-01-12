@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +22,8 @@ class MainActivity : AppCompatActivity() {
             appLinkInfo.addPackageInfo(it.second)
         }
 
-
         val rv = findViewById(R.id.listView) as RecyclerView
-        val adapter = ListViewAdapter(createDataset())
+        val adapter = ListViewAdapter(createDataset(), appLinkInfo)
 
         val llm = LinearLayoutManager(this)
 
