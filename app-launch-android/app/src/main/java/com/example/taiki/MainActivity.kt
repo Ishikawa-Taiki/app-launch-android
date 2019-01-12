@@ -1,35 +1,12 @@
 package com.example.taiki
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                val input = inputData[0]
-                message.setText(input.second)
-                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_dashboard -> {
-                val input = inputData[1]
-                message.setText(input.second)
-                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                val input = inputData[2]
-                message.setText(input.second)
-                startActivity(appLinkInfo.getPackageInfo(input.second)?.intent)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
 
     private val inputData: Array<Pair<String, String>> = arrayOf(
         Pair("Chrome", "com.android.chrome"),
@@ -45,6 +22,32 @@ class MainActivity : AppCompatActivity() {
         inputData.forEach {
             appLinkInfo.addPackageInfo(it.second)
         }
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+
+        val rv = findViewById(R.id.listView) as RecyclerView
+        val adapter = ListViewAdapter(createDataset())
+
+        val llm = LinearLayoutManager(this)
+
+        rv.setHasFixedSize(true)
+
+        rv.layoutManager = llm
+
+        rv.adapter = adapter
+        adapter.setOnItemClickListener(object : ListViewAdapter.onItemClickListener {
+            override fun onItemClick(data: RowData) {
+                data.detail?.let { startActivity(appLinkInfo.getPackageInfo(it)?.intent) }
+            }
+        })
+    }
+
+    private fun createDataset(): List<RowData> {
+        val dataset = inputData.map {
+            val data = RowData()
+            data.title = it.first
+            data.detail = it.second
+            data
+        }
+        return dataset
     }
 }

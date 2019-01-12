@@ -5,8 +5,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 
 class AppLinkInfo(pm: PackageManager) {
-    val pm = pm
-    var link = mutableMapOf<String, PackageInfo>()
+    private val pm = pm
+    private var link = mutableMapOf<String, PackageInfo>()
 
     public fun addPackageInfo(packageName: String) {
         var intent = getApp(packageName)
