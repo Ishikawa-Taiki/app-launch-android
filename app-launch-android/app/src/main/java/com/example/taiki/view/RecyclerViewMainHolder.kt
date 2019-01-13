@@ -8,6 +8,5 @@ import com.example.taiki.R
 
 class RecyclerViewMainHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     var titleView = itemView.findViewById(R.id.title) as TextView;
-    var detailView = itemView.findViewById(R.id.detail) as TextView;
     var iconView = itemView.findViewById(R.id.icon) as ImageView
 }

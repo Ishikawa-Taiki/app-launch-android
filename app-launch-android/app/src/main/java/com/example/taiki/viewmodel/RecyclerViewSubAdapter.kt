@@ -31,10 +31,8 @@ class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerVi
 
     override fun onBindViewHolder(holder: RecyclerViewSubHolder, position: Int) {
         val title = list.get(position)?.appName
-        val detail = list.get(position)?.packageName
-        val image = detail?.let { DataModel.getAppIcon(it) }
+        val image = list.get(position)?.packageName?.let { DataModel.getAppIcon(it) }
         holder.titleView.setText(title)
-        holder.detailView.setText(detail)
         image?.let { holder.iconView.setImageDrawable(image) }
     }
 
