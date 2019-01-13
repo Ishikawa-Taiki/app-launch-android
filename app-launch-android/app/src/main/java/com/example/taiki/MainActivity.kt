@@ -13,10 +13,16 @@ import com.example.taiki.model.DataModel
 import com.example.taiki.viewmodel.RecyclerViewMainAdapter
 import com.example.taiki.viewmodel.RecyclerViewSubAdapter
 import android.support.v7.widget.DividerItemDecoration
+import android.view.KeyEvent
 import android.widget.TextView
+import android.view.KeyEvent.KEYCODE_BACK
+
+
 
 
 class MainActivity : AppCompatActivity() {
+
+    var isSubScreen = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setMainScreenMode() {
+        isSubScreen = false
         setContentView(R.layout.activity_main)
 
         val adapter = RecyclerViewMainAdapter()
@@ -51,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setSubScreenMode(titleName: String) {
+        isSubScreen = true
         setContentView(R.layout.activity_sub)
 
         val adapter = RecyclerViewSubAdapter(titleName)
@@ -84,5 +92,15 @@ class MainActivity : AppCompatActivity() {
         )
         rv.addItemDecoration(dividerItemDecoration)
         dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (isSubScreen) {
+                setMainScreenMode()
+            }
+            true
+        } else false
     }
 }

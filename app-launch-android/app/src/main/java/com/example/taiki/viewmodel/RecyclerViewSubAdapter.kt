@@ -11,7 +11,7 @@ import com.example.taiki.view.RecyclerViewSubHolder
 
 class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerViewSubHolder>() {
     private val appList = DataModel.getApplicationList()
-    private val list = DataModel.getUseCaseList().filter { it.titleName == titleName }.map {
+    private val list = DataModel.getUseCaseList().filter { it.titleName == titleName && it.appName.isNotEmpty() }.map {
         val targetName = it.appName
         appList.find { it.appName == targetName }
     }
