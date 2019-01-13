@@ -11,10 +11,10 @@ object DataModel {
 
     // 対応ユースケースリスト(仮)
     private val useCaseList: Array<UseCaseData> = arrayOf(
-        UseCaseData("ブラウザ", arrayOf("Chrome")),
-        UseCaseData("ブラウザ", arrayOf("Youtube")),
-        UseCaseData("メール", arrayOf("Gmail")),
-        UseCaseData("動画", arrayOf("Youtube"))
+        UseCaseData("ブラウザ", "Chrome"),
+        UseCaseData("ブラウザ", "Youtube"),
+        UseCaseData("メール", "Gmail"),
+        UseCaseData("動画", "Youtube")
     )
 
     // 対応パッケージリスト(仮)

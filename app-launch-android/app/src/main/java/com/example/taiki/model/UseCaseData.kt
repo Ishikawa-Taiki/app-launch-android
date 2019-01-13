@@ -1,6 +1,6 @@
 package com.example.taiki.model
 
-class UseCaseData(titleName: String, appNames: Array<String>) {
+class UseCaseData(titleName: String, appName: String) {
     var titleName: String = titleName
-    var appNames: Array<String> = appNames
+    var appName: String = appName
 }
