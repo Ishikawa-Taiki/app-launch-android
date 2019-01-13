@@ -8,7 +8,8 @@ import android.view.View
 import android.widget.Button
 import com.example.taiki.model.ApplicationData
 import com.example.taiki.model.DataModel
-import com.example.taiki.viewmodel.ListViewAdapter
+import com.example.taiki.viewmodel.RecyclerViewMainAdapter
+import com.example.taiki.viewmodel.RecyclerViewSubAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,12 +22,12 @@ class MainActivity : AppCompatActivity() {
     private fun setMainScreenMode() {
         setContentView(R.layout.activity_main)
 
-        val adapter = ListViewAdapter()
+        val adapter = RecyclerViewMainAdapter()
         val rv = findViewById(R.id.listView) as RecyclerView
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
-        adapter.setOnItemClickListener(object : ListViewAdapter.onItemClickListener {
+        adapter.setOnItemClickListener(object : RecyclerViewMainAdapter.onItemClickListener {
             override fun onItemClick(data: ApplicationData) {
 //                data.packageName?.let {
 //                    val intent = DataModel.getAppIntent(it) ?: DataModel.getStoreIntent(it)
@@ -40,12 +41,12 @@ class MainActivity : AppCompatActivity() {
     private fun setSubScreenMode() {
         setContentView(R.layout.activity_sub)
 
-        val adapter = ListViewAdapter()
+        val adapter = RecyclerViewSubAdapter()
         val rv = findViewById(R.id.listView) as RecyclerView
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
-        adapter.setOnItemClickListener(object : ListViewAdapter.onItemClickListener {
+        adapter.setOnItemClickListener(object : RecyclerViewSubAdapter.onItemClickListener {
             override fun onItemClick(data: ApplicationData) {
                 data.packageName?.let {
                     val intent = DataModel.getAppIntent(it) ?: DataModel.getStoreIntent(it)
