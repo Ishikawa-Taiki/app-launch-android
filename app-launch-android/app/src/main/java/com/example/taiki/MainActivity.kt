@@ -28,20 +28,16 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewMainAdapter.onItemClickListener {
-            override fun onItemClick(data: ApplicationData) {
-//                data.packageName?.let {
-//                    val intent = DataModel.getAppIntent(it) ?: DataModel.getStoreIntent(it)
-//                    startActivity(intent)
-//                }
-                setSubScreenMode()
+            override fun onItemClick(titleName: String) {
+                setSubScreenMode(titleName)
             }
         })
     }
 
-    private fun setSubScreenMode() {
+    private fun setSubScreenMode(titleName: String) {
         setContentView(R.layout.activity_sub)
 
-        val adapter = RecyclerViewSubAdapter()
+        val adapter = RecyclerViewSubAdapter(titleName)
         val rv = findViewById(R.id.listView) as RecyclerView
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)

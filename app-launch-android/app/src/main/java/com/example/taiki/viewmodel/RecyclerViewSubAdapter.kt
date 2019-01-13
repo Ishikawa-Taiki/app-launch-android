@@ -9,8 +9,13 @@ import com.example.taiki.model.ApplicationData
 import com.example.taiki.model.DataModel
 import com.example.taiki.view.RecyclerViewSubHolder
 
-class RecyclerViewSubAdapter: RecyclerView.Adapter<RecyclerViewSubHolder>() {
-    private val list = DataModel.getApplicationList()
+class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerViewSubHolder>() {
+    private val appList = DataModel.getApplicationList()
+    private val list = DataModel.getUseCaseList().filter { it.titleName == titleName }.map {
+        val targetName = it.appName
+        appList.find { it.appName == targetName }
+    }
+
     private var listener: onItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewSubHolder {
@@ -18,15 +23,15 @@ class RecyclerViewSubAdapter: RecyclerView.Adapter<RecyclerViewSubHolder>() {
         val holder = RecyclerViewSubHolder(inflate)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-                listener?.onItemClick(list.get(holder.adapterPosition))
+                list.get(holder.adapterPosition)?.let { listener?.onItemClick(it) }
             }
         })
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerViewSubHolder, position: Int) {
-        val title = list.get(position).appName
-        val detail = list.get(position).packageName
+        val title = list.get(position)?.appName
+        val detail = list.get(position)?.packageName
         val image = detail?.let { DataModel.getAppIcon(it) }
         holder.titleView.setText(title)
         holder.detailView.setText(detail)

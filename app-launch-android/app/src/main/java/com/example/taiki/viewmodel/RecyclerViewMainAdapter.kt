@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View
 import com.example.taiki.R
-import com.example.taiki.model.ApplicationData
 import com.example.taiki.model.DataModel
 import com.example.taiki.view.RecyclerViewMainHolder
 
 class RecyclerViewMainAdapter: RecyclerView.Adapter<RecyclerViewMainHolder>() {
-    private val list = DataModel.getApplicationList()
+    private val list = DataModel.getUseCaseList().groupBy { it.titleName }.map { it.key }
     private var listener: onItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewMainHolder {
@@ -25,12 +24,8 @@ class RecyclerViewMainAdapter: RecyclerView.Adapter<RecyclerViewMainHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerViewMainHolder, position: Int) {
-        val title = list.get(position).appName
-        val detail = list.get(position).packageName
-        val image = detail?.let { DataModel.getAppIcon(it) }
+        val title = list.get(position)
         holder.titleView.setText(title)
-        holder.detailView.setText(detail)
-        image?.let { holder.iconView.setImageDrawable(image) }
     }
 
     override fun getItemCount(): Int {
@@ -42,6 +37,6 @@ class RecyclerViewMainAdapter: RecyclerView.Adapter<RecyclerViewMainHolder>() {
     }
 
     interface onItemClickListener {
-        fun onItemClick(data: ApplicationData)
+        fun onItemClick(titleName: String)
     }
 }
