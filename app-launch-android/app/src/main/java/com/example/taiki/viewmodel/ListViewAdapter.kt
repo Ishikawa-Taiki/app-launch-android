@@ -1,14 +1,16 @@
-package com.example.taiki
+package com.example.taiki.viewmodel
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View
+import com.example.taiki.R
+import com.example.taiki.model.ApplicationData
+import com.example.taiki.model.DataModel
+import com.example.taiki.view.ListViewHolder
 
-// TODO: データ引き渡しの構造と責務が気持ち悪いので整理する
-class ListViewAdapter(list: List<RowData>, appLinkInfo: AppLinkInfo): RecyclerView.Adapter<ListViewHolder>() {
-    private val list = list
-    private val appLinkInfo = appLinkInfo
+class ListViewAdapter: RecyclerView.Adapter<ListViewHolder>() {
+    private val list = DataModel.getApplicationList()
     private var listener: onItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
@@ -23,9 +25,9 @@ class ListViewAdapter(list: List<RowData>, appLinkInfo: AppLinkInfo): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        val title = list.get(position).title
-        val detail = list.get(position).detail
-        val image = detail?.let { appLinkInfo.getPackageInfo(it)?.icon }
+        val title = list.get(position).appName
+        val detail = list.get(position).packageName
+        val image = detail?.let { DataModel.getAppIcon(it) }
         holder.titleView.setText(title)
         holder.detailView.setText(detail)
         image?.let { holder.iconView.setImageDrawable(image) }
@@ -40,6 +42,6 @@ class ListViewAdapter(list: List<RowData>, appLinkInfo: AppLinkInfo): RecyclerVi
     }
 
     interface onItemClickListener {
-        fun onItemClick(data: RowData)
+        fun onItemClick(data: ApplicationData)
     }
 }
