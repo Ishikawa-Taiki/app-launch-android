@@ -10,7 +10,7 @@ object DataModel {
     lateinit var context: Context
 
     // 対応ユースケースリスト(仮)
-    private val useCaseList: Array<UseCaseData> = arrayOf(
+    private val useCaseList = arrayOf(
         UseCaseData("ブラウザ", "Chrome"),
         UseCaseData("ブラウザ", "Youtube"),
         UseCaseData("メール", "Gmail"),
@@ -18,10 +18,16 @@ object DataModel {
     )
 
     // 対応パッケージリスト(仮)
-    private val applicationList: Array<ApplicationData> = arrayOf(
-        ApplicationData("Chrome", "com.android.chrome", emptyArray()),
-        ApplicationData("Gmail", "com.google.android.gm", emptyArray()),
-        ApplicationData("Youtube", "com.google.android.youtube", emptyArray())
+    private val applicationList = arrayOf(
+        ApplicationData("Chrome", "com.android.chrome"),
+        ApplicationData("Gmail", "com.google.android.gm"),
+        ApplicationData("Youtube", "com.google.android.youtube")
+    )
+
+    // 対応メモリスト(仮)
+    private val informationMap = mapOf<String, InformationData>(
+        "ブラウザ" to InformationData("memo"),
+        "メール" to InformationData("memo2")
     )
 
     fun init(appContext: Context) {
@@ -34,6 +40,10 @@ object DataModel {
 
     fun getApplicationList(): Array<ApplicationData> {
         return applicationList
+    }
+
+    fun getInformation(titleName: String): String {
+        return informationMap[titleName]?.memo ?: ""
     }
 
     fun getAppIntent(packageName: String): Intent? {
