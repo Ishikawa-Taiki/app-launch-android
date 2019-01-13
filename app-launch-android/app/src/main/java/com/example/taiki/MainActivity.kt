@@ -1,6 +1,8 @@
 package com.example.taiki
 
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,37 +12,52 @@ import com.example.taiki.model.ApplicationData
 import com.example.taiki.model.DataModel
 import com.example.taiki.viewmodel.RecyclerViewMainAdapter
 import com.example.taiki.viewmodel.RecyclerViewSubAdapter
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class MainActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataModel.init(applicationContext)
         setMainScreenMode()
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setMainScreenMode() {
         setContentView(R.layout.activity_main)
 
         val adapter = RecyclerViewMainAdapter()
         val rv = findViewById(R.id.listView) as RecyclerView
+        val llm = LinearLayoutManager(this)
         rv.setHasFixedSize(true)
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewMainAdapter.onItemClickListener {
             override fun onItemClick(titleName: String) {
                 setSubScreenMode(titleName)
             }
         })
+
+        val dividerItemDecoration = DividerItemDecoration(
+            rv.getContext(),
+            llm.orientation
+        )
+        rv.addItemDecoration(dividerItemDecoration)
+        dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setSubScreenMode(titleName: String) {
         setContentView(R.layout.activity_sub)
 
         val adapter = RecyclerViewSubAdapter(titleName)
         val rv = findViewById(R.id.listView) as RecyclerView
+        val llm = LinearLayoutManager(this)
         rv.setHasFixedSize(true)
-        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewSubAdapter.onItemClickListener {
             override fun onItemClick(data: ApplicationData) {
@@ -57,5 +74,12 @@ class MainActivity : AppCompatActivity() {
                 setMainScreenMode()
             }
         })
+
+        val dividerItemDecoration = DividerItemDecoration(
+            rv.getContext(),
+            llm.orientation
+        )
+        rv.addItemDecoration(dividerItemDecoration)
+        dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
     }
 }
