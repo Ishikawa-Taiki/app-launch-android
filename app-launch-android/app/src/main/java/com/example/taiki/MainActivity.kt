@@ -13,7 +13,7 @@ import com.example.taiki.model.DataModel
 import com.example.taiki.viewmodel.RecyclerViewMainAdapter
 import com.example.taiki.viewmodel.RecyclerViewSubAdapter
 import android.support.v7.widget.DividerItemDecoration
-
+import android.widget.TextView
 
 
 class MainActivity : AppCompatActivity() {
@@ -74,6 +74,9 @@ class MainActivity : AppCompatActivity() {
                 setMainScreenMode()
             }
         })
+
+        val memoText = findViewById<TextView>(R.id.memo)
+        memoText.setText(DataModel.getInformation(titleName))
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
