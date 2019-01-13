@@ -10,7 +10,7 @@ object DataModel {
     lateinit var context: Context
 
     // アプリがないケースを想定していなかったので仮...
-    private val NO_APP = "[EMPTY]"
+    private val NO_APP = ""
 
     // 対応ユースケースリスト(仮)
     private val useCaseList = arrayOf(
