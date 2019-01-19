@@ -26,30 +26,6 @@ class MainActivity : AppCompatActivity() {
         setScreen()
     }
 
-//    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-//    private fun setMainScreenMode() {
-//        setContentView(R.layout.activity_main)
-//
-//        val adapter = RecyclerViewMainAdapter()
-//        val rv = findViewById(R.id.listView) as RecyclerView
-//        val llm = LinearLayoutManager(this)
-//        rv.setHasFixedSize(true)
-//        rv.layoutManager = llm
-//        rv.adapter = adapter
-//        adapter.setOnItemClickListener(object : RecyclerViewMainAdapter.onItemClickListener {
-//            override fun onItemClick(titleName: String) {
-//                setScreen(titleName)
-//            }
-//        })
-//
-//        val dividerItemDecoration = DividerItemDecoration(
-//            rv.getContext(),
-//            llm.orientation
-//        )
-//        rv.addItemDecoration(dividerItemDecoration)
-//        dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
-//    }
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setScreen(titleName: String? = null) {
         setContentView(R.layout.activity_sub)

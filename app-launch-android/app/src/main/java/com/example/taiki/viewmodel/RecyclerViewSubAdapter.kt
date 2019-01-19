@@ -32,13 +32,15 @@ class RecyclerViewSubAdapter(titleName: String? = null): RecyclerView.Adapter<Re
             holder.titleView.setText(targetItem.name)
             holder.titleView.setTextColor(Color.BLUE)
 
-            holder.iconView.visibility = View.INVISIBLE
+            holder.iconView.setImageResource(R.drawable.ic_home_black_24dp)
+            holder.iconView.visibility = View.VISIBLE
         }
         if (targetItem is ApplicationItem) {
             holder.titleView.setText(targetItem.appName)
             holder.titleView.setTextColor(Color.BLACK)
 
-            val image = targetItem.packageName?.let { DataModel.getAppIcon(it) }
+            holder.iconView.setImageResource(R.mipmap.ic_launcher)
+            val image = DataModel.getAppIcon(targetItem.packageName)
             image?.let { holder.iconView.setImageDrawable(image) }
             holder.iconView.visibility = View.VISIBLE
         }
