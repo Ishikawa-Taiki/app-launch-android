@@ -76,7 +76,13 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun backOperation() {
-        DataModel.popScreen() // 現在のスクリーンは破棄
-        resetScreen()
+        val currentScreen = DataModel.popScreen() // 現在のスクリーンは破棄
+
+        if (currentScreen != null) {
+            resetScreen()
+        }
+        else {
+            finish()
+        }
     }
 }
