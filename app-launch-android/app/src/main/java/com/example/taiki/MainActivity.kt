@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setScreen(titleName: String? = null) {
         setContentView(R.layout.activity_sub)
+        setTitle(titleName ?: getString(R.string.app_name))
 
         val adapter = RecyclerViewSubAdapter(titleName)
         val rv = findViewById(R.id.listView) as RecyclerView
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 backOperation()
             }
         })
+        returnButton.visibility = if (titleName == null) View.GONE else View.VISIBLE
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
