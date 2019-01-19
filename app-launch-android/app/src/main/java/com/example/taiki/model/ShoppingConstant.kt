@@ -696,7 +696,7 @@ object ShoppingConstant {
             ).filterNotNull()
         ),
         "パソコン/家電量販店" to GroupItem(
-            "家電量販店", arrayOf(
+            "パソコン/家電量販店", arrayOf(
                 shopMap["ビックカメラ"],
                 shopMap["ソフマップ"],
                 shopMap["ヨドバシカメラ"],
