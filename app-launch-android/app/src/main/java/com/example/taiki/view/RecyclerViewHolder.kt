@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView;
 import com.example.taiki.R
 
-class RecyclerViewSubHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     var titleView = itemView.findViewById(R.id.title) as TextView;
     var iconView = itemView.findViewById(R.id.icon) as ImageView
 }

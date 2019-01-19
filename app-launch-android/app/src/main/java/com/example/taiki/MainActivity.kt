@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
-import com.example.taiki.viewmodel.RecyclerViewSubAdapter
+import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
 import com.example.taiki.model.*
@@ -28,16 +28,16 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun setScreen(titleName: String? = null) {
-        setContentView(R.layout.activity_sub)
+        setContentView(R.layout.activity)
         setTitle(titleName ?: getString(R.string.app_name))
 
-        val adapter = RecyclerViewSubAdapter(titleName)
+        val adapter = RecyclerViewAdapter(titleName)
         val rv = findViewById(R.id.listView) as RecyclerView
         val llm = LinearLayoutManager(this)
         rv.setHasFixedSize(true)
         rv.layoutManager = llm
         rv.adapter = adapter
-        adapter.setOnItemClickListener(object : RecyclerViewSubAdapter.onItemClickListener {
+        adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onItemClick(item: Item) {
                 if (item is GroupItem) {
                     stack.push(item.name)

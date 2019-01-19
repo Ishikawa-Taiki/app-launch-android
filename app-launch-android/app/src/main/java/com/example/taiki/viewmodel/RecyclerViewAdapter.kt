@@ -7,17 +7,17 @@ import android.view.ViewGroup;
 import android.view.View
 import com.example.taiki.R
 import com.example.taiki.model.*
-import com.example.taiki.view.RecyclerViewSubHolder
+import com.example.taiki.view.RecyclerViewHolder
 
-class RecyclerViewSubAdapter(titleName: String? = null): RecyclerView.Adapter<RecyclerViewSubHolder>() {
+class RecyclerViewAdapter(titleName: String? = null): RecyclerView.Adapter<RecyclerViewHolder>() {
 
     private val list = titleName?.let { DataModel.getItemList(it)} ?: DataModel.getUseCaseList()
 
     private var listener: onItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewSubHolder {
-        val inflate = LayoutInflater.from(parent.context).inflate(R.layout.item_row_sub, parent, false)
-        val holder = RecyclerViewSubHolder(inflate)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+        val inflate = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
+        val holder = RecyclerViewHolder(inflate)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
                 list.get(holder.adapterPosition)?.let { listener?.onItemClick(it) }
@@ -26,7 +26,7 @@ class RecyclerViewSubAdapter(titleName: String? = null): RecyclerView.Adapter<Re
         return holder
     }
 
-    override fun onBindViewHolder(holder: RecyclerViewSubHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         var targetItem = list.get(position)
         if (targetItem is GroupItem) {
             holder.titleView.setText(targetItem.name)
