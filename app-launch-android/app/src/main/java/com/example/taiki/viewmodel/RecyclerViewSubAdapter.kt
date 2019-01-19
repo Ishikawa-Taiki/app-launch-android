@@ -1,5 +1,6 @@
 package com.example.taiki.viewmodel
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,11 +30,17 @@ class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerVi
         var targetItem = list.get(position)
         if (targetItem is ApplicationItem) {
             holder.titleView.setText(targetItem.appName)
+            holder.titleView.setTextColor(Color.BLACK)
+
             val image = targetItem.packageName?.let { DataModel.getAppIcon(it) }
             image?.let { holder.iconView.setImageDrawable(image) }
+            holder.iconView.visibility = View.VISIBLE
         }
         if (targetItem is InformationItem) {
             holder.titleView.setText(targetItem.text)
+            holder.titleView.setTextColor(Color.RED)
+
+            holder.iconView.visibility = View.INVISIBLE
         }
     }
 
