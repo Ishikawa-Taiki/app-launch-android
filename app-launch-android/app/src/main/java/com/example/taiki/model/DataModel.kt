@@ -5,12 +5,26 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import java.util.*
 
 object DataModel {
-    lateinit var context: Context
+    private lateinit var context: Context
+    private val screenStack = ArrayDeque<String>()
 
     fun init(appContext: Context) {
         context = appContext
+    }
+
+    fun pushScreen(screenName: String) {
+        screenStack.push(screenName)
+    }
+
+    fun popScreen(): String? {
+        return screenStack.pop()
+    }
+
+    fun peekScreen(): String? {
+        return screenStack.peek()
     }
 
     fun getUseCaseList(): List<GroupItem> {

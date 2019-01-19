@@ -17,8 +17,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    var stack = Stack<String>()
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onGroupItemClick(item: GroupItem) {
-                stack.push(item.name)
+                DataModel.pushScreen(item.name)
                 setScreen(item.name)
             }
 
@@ -79,8 +77,8 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun backOperation() {
         try {
-            stack.pop() // 現在のスクリーンは破棄
-            setScreen(stack.peek())
+            DataModel.popScreen() // 現在のスクリーンは破棄
+            setScreen(DataModel.peekScreen())
         } catch (e: EmptyStackException) {
             setScreen()
         }
