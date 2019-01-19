@@ -23,7 +23,7 @@ object DataModel {
     fun popScreen(): ScreenInformation? {
         return try {
             screenStack.pop()
-        } catch (e: EmptyStackException) {
+        } catch (e: NoSuchElementException) {
             null
         }
     }
@@ -31,7 +31,7 @@ object DataModel {
     fun peekScreen(): ScreenInformation? {
         return try {
             screenStack.peek()
-        } catch (e: EmptyStackException) {
+        } catch (e: NoSuchElementException) {
             null
         }
     }
