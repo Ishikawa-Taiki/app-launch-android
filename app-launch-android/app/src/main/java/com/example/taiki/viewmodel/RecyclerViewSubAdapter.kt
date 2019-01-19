@@ -5,16 +5,12 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View
 import com.example.taiki.R
-import com.example.taiki.model.ApplicationData
-import com.example.taiki.model.DataModel
+import com.example.taiki.model.*
 import com.example.taiki.view.RecyclerViewSubHolder
 
 class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerViewSubHolder>() {
-    private val appList = DataModel.getApplicationList()
-    private val list = DataModel.getUseCaseList().filter { it.titleName == titleName && it.appName.isNotEmpty() }.map {
-        val targetName = it.appName
-        appList.find { it.appName == targetName }
-    }
+
+    private val list = DataModel.getItemList(titleName)
 
     private var listener: onItemClickListener? = null
 
@@ -30,10 +26,15 @@ class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerVi
     }
 
     override fun onBindViewHolder(holder: RecyclerViewSubHolder, position: Int) {
-        val title = list.get(position)?.appName
-        val image = list.get(position)?.packageName?.let { DataModel.getAppIcon(it) }
-        holder.titleView.setText(title)
-        image?.let { holder.iconView.setImageDrawable(image) }
+        var targetItem = list.get(position)
+        if (targetItem is ApplicationItem) {
+            holder.titleView.setText(targetItem.appName)
+            val image = targetItem.packageName?.let { DataModel.getAppIcon(it) }
+            image?.let { holder.iconView.setImageDrawable(image) }
+        }
+        if (targetItem is InformationItem) {
+            holder.titleView.setText(targetItem.text)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +46,6 @@ class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerVi
     }
 
     interface onItemClickListener {
-        fun onItemClick(data: ApplicationData)
+        fun onItemClick(item: Item)
     }
 }
