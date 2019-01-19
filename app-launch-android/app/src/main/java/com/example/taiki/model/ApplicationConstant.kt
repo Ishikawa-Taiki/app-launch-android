@@ -39,7 +39,7 @@ object ApplicationConstant {
         "チラシ" to InformationItem("チラシクーポン")
     )
 
-    // 対応ユースケースリスト
+    // 対応ショップリスト
     val shopMap = mapOf<String, GroupItem>(
         "ハナマサプラス" to GroupItem(
             "ハナマサプラス", arrayOf(
@@ -325,4 +325,14 @@ object ApplicationConstant {
         )
     )
 
+    // 対応グループリスト
+    val groupMap = mapOf<String, GroupItem>(
+        "コンビニ" to GroupItem(
+            "コンビニ", arrayOf(
+                shopMap["ファミマ"],
+                shopMap["ローソン"],
+                END
+            ).filterNotNull()
+        )
+    )
 }

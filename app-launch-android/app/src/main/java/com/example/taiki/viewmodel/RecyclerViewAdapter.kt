@@ -9,9 +9,9 @@ import com.example.taiki.R
 import com.example.taiki.model.*
 import com.example.taiki.view.RecyclerViewHolder
 
-class RecyclerViewAdapter(titleName: String? = null) : RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
 
-    private val list = titleName?.let { DataModel.getItemList(it) } ?: DataModel.getUseCaseList()
+    private val list = DataModel.getItemList()
 
     private var listener: onItemClickListener? = null
 

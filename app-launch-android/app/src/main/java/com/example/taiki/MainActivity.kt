@@ -21,15 +21,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataModel.init(applicationContext)
-        setScreen()
+        resetScreen()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun setScreen(titleName: String? = null) {
+    private fun resetScreen() {
         setContentView(R.layout.activity)
+        val titleName = DataModel.peekScreen()
         setTitle(titleName ?: getString(R.string.app_name))
 
-        val adapter = RecyclerViewAdapter(titleName)
+        val adapter = RecyclerViewAdapter()
         val rv = findViewById(R.id.listView) as RecyclerView
         val llm = LinearLayoutManager(this)
         rv.setHasFixedSize(true)
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onGroupItemClick(item: GroupItem) {
                 DataModel.pushScreen(item.name)
-                setScreen(item.name)
+                resetScreen()
             }
 
             override fun onApplicationItemClick(item: ApplicationItem) {
@@ -76,11 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun backOperation() {
-        try {
-            DataModel.popScreen() // 現在のスクリーンは破棄
-            setScreen(DataModel.peekScreen())
-        } catch (e: EmptyStackException) {
-            setScreen()
-        }
+        DataModel.popScreen() // 現在のスクリーンは破棄
+        resetScreen()
     }
 }

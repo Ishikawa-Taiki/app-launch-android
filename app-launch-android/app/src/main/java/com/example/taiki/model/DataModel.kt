@@ -20,19 +20,37 @@ object DataModel {
     }
 
     fun popScreen(): String? {
-        return screenStack.pop()
+        return try {
+            screenStack.pop()
+        } catch (e: EmptyStackException) {
+            null
+        }
     }
 
     fun peekScreen(): String? {
-        return screenStack.peek()
+        return try {
+            screenStack.peek()
+        } catch (e: EmptyStackException) {
+            null
+        }
     }
 
-    fun getUseCaseList(): List<GroupItem> {
-        return ApplicationConstant.shopMap.values.toList()
+    private fun getRoot(): Map<String, Item> {
+        return ApplicationConstant.shopMap
     }
 
-    fun getItemList(titleName: String): List<Item> {
-        return ApplicationConstant.shopMap[titleName]?.items ?: emptyList()
+    fun getItemList(): List<Item> {
+        val rootMap = getRoot()
+        val queue = screenStack.clone()
+        if (screenStack.size == 0) {
+            return rootMap.values.toList()
+        }
+        if (screenStack.size == 1) {
+            val select_1 = queue.poll()?.let { rootMap[it] }
+            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
+            return select_1_list
+        }
+        return emptyList()
     }
 
     fun getAppIntent(packageName: String): Intent {
