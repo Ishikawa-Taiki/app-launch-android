@@ -727,7 +727,7 @@ object ShoppingConstant {
             ).filterNotNull()
         ),
         "衣料品/靴" to GroupItem(
-            "衣料品店", arrayOf(
+            "衣料品/靴", arrayOf(
                 shopMap["しまむら"],
                 shopMap["アクシーズ ファム"],
                 shopMap["ジーンズメイト"],
