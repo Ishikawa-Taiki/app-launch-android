@@ -330,6 +330,8 @@ object ShoppingConstant {
         "スーパー" to GroupItem(
             "スーパー", arrayOf(
                 shopMap["ハナマサプラス"],
+                shopMap["イオン"],
+                shopMap["ドンキ"],
                 shopMap["ライフ"],
                 shopMap["まいばすけっと"],
                 END
@@ -340,19 +342,6 @@ object ShoppingConstant {
                 shopMap["トモズ"],
                 shopMap["ウェルパーク"],
                 shopMap["くすりのダイイチ"],
-                END
-            ).filterNotNull()
-        ),
-        "ディスカウントストア" to GroupItem(
-            "ディスカウントストア", arrayOf(
-                shopMap["ドンキ"],
-                END
-            ).filterNotNull()
-        ),
-        "ショッピングモール" to GroupItem(
-            "ショッピングモール", arrayOf(
-                shopMap["イオン"],
-                shopMap["PARCO"],
                 END
             ).filterNotNull()
         ),
@@ -368,19 +357,6 @@ object ShoppingConstant {
                 END
             ).filterNotNull()
         ),
-        "家電量販店" to GroupItem(
-            "家電量販店", arrayOf(
-                shopMap["ビックカメラ"],
-                shopMap["ヨドバシカメラ"],
-                END
-            ).filterNotNull()
-        ),
-        "パソコンショップ" to GroupItem(
-            "パソコンショップ", arrayOf(
-                shopMap["ソフマップ"],
-                END
-            ).filterNotNull()
-        ),
         "ホビーショップ" to GroupItem(
             "ホビーショップ", arrayOf(
                 shopMap["アニメイト"],
@@ -391,48 +367,39 @@ object ShoppingConstant {
                 END
             ).filterNotNull()
         ),
-        "本屋" to GroupItem(
-            "本屋", arrayOf(
+        "パソコン/家電量販店" to GroupItem(
+            "家電量販店", arrayOf(
+                shopMap["ビックカメラ"],
+                shopMap["ソフマップ"],
+                shopMap["ヨドバシカメラ"],
+                END
+            ).filterNotNull()
+        ),
+        "本/CD/レンタル" to GroupItem(
+            "本/CD/レンタル", arrayOf(
                 shopMap["メディアライン"],
                 shopMap["ジュンク堂書店"],
-                END
-            ).filterNotNull()
-        ),
-        "古本屋" to GroupItem(
-            "古本屋", arrayOf(
                 shopMap["ブックオフ"],
-                END
-            ).filterNotNull()
-        ),
-        "CDショップ" to GroupItem(
-            "CDショップ", arrayOf(
+                shopMap["TSUTAYA"],
+                shopMap["ゲオ"],
                 shopMap["タワーレコード"],
                 END
             ).filterNotNull()
         ),
-        "衣料品店" to GroupItem(
+        "衣料品/靴" to GroupItem(
             "衣料品店", arrayOf(
                 shopMap["アクシーズ ファム"],
                 shopMap["ジーンズメイト"],
-                END
-            ).filterNotNull()
-        ),
-        "靴屋" to GroupItem(
-            "靴屋", arrayOf(
                 shopMap["東京靴流通センター"],
                 END
             ).filterNotNull()
         ),
-        "雑貨店" to GroupItem(
-            "雑貨店", arrayOf(
+        "大型店舗" to GroupItem(
+            "大型店舗", arrayOf(
+                shopMap["イオン"],
+                shopMap["ドンキ"],
                 shopMap["LOFT"],
-                END
-            ).filterNotNull()
-        ),
-        "レンタルショップ" to GroupItem(
-            "レンタルショップ", arrayOf(
-                shopMap["TSUTAYA"],
-                shopMap["ゲオ"],
+                shopMap["PARCO"],
                 END
             ).filterNotNull()
         )
