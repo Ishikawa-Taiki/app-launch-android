@@ -37,7 +37,7 @@ object DataModel {
     }
 
     private fun getRoot(): Map<String, Item> {
-        return ApplicationConstant.groupMap
+        return ShoppingConstant.groupMap
     }
 
     // TODO: データ構造を誤って気持ち悪いコードになってしまったので余力で直す

@@ -1,6 +1,6 @@
 package com.example.taiki.model
 
-object ApplicationConstant {
+object ShoppingConstant {
 
     private val END: Item? = null
 
