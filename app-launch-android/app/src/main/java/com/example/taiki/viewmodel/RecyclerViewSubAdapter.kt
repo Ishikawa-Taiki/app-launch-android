@@ -9,9 +9,9 @@ import com.example.taiki.R
 import com.example.taiki.model.*
 import com.example.taiki.view.RecyclerViewSubHolder
 
-class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerViewSubHolder>() {
+class RecyclerViewSubAdapter(titleName: String? = null): RecyclerView.Adapter<RecyclerViewSubHolder>() {
 
-    private val list = DataModel.getItemList(titleName)
+    private val list = titleName?.let { DataModel.getItemList(it)} ?: DataModel.getUseCaseList()
 
     private var listener: onItemClickListener? = null
 
@@ -28,6 +28,12 @@ class RecyclerViewSubAdapter(titleName: String): RecyclerView.Adapter<RecyclerVi
 
     override fun onBindViewHolder(holder: RecyclerViewSubHolder, position: Int) {
         var targetItem = list.get(position)
+        if (targetItem is GroupItem) {
+            holder.titleView.setText(targetItem.name)
+            holder.titleView.setTextColor(Color.BLUE)
+
+            holder.iconView.visibility = View.INVISIBLE
+        }
         if (targetItem is ApplicationItem) {
             holder.titleView.setText(targetItem.appName)
             holder.titleView.setTextColor(Color.BLACK)
