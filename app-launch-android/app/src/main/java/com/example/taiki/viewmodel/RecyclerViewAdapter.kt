@@ -20,15 +20,16 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
         val holder = RecyclerViewHolder(inflate)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-                list.get(holder.adapterPosition)?.let {
+                val index = holder.adapterPosition
+                list.get(index)?.let {
                     if (it is GroupItem) {
-                        listener?.onGroupItemClick(it)
+                        listener?.onGroupItemClick(index, it)
                     }
                     if (it is ApplicationItem) {
-                        listener?.onApplicationItemClick(it)
+                        listener?.onApplicationItemClick(index, it)
                     }
                     if (it is InformationItem) {
-                        listener?.onInformationItemClick(it)
+                        listener?.onInformationItemClick(index, it)
                     }
                 }
             }
@@ -74,8 +75,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     }
 
     interface onItemClickListener {
-        fun onGroupItemClick(item: GroupItem)
-        fun onApplicationItemClick(item: ApplicationItem)
-        fun onInformationItemClick(item: InformationItem)
+        fun onGroupItemClick(index: Int, item: GroupItem)
+        fun onApplicationItemClick(index: Int, item: ApplicationItem)
+        fun onInformationItemClick(index: Int, item: InformationItem)
     }
 }

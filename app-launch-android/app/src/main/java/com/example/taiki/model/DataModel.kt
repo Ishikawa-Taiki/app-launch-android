@@ -9,17 +9,18 @@ import java.util.*
 
 object DataModel {
     private lateinit var context: Context
-    private val screenStack = ArrayDeque<String>()
+    // TODO: ArrayDeque の動作が想定と違うので、どこかで見直す。
+    private val screenStack = ArrayDeque<ScreenInformation>()
 
     fun init(appContext: Context) {
         context = appContext
     }
 
-    fun pushScreen(screenName: String) {
-        screenStack.push(screenName)
+    fun pushScreen(screen: ScreenInformation) {
+        screenStack.push(screen)
     }
 
-    fun popScreen(): String? {
+    fun popScreen(): ScreenInformation? {
         return try {
             screenStack.pop()
         } catch (e: EmptyStackException) {
@@ -27,7 +28,7 @@ object DataModel {
         }
     }
 
-    fun peekScreen(): String? {
+    fun peekScreen(): ScreenInformation? {
         return try {
             screenStack.peek()
         } catch (e: EmptyStackException) {
@@ -36,9 +37,10 @@ object DataModel {
     }
 
     private fun getRoot(): Map<String, Item> {
-        return ApplicationConstant.shopMap
+        return ApplicationConstant.groupMap
     }
 
+    // TODO: データ構造を誤って気持ち悪いコードになってしまったので余力で直す
     fun getItemList(): List<Item> {
         val rootMap = getRoot()
         val queue = screenStack.clone()
@@ -46,9 +48,16 @@ object DataModel {
             return rootMap.values.toList()
         }
         if (queue.size == 1) {
-            val select_1 = queue.poll()?.let { rootMap[it] }
+            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
             val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
             return select_1_list
+        }
+        if (queue.size == 2) {
+            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
+            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
+            val select_2 = queue.pollLast()?.let { select_1_list[it.index] }
+            val select_2_list = if (select_2 is GroupItem) select_2.items else emptyList()
+            return select_2_list
         }
         return emptyList()
     }

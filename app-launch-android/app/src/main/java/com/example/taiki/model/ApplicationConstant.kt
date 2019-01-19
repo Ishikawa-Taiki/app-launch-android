@@ -327,10 +327,112 @@ object ApplicationConstant {
 
     // 対応グループリスト
     val groupMap = mapOf<String, GroupItem>(
+        "スーパー" to GroupItem(
+            "スーパー", arrayOf(
+                shopMap["ハナマサプラス"],
+                shopMap["ライフ"],
+                shopMap["まいばすけっと"],
+                END
+            ).filterNotNull()
+        ),
+        "ドラッグストア" to GroupItem(
+            "ドラッグストア", arrayOf(
+                shopMap["トモズ"],
+                shopMap["ウェルパーク"],
+                shopMap["くすりのダイイチ"],
+                END
+            ).filterNotNull()
+        ),
+        "ディスカウントストア" to GroupItem(
+            "ディスカウントストア", arrayOf(
+                shopMap["ドンキ"],
+                END
+            ).filterNotNull()
+        ),
+        "ショッピングモール" to GroupItem(
+            "ショッピングモール", arrayOf(
+                shopMap["イオン"],
+                shopMap["PARCO"],
+                END
+            ).filterNotNull()
+        ),
         "コンビニ" to GroupItem(
             "コンビニ", arrayOf(
-                shopMap["ファミマ"],
                 shopMap["ローソン"],
+                shopMap["ファミマ"],
+                shopMap["セブイレ"],
+                shopMap["サークルKサンクス"],
+                shopMap["ミニストップ"],
+                shopMap["NewDays"],
+                shopMap["ローソンストア100"],
+                END
+            ).filterNotNull()
+        ),
+        "家電量販店" to GroupItem(
+            "家電量販店", arrayOf(
+                shopMap["ビックカメラ"],
+                shopMap["ヨドバシカメラ"],
+                END
+            ).filterNotNull()
+        ),
+        "パソコンショップ" to GroupItem(
+            "パソコンショップ", arrayOf(
+                shopMap["ソフマップ"],
+                END
+            ).filterNotNull()
+        ),
+        "ホビーショップ" to GroupItem(
+            "ホビーショップ", arrayOf(
+                shopMap["アニメイト"],
+                shopMap["らしんばん"],
+                shopMap["K-BOOKS"],
+                shopMap["ゲーマーズ"],
+                shopMap["とらのあな"],
+                END
+            ).filterNotNull()
+        ),
+        "本屋" to GroupItem(
+            "本屋", arrayOf(
+                shopMap["メディアライン"],
+                shopMap["ジュンク堂書店"],
+                END
+            ).filterNotNull()
+        ),
+        "古本屋" to GroupItem(
+            "古本屋", arrayOf(
+                shopMap["ブックオフ"],
+                END
+            ).filterNotNull()
+        ),
+        "CDショップ" to GroupItem(
+            "CDショップ", arrayOf(
+                shopMap["タワーレコード"],
+                END
+            ).filterNotNull()
+        ),
+        "衣料品店" to GroupItem(
+            "衣料品店", arrayOf(
+                shopMap["アクシーズ ファム"],
+                shopMap["ジーンズメイト"],
+                END
+            ).filterNotNull()
+        ),
+        "靴屋" to GroupItem(
+            "靴屋", arrayOf(
+                shopMap["東京靴流通センター"],
+                END
+            ).filterNotNull()
+        ),
+        "雑貨店" to GroupItem(
+            "雑貨店", arrayOf(
+                shopMap["LOFT"],
+                END
+            ).filterNotNull()
+        ),
+        "レンタルショップ" to GroupItem(
+            "レンタルショップ", arrayOf(
+                shopMap["TSUTAYA"],
+                shopMap["ゲオ"],
                 END
             ).filterNotNull()
         )
