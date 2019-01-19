@@ -42,10 +42,10 @@ object DataModel {
     fun getItemList(): List<Item> {
         val rootMap = getRoot()
         val queue = screenStack.clone()
-        if (screenStack.size == 0) {
+        if (queue.size == 0) {
             return rootMap.values.toList()
         }
-        if (screenStack.size == 1) {
+        if (queue.size == 1) {
             val select_1 = queue.poll()?.let { rootMap[it] }
             val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
             return select_1_list
