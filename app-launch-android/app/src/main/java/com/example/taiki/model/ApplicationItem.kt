@@ -1,6 +1,6 @@
 package com.example.taiki.model
 
-class ApplicationData(appName: String, packageName: String, tags: Array<String> = emptyArray()) {
+class ApplicationItem(appName: String, packageName: String, tags: List<String> = emptyList<String>()): Item {
     val appName = appName
     val packageName = packageName
     val tags = tags

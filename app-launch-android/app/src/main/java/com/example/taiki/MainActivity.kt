@@ -15,9 +15,6 @@ import com.example.taiki.viewmodel.RecyclerViewSubAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
 import android.widget.TextView
-import android.view.KeyEvent.KEYCODE_BACK
-
-
 
 
 class MainActivity : AppCompatActivity() {
