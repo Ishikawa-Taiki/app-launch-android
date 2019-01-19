@@ -8,16 +8,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
-import com.example.taiki.model.ApplicationData
 import com.example.taiki.model.DataModel
 import com.example.taiki.viewmodel.RecyclerViewMainAdapter
 import com.example.taiki.viewmodel.RecyclerViewSubAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
 import android.widget.TextView
-import android.view.KeyEvent.KEYCODE_BACK
-
-
+import com.example.taiki.model.ApplicationItem
+import com.example.taiki.model.Item
 
 
 class MainActivity : AppCompatActivity() {
@@ -68,9 +66,11 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewSubAdapter.onItemClickListener {
-            override fun onItemClick(data: ApplicationData) {
-                data.packageName?.let {
-                    val intent = DataModel.getAppIntent(it) ?: DataModel.getStoreIntent(it)
+            override fun onItemClick(item: Item) {
+                if (item is ApplicationItem) {
+                    val targetPackageName = item.packageName
+                    val intent =
+                        DataModel.getAppIntent(targetPackageName) ?: DataModel.getStoreIntent(targetPackageName)
                     startActivity(intent)
                 }
             }
@@ -82,9 +82,6 @@ class MainActivity : AppCompatActivity() {
                 setMainScreenMode()
             }
         })
-
-        val memoText = findViewById<TextView>(R.id.memo)
-        memoText.setText(DataModel.getInformation(titleName))
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),

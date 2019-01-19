@@ -9,7 +9,7 @@ import com.example.taiki.model.DataModel
 import com.example.taiki.view.RecyclerViewMainHolder
 
 class RecyclerViewMainAdapter: RecyclerView.Adapter<RecyclerViewMainHolder>() {
-    private val list = DataModel.getUseCaseList().groupBy { it.titleName }.map { it.key }
+    private val list = DataModel.getUseCaseList()
     private var listener: onItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewMainHolder {
@@ -17,14 +17,14 @@ class RecyclerViewMainAdapter: RecyclerView.Adapter<RecyclerViewMainHolder>() {
         val holder = RecyclerViewMainHolder(inflate)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-                listener?.onItemClick(list.get(holder.adapterPosition))
+                listener?.onItemClick(list.get(holder.adapterPosition).name)
             }
         })
         return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerViewMainHolder, position: Int) {
-        val title = list.get(position)
+        val title = list.get(position).name
         holder.titleView.setText(title)
     }
 
