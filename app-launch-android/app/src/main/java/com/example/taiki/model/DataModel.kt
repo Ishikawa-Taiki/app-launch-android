@@ -21,12 +21,16 @@ object DataModel {
         return ApplicationConstant.shopMap[titleName]?.items ?: emptyList()
     }
 
-    fun getAppIntent(packageName: String): Intent? {
+    fun getAppIntent(packageName: String): Intent {
+        return getLaunchIntent(packageName) ?: getStoreIntent(packageName)
+    }
+
+    private fun getLaunchIntent(packageName: String): Intent? {
         var intent = context.getPackageManager().getLaunchIntentForPackage(packageName)
         return intent
     }
 
-    fun getStoreIntent(packageName: String): Intent {
+    private fun getStoreIntent(packageName: String): Intent {
         var intent = Intent(Intent.ACTION_VIEW)
         intent.setData(Uri.parse("market://details?id=$packageName"))
         return intent

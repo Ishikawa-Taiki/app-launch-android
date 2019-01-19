@@ -38,20 +38,17 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
-            override fun onItemClick(item: Item) {
-                if (item is GroupItem) {
-                    stack.push(item.name)
-                    setScreen(item.name)
-                }
-                if (item is ApplicationItem) {
-                    val targetPackageName = item.packageName
-                    val intent =
-                        DataModel.getAppIntent(targetPackageName) ?: DataModel.getStoreIntent(targetPackageName)
-                    startActivity(intent)
-                }
-//                if (item is InformationItem) {
-//                    stack.push(item.text)
-//                }
+            override fun onGroupItemClick(item: GroupItem) {
+                stack.push(item.name)
+                setScreen(item.name)
+            }
+
+            override fun onApplicationItemClick(item: ApplicationItem) {
+                startActivity(DataModel.getAppIntent(item.packageName))
+            }
+
+            override fun onInformationItemClick(item: InformationItem) {
+
             }
         })
 
@@ -84,8 +81,7 @@ class MainActivity : AppCompatActivity() {
         try {
             stack.pop() // 現在のスクリーンは破棄
             setScreen(stack.peek())
-        }
-        catch (e: EmptyStackException){
+        } catch (e: EmptyStackException) {
             setScreen()
         }
     }

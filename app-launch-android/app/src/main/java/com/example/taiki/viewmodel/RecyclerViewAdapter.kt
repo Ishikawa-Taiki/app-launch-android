@@ -9,9 +9,9 @@ import com.example.taiki.R
 import com.example.taiki.model.*
 import com.example.taiki.view.RecyclerViewHolder
 
-class RecyclerViewAdapter(titleName: String? = null): RecyclerView.Adapter<RecyclerViewHolder>() {
+class RecyclerViewAdapter(titleName: String? = null) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
-    private val list = titleName?.let { DataModel.getItemList(it)} ?: DataModel.getUseCaseList()
+    private val list = titleName?.let { DataModel.getItemList(it) } ?: DataModel.getUseCaseList()
 
     private var listener: onItemClickListener? = null
 
@@ -20,7 +20,17 @@ class RecyclerViewAdapter(titleName: String? = null): RecyclerView.Adapter<Recyc
         val holder = RecyclerViewHolder(inflate)
         holder.itemView.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-                list.get(holder.adapterPosition)?.let { listener?.onItemClick(it) }
+                list.get(holder.adapterPosition)?.let {
+                    if (it is GroupItem) {
+                        listener?.onGroupItemClick(it)
+                    }
+                    if (it is ApplicationItem) {
+                        listener?.onApplicationItemClick(it)
+                    }
+                    if (it is InformationItem) {
+                        listener?.onInformationItemClick(it)
+                    }
+                }
             }
         })
         return holder
@@ -42,8 +52,7 @@ class RecyclerViewAdapter(titleName: String? = null): RecyclerView.Adapter<Recyc
             val appIcon = DataModel.getAppIcon(targetItem.packageName)
             if (appIcon != null) {
                 holder.iconView.setImageDrawable(appIcon)
-            }
-            else {
+            } else {
                 holder.iconView.setImageResource(R.mipmap.ic_launcher)
             }
             holder.iconView.visibility = View.VISIBLE
@@ -65,6 +74,8 @@ class RecyclerViewAdapter(titleName: String? = null): RecyclerView.Adapter<Recyc
     }
 
     interface onItemClickListener {
-        fun onItemClick(item: Item)
+        fun onGroupItemClick(item: GroupItem)
+        fun onApplicationItemClick(item: ApplicationItem)
+        fun onInformationItemClick(item: InformationItem)
     }
 }
