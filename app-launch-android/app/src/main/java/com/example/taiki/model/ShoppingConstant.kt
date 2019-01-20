@@ -415,7 +415,7 @@ object ShoppingConstant {
         "鶏そば 壽(ことぶき)" to GroupItem(
             "鶏そば 壽(ことぶき)", arrayOf(
                 InformationItem("クーポン︰Facebookいいね！画面で味玉無料"),
-                InformationItem("m.facebook.com/torisoba.kotobuki"),
+                InformationItem("LINK：", "https://m.facebook.com/torisoba.kotobuki"),
                 END
             ).filterNotNull()
         ),
@@ -471,7 +471,7 @@ object ShoppingConstant {
             "三浦のハンバーグ", arrayOf(
                 applicationMap["食べログ"],
                 InformationItem("クーポン︰食べログ(アプリ)"),
-                InformationItem("https://tabelog.com/tokyo/A1305/A130501/13030030/"),
+                InformationItem("LINK：", "https://tabelog.com/tokyo/A1305/A130501/13030030/"),
                 InformationItem("ポイントカード︰三浦のハンバーグポイントカード"),
                 END
             ).filterNotNull()
@@ -558,7 +558,7 @@ object ShoppingConstant {
                 applicationMap["LINE"],
                 applicationMap["食べログ"],
                 InformationItem("クーポン︰サービス券/LINE(アプリ)/メットライフクラブ/食べログ"),
-                InformationItem("https://tabelog.com/tokyo/A1322/A132203/13021668/"),
+                InformationItem("LINK：", "https://tabelog.com/tokyo/A1322/A132203/13021668/"),
                 InformationItem("支払い方法︰クレジットカード"),
                 END
             ).filterNotNull()

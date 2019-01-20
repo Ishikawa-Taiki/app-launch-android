@@ -77,6 +77,12 @@ object DataModel {
         return intent
     }
 
+    fun getLinkIntent(scheme: String): Intent {
+        var intent = Intent(Intent.ACTION_VIEW)
+        intent.setData(Uri.parse(scheme))
+        return intent
+    }
+
     fun getAppIcon(packageName: String): Drawable? {
         var icon: Drawable? = try {
             context.getPackageManager().getApplicationIcon(packageName)
