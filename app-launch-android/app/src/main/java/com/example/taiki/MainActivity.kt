@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onInformationItemClick(index: Int, item: InformationItem) {
-
+                item.linkURL?.let { startActivity(DataModel.getLinkIntent(it)) }
             }
         })
 

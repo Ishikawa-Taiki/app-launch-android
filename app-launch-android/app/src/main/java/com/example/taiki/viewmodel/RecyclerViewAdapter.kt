@@ -41,7 +41,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
         var targetItem = list.get(position)
         if (targetItem is GroupItem) {
             holder.titleView.setText(targetItem.name)
-            holder.titleView.setTextColor(Color.BLUE)
+            holder.titleView.setTextColor(Color.BLACK)
 
             holder.iconView.setImageResource(R.drawable.ic_home_black_24dp)
             holder.iconView.visibility = View.VISIBLE
@@ -60,7 +60,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
         }
         if (targetItem is InformationItem) {
             holder.titleView.setText(targetItem.text)
-            holder.titleView.setTextColor(Color.RED)
+            holder.titleView.setTextColor(if (targetItem.linkURL != null) Color.BLUE else Color.RED)
 
             holder.iconView.visibility = View.INVISIBLE
         }
