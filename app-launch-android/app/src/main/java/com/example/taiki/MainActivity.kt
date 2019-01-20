@@ -8,80 +8,55 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
-import com.example.taiki.model.DataModel
-import com.example.taiki.viewmodel.RecyclerViewMainAdapter
-import com.example.taiki.viewmodel.RecyclerViewSubAdapter
+import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
-import android.widget.TextView
-import com.example.taiki.model.ApplicationItem
-import com.example.taiki.model.Item
+import com.example.taiki.model.*
 
 
 class MainActivity : AppCompatActivity() {
-
-    var isSubScreen = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataModel.init(applicationContext)
-        setMainScreenMode()
+        resetScreen()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun setMainScreenMode() {
-        isSubScreen = false
-        setContentView(R.layout.activity_main)
+    private fun resetScreen() {
+        setContentView(R.layout.activity)
+        val titleName = DataModel.peekScreen()?.title
+        setTitle(titleName ?: getString(R.string.app_name))
 
-        val adapter = RecyclerViewMainAdapter()
+        val adapter = RecyclerViewAdapter()
         val rv = findViewById(R.id.listView) as RecyclerView
         val llm = LinearLayoutManager(this)
         rv.setHasFixedSize(true)
         rv.layoutManager = llm
         rv.adapter = adapter
-        adapter.setOnItemClickListener(object : RecyclerViewMainAdapter.onItemClickListener {
-            override fun onItemClick(titleName: String) {
-                setSubScreenMode(titleName)
+        adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
+            override fun onGroupItemClick(index: Int, item: GroupItem) {
+                DataModel.pushScreen(ScreenInformation(index, item.name))
+                resetScreen()
             }
-        })
 
-        val dividerItemDecoration = DividerItemDecoration(
-            rv.getContext(),
-            llm.orientation
-        )
-        rv.addItemDecoration(dividerItemDecoration)
-        dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
-    }
+            override fun onApplicationItemClick(index: Int, item: ApplicationItem) {
+                startActivity(DataModel.getAppIntent(item.packageName))
+            }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun setSubScreenMode(titleName: String) {
-        isSubScreen = true
-        setContentView(R.layout.activity_sub)
+            override fun onInformationItemClick(index: Int, item: InformationItem) {
 
-        val adapter = RecyclerViewSubAdapter(titleName)
-        val rv = findViewById(R.id.listView) as RecyclerView
-        val llm = LinearLayoutManager(this)
-        rv.setHasFixedSize(true)
-        rv.layoutManager = llm
-        rv.adapter = adapter
-        adapter.setOnItemClickListener(object : RecyclerViewSubAdapter.onItemClickListener {
-            override fun onItemClick(item: Item) {
-                if (item is ApplicationItem) {
-                    val targetPackageName = item.packageName
-                    val intent =
-                        DataModel.getAppIntent(targetPackageName) ?: DataModel.getStoreIntent(targetPackageName)
-                    startActivity(intent)
-                }
             }
         })
 
         val returnButton = findViewById<Button>(R.id.return_button)
         returnButton.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
-                setMainScreenMode()
+                backOperation()
             }
         })
+        returnButton.visibility = if (titleName == null) View.GONE else View.VISIBLE
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
@@ -94,10 +69,20 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (isSubScreen) {
-                setMainScreenMode()
-            }
+            backOperation()
             true
         } else false
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun backOperation() {
+        val currentScreen = DataModel.popScreen() // 現在のスクリーンは破棄
+
+        if (currentScreen != null) {
+            resetScreen()
+        }
+        else {
+            finish()
+        }
     }
 }
