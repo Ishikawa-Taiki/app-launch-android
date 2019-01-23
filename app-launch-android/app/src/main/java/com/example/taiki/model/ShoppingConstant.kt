@@ -113,9 +113,9 @@ object ShoppingConstant {
         ),
         "PARCO" to GroupItem(
             "PARCO", arrayOf(
-                applicationMap["LINE"],
                 applicationMap["Origami"],
-                InformationItem("支払い方法︰LINE Pay(一部店舗)/OrigamiPay"),
+                applicationMap["LINE"],
+                InformationItem("支払い方法︰OrigamiPay/LINE Pay(一部店舗)"),
                 END
             ).filterNotNull()
         ),
@@ -190,6 +190,8 @@ object ShoppingConstant {
                 applicationMap["ビックカメラ"],
                 applicationMap["LINE"],
                 applicationMap["PayPay"],
+                InformationItem("クーポン︰メットライフクラブ"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("ポイントカード︰ビックカメラ(アプリ)"),
                 InformationItem("支払い方法︰LINE Pay/PayPay/QUICPay"),
                 END
@@ -310,9 +312,9 @@ object ShoppingConstant {
         ),
         "LOFT" to GroupItem(
             "LOFT", arrayOf(
-                applicationMap["LINE"],
                 applicationMap["Origami"],
-                InformationItem("支払い方法︰LINE Pay/OrigamiPay/QUICPay"),
+                applicationMap["LINE"],
+                InformationItem("支払い方法︰OrigamiPay/LINE Pay/QUICPay"),
                 END
             ).filterNotNull()
         ),
@@ -351,6 +353,7 @@ object ShoppingConstant {
             "イオンシネマ", arrayOf(
                 applicationMap["dポイント"],
                 InformationItem("クーポン︰dポイント(アプリ)/メットライフクラブ"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("ポイントカード︰dポイント(アプリ)/WAONポイントカード"),
                 InformationItem("支払い方法︰QUICPay"),
                 END
@@ -388,17 +391,19 @@ object ShoppingConstant {
         ),
         "Cafe 犬猫人" to GroupItem(
             "Cafe 犬猫人", arrayOf(
+                applicationMap["LINE"],
                 InformationItem("お得情報︰はしご割"),
                 InformationItem("ポイントカード︰犬猫人メンバーズカード＆犬猫人ポイントカード"),
-                InformationItem("支払い方法︰クレジットカード"),
+                InformationItem("支払い方法︰LINE Pay/QUICPay"),
                 END
             ).filterNotNull()
         ),
         "Cafe 犬猫人2" to GroupItem(
             "Cafe 犬猫人2", arrayOf(
+                applicationMap["LINE"],
                 InformationItem("お得情報︰はしご割"),
                 InformationItem("ポイントカード︰犬猫人メンバーズカード＆犬猫人2ポイントカード"),
-                InformationItem("支払い方法︰クレジットカード"),
+                InformationItem("支払い方法︰LINE Pay/QUICPay"),
                 END
             ).filterNotNull()
         ),
@@ -428,7 +433,8 @@ object ShoppingConstant {
         "マクドナルド" to GroupItem(
             "マクドナルド", arrayOf(
                 applicationMap["マクドナルド"],
-                InformationItem("クーポン︰マクドナルド(アプリ)"),
+                applicationMap["LINE"],
+                InformationItem("クーポン︰マクドナルド(アプリ)/LINE(アプリ)"),
                 InformationItem("ポイントカード︰マクドナルド(アプリ)楽天ポイントカード/dポイントカード"),
                 InformationItem("支払い方法︰QUICPay"),
                 END
@@ -450,6 +456,7 @@ object ShoppingConstant {
                 applicationMap["LINE"],
                 applicationMap["Ponta"],
                 InformationItem("クーポン︰メットライフクラブ/LINE(アプリ)"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("ポイントカード︰Pontaカード(アプリ)"),
                 InformationItem("支払い方法︰QUICPay"),
                 END
@@ -457,11 +464,12 @@ object ShoppingConstant {
         ),
         "ガスト" to GroupItem(
             "ガスト", arrayOf(
-                applicationMap["dポイント"],
                 applicationMap["LINE"],
+                applicationMap["dポイント"],
                 applicationMap["Tポイント"],
                 applicationMap["楽天ペイ"],
-                InformationItem("クーポン︰チラシクーポン/メットライフクラブ/dポイント(アプリ)/LINE(アプリ)"),
+                InformationItem("クーポン︰チラシクーポン/LINE(アプリ)/dポイント(アプリ)/メットライフクラブ"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("ポイントカード︰Tポイント(アプリ)"),
                 InformationItem("支払い方法︰LINE Pay/楽天ペイ/QUICPay"),
                 END
@@ -479,6 +487,7 @@ object ShoppingConstant {
         "コメダ珈琲店" to GroupItem(
             "コメダ珈琲店", arrayOf(
                 InformationItem("クーポン︰メットライフクラブ(東武練馬店×)"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("支払い方法︰QUICPay"),
                 END
             ).filterNotNull()
@@ -558,6 +567,7 @@ object ShoppingConstant {
                 applicationMap["LINE"],
                 applicationMap["食べログ"],
                 InformationItem("クーポン︰サービス券/LINE(アプリ)/メットライフクラブ/食べログ"),
+                InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("LINK：", "https://tabelog.com/tokyo/A1322/A132203/13021668/"),
                 InformationItem("支払い方法︰クレジットカード"),
                 END
@@ -613,6 +623,55 @@ object ShoppingConstant {
                 InformationItem("ポイントカード︰くりこ庵スタンプカード"),
                 END
             ).filterNotNull()
+        ),
+        "とくまるクリニック" to GroupItem(
+            "とくまるクリニック", arrayOf(
+                InformationItem("支払い方法︰QUICPay"),
+                END
+            ).filterNotNull()
+        ),
+        "カフェ・ド・クリエ" to GroupItem(
+            "カフェ・ド・クリエ", arrayOf(
+                InformationItem("お得情報︰2杯目100円"),
+                END
+            ).filterNotNull()
+        ),
+        "ディッパーダン" to GroupItem(
+            "ディッパーダン", arrayOf(
+                InformationItem("お得情報︰クレープの日 毎月9・19・29日クレープ全品300円"),
+                InformationItem("クーポン︰公式サイト"),
+                InformationItem("LINK：", "https://dipperdan.jp/coupon/"),
+                END
+            ).filterNotNull()
+        ),
+        "リンガーハット" to GroupItem(
+            "リンガーハット", arrayOf(
+                InformationItem("クーポン︰レシートクーポン、映画半券サービス"),
+                InformationItem("ポイントカード︰WAONポイントカード"),
+                InformationItem("支払い方法︰QUICPay"),
+                END
+            ).filterNotNull()
+        ),
+        "ザイカ" to GroupItem(
+            "ザイカ", arrayOf(
+                InformationItem("クーポン︰食べログ"),
+                InformationItem("クーポン︰レシートクーポン、映画半券サービス"),
+                InformationItem("LINK：", "https://tabelog.com/tokyo/A1322/A132203/13156453/"),
+                END
+            ).filterNotNull()
+        ),
+        "日高屋" to GroupItem(
+            "日高屋", arrayOf(
+                InformationItem("クーポン︰サービス券"),
+                END
+            ).filterNotNull()
+        ),
+        "ステーキハウス松木" to GroupItem(
+            "ステーキハウス松木", arrayOf(
+                InformationItem("クーポン︰サービス券/食べログ"),
+                InformationItem("LINK：", "https://tabelog.com/tokyo/A1322/A132203/13054934"),
+                END
+            ).filterNotNull()
         )
     )
 
@@ -644,43 +703,49 @@ object ShoppingConstant {
                 shopMap["セブイレ"],
                 shopMap["サークルKサンクス"],
                 shopMap["ミニストップ"],
+                shopMap["デイリーヤマザキ"],
                 shopMap["NewDays"],
                 shopMap["ローソンストア100"],
-                shopMap["デイリーヤマザキ"],
                 END
             ).filterNotNull()
         ),
         "飲食店" to GroupItem(
             "飲食店", arrayOf(
                 shopMap["マクドナルド"],
-                shopMap["焼肉 安楽亭"],
-                shopMap["すき家"],
-                shopMap["丸亀製麺"],
                 shopMap["ケンタッキー"],
+                shopMap["丸亀製麺"],
+                shopMap["鳥さく"],
+                shopMap["リンガーハット"],
+                shopMap["焼肉 安楽亭"],
+                shopMap["ミトミトカレー"],
+                shopMap["ザイカ"],
+                shopMap["CoCo壱番屋"],
+                shopMap["激アツ！ めん蔵"],
+                shopMap["日高屋"],
                 shopMap["大戸屋ごはん処"],
                 shopMap["ガスト"],
-                shopMap["三浦のハンバーグ"],
-                shopMap["吉野家"],
+                shopMap["ステーキハウス松木"],
                 shopMap["くら寿司"],
                 shopMap["かっぱ寿司"],
                 shopMap["磯のがってん寿司"],
-                shopMap["CoCo壱番屋"],
-                shopMap["ミトミトカレー"],
-                shopMap["ペッパーランチ"],
-                shopMap["鳥さく"],
                 shopMap["鶏そば 壽(ことぶき)"],
-                shopMap["激アツ！ めん蔵"],
+                shopMap["三浦のハンバーグ"],
+                shopMap["ペッパーランチ"],
+                shopMap["吉野家"],
+                shopMap["すき家"],
                 END
             ).filterNotNull()
         ),
         "カフェ/軽食/スイーツ" to GroupItem(
             "カフェ/軽食/スイーツ", arrayOf(
                 shopMap["コメダ珈琲店"],
+                shopMap["スターバックスコーヒー"],
                 shopMap["ドトールコーヒーショップ"],
                 shopMap["サンマルクカフェ"],
-                shopMap["スターバックスコーヒー"],
+                shopMap["カフェ・ド・クリエ"],
                 shopMap["ビアードパパ"],
                 shopMap["ミスタードーナツ"],
+                shopMap["ディッパーダン"],
                 shopMap["くりこ庵"],
                 END
             ).filterNotNull()
@@ -706,7 +771,7 @@ object ShoppingConstant {
         "レジャー施設" to GroupItem(
             "レジャー施設", arrayOf(
                 shopMap["イオンシネマ"],
-                shopMap["バンバン"],
+                shopMap["BanBan"],
                 shopMap["ジャンカラ"],
                 shopMap["トーホーレジャープラザ"],
                 shopMap["カフェきゃらふ"],
@@ -741,6 +806,12 @@ object ShoppingConstant {
                 shopMap["ドンキ"],
                 shopMap["LOFT"],
                 shopMap["PARCO"],
+                END
+            ).filterNotNull()
+        ),
+        "病院" to GroupItem(
+            "病院", arrayOf(
+                shopMap["とくまるクリニック"],
                 END
             ).filterNotNull()
         )
