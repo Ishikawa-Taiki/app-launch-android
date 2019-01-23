@@ -477,8 +477,7 @@ object ShoppingConstant {
         ),
         "三浦のハンバーグ" to GroupItem(
             "三浦のハンバーグ", arrayOf(
-                applicationMap["食べログ"],
-                InformationItem("クーポン︰食べログ(アプリ)"),
+                InformationItem("クーポン︰食べログ"),
                 InformationItem("LINK：", "https://tabelog.com/tokyo/A1305/A130501/13030030/"),
                 InformationItem("ポイントカード︰三浦のハンバーグポイントカード"),
                 END
@@ -565,7 +564,6 @@ object ShoppingConstant {
         "焼肉 安楽亭" to GroupItem(
             "焼肉 安楽亭", arrayOf(
                 applicationMap["LINE"],
-                applicationMap["食べログ"],
                 InformationItem("クーポン︰サービス券/LINE(アプリ)/メットライフクラブ/食べログ"),
                 InformationItem("LINK：", "https://sp.club-off.com/117/apps/top/fftop_main.cfm"),
                 InformationItem("LINK：", "https://tabelog.com/tokyo/A1322/A132203/13021668/"),
