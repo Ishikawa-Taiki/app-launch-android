@@ -12,6 +12,9 @@ import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
 import com.example.taiki.model.*
+import okhttp3.*
+import java.io.IOException
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -80,9 +83,43 @@ class MainActivity : AppCompatActivity() {
 
         if (currentScreen != null) {
             resetScreen()
+        } else {
+            //finish()
+            testRequest()
         }
-        else {
-            finish()
-        }
+    }
+
+    private fun testRequest() {
+        val url = "https://script.google.com/macros/s/AKfycbzLNP_CPag82-Aw7r7QF8lQ2Y8kwBGjOVv_3BlZFXlflkYp5Bo/exec?file=app&sheet=shopping"
+        run(url)
+    }
+
+    private val client = OkHttpClient()
+
+    @Throws(Exception::class)
+    fun run(url: String) {
+        val request = Request.Builder()
+            .url(url)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+                val responseHeaders = response.headers()
+                var i = 0
+                val size = responseHeaders.size()
+                while (i < size) {
+                    println(responseHeaders.name(i) + ": " + responseHeaders.value(i))
+                    i++
+                }
+
+                println(response.body()!!.string())
+            }
+        })
     }
 }
