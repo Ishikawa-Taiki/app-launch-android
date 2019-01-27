@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.widget.Toast
 import com.example.taiki.model.api.ApiClient
 import com.example.taiki.model.api.ApplicationItemInformation
 import com.example.taiki.model.api.ServiceItemInformation
@@ -25,24 +26,72 @@ object DataModel {
         context = appContext
     }
 
-    fun refreshSaveData(completed: (() -> Unit)? = null) {
+    fun refreshSaveData(completed: ((Boolean) -> Unit)? = null) {
         val apiClient = ApiClient.application()
-        Observable.zip(
-            apiClient.services()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-            ,
-            apiClient.androidApplications()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-            ,
-            { o1: List<ServiceItemInformation>, o2: List<ApplicationItemInformation> -> Pair(o1, o2) })
+        var isFinishService = false
+        var isFinishApplication = false
+        var isSuccessService = false
+        var isSuccessApplication = false
+
+        Toast.makeText(context, "データ取得開始", Toast.LENGTH_SHORT).show();
+        apiClient.services()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
             .onNext {
-                serviceList = it.first
-                applicationList = it.second
+                serviceList = it
+            }
+            .onError {
+                Toast.makeText(context, "データ取得失敗", Toast.LENGTH_SHORT).show();
+                it.printStackTrace()
+                isFinishService = true
+                isSuccessService = false
+                completed?.let {
+                    if (isFinishService && isFinishApplication) {
+                        val result = isSuccessService && isSuccessApplication
+                        it(result)
+                    }
+                }
             }
             .onCompleted {
-                completed?.let { it() }
+                Toast.makeText(context, "データ取得成功", Toast.LENGTH_SHORT).show();
+                isFinishService = true
+                isSuccessService = true
+                completed?.let {
+                    if (isFinishService && isFinishApplication) {
+                        val result = isSuccessService && isSuccessApplication
+                        it(result)
+                    }
+                }
+            }
+            .subscribe()
+        apiClient.androidApplications()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onNext {
+                applicationList = it
+            }
+            .onError {
+                Toast.makeText(context, "データ取得失敗", Toast.LENGTH_SHORT).show();
+                it.printStackTrace()
+                isFinishApplication = true
+                isSuccessApplication = false
+                completed?.let {
+                    if (isFinishService && isFinishApplication) {
+                        val result = isSuccessService && isSuccessApplication
+                        it(result)
+                    }
+                }
+            }
+            .onCompleted {
+                Toast.makeText(context, "データ取得成功", Toast.LENGTH_SHORT).show();
+                isFinishApplication = true
+                isSuccessApplication = true
+                completed?.let {
+                    if (isFinishService && isFinishApplication) {
+                        val result = isSuccessService && isSuccessApplication
+                        it(result)
+                    }
+                }
             }
             .subscribe()
     }

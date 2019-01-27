@@ -11,6 +11,7 @@ import android.widget.Button
 import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
+import android.widget.Toast
 import com.example.taiki.model.*
 
 
@@ -98,7 +99,11 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun rebuild() {
         DataModel.refreshSaveData(
-            { resetScreen() }
+            {
+                if (it) {
+                    resetScreen()
+                }
+            }
         )
     }
 }
