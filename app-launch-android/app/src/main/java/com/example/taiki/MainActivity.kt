@@ -60,12 +60,23 @@ class MainActivity : AppCompatActivity() {
         })
 
         val returnButton = findViewById<Button>(R.id.return_button)
-        returnButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                backOperation()
-            }
-        })
-        returnButton.visibility = if (titleName == null) View.GONE else View.VISIBLE
+        returnButton.visibility = View.VISIBLE
+        if (titleName == null) {
+            returnButton.text = "再読み込み"
+            returnButton.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View) {
+                    testRequest()
+                }
+            })
+        }
+        else {
+            returnButton.text = "戻る"
+            returnButton.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View) {
+                    backOperation()
+                }
+            })
+        }
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
@@ -90,8 +101,7 @@ class MainActivity : AppCompatActivity() {
         if (currentScreen != null) {
             resetScreen()
         } else {
-            //finish()
-            testRequest()
+            finish()
         }
     }
 
@@ -113,35 +123,4 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
-
-//    private val client = OkHttpClient()
-//
-//    @Throws(Exception::class)
-//    fun run(url: String) {
-//        val request = Request.Builder()
-//            .url(url)
-//            .build()
-//
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                e.printStackTrace()
-//            }
-//
-//            override fun onResponse(call: Call, response: Response) {
-//                if (!response.isSuccessful) throw IOException("Unexpected code $response")
-//
-//                val responseHeaders = response.headers()
-//                var i = 0
-//                val size = responseHeaders.size()
-//                while (i < size) {
-//                    println(responseHeaders.name(i) + ": " + responseHeaders.value(i))
-//                    i++
-//                }
-//                val responseBody = response.body()
-//                val responseBodyString = responseBody!!.string()
-//
-//                println(responseBodyString)
-//            }
-//        })
-//    }
 }
