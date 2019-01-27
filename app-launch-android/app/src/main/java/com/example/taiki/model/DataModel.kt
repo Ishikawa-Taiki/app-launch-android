@@ -9,6 +9,7 @@ import com.example.taiki.model.api.ApiClient
 import com.example.taiki.model.api.ApplicationItemInformation
 import com.example.taiki.model.api.ServiceItemInformation
 import com.example.taiki.model.api.onNext
+import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.util.*
@@ -25,21 +26,26 @@ object DataModel {
         context = appContext
     }
 
-    fun refreshSaveData() {
+    fun refreshSaveData(completed: (() -> Unit)? = null) {
         val apiClient = ApiClient.application()
-        apiClient.services()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.zip(
+            apiClient.services()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+            ,
+            apiClient.androidApplications()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+            ,
+            { o1: List<ServiceItemInformation>, o2: List<ApplicationItemInformation> -> Pair(o1, o2) })
             .onNext {
-                serviceList = it
+                serviceList = it.first
+                applicationList = it.second
+            }
+            .onCompleted {
+                completed?.let { it() }
             }
             .subscribe()
-        apiClient.androidApplications()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .onNext {
-                applicationList = it
-            }.subscribe()
     }
 
     fun pushScreen(screen: ScreenInformation) {
@@ -65,21 +71,16 @@ object DataModel {
     private fun convertItemFromWebAPIData(data: ServiceItemInformation): Item {
         return if (data.type.equals("group")) {
             GroupItem(data.data)
-        }
-        else if (data.type.equals("text")) {
+        } else if (data.type.equals("text")) {
             InformationItem(data.data)
-        }
-        else if (data.type.equals("title-text")) {
+        } else if (data.type.equals("title-text")) {
             InformationItem(data.data)
-        }
-        else if (data.type.equals("link")) {
+        } else if (data.type.equals("link")) {
             InformationItem("LINK：", data.data)
-        }
-        else if (data.type.equals("application")) {
+        } else if (data.type.equals("application")) {
             val targetApp = applicationList?.find { it.shortName.equals(data.data) }
             ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)
-        }
-        else {
+        } else {
             InformationItem(data.data)
         }
     }

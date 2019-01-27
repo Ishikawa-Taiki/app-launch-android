@@ -56,11 +56,10 @@ class MainActivity : AppCompatActivity() {
             returnButton.text = "再読み込み"
             returnButton.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {
-                    testRequest()
+                    rebuild()
                 }
             })
-        }
-        else {
+        } else {
             returnButton.text = "戻る"
             returnButton.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {
@@ -97,8 +96,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun testRequest() {
-        DataModel.refreshSaveData()
-        resetScreen()
+    private fun rebuild() {
+        DataModel.refreshSaveData(
+            { resetScreen() }
+        )
     }
 }
