@@ -16,7 +16,6 @@ import java.util.*
 
 object DataModel {
     private lateinit var context: Context
-    // TODO: ArrayDeque の動作が想定と違うので、どこかで見直す。
     private val screenStack = ArrayDeque<String>()
 
     private var serviceList: List<ServiceItemInformation>? = null
