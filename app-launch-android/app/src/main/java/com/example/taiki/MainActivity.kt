@@ -14,6 +14,7 @@ import android.view.KeyEvent
 import com.example.taiki.model.*
 import com.example.taiki.model.api.ApiClient
 import com.example.taiki.model.api.ApplicationItemInformation
+import com.example.taiki.model.api.ServiceItemInformation
 import okhttp3.*
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
@@ -95,15 +96,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun testRequest() {
-        ApiClient.application().shopping().
+        ApiClient.application().services().
             subscribeOn(Schedulers.newThread()).
             observeOn(AndroidSchedulers.mainThread()).
-            subscribe(object : Subscriber<List<ApplicationItemInformation>>(){
+            subscribe(object : Subscriber<List<ServiceItemInformation>>(){
                 override fun onCompleted() {
                     println("Completed")
                 }
 
-                override fun onNext(r: List<ApplicationItemInformation>?) {
+                override fun onNext(r: List<ServiceItemInformation>?) {
                     r?.let { println(it) }
                 }
 
