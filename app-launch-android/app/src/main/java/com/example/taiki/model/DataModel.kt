@@ -17,7 +17,7 @@ import java.util.*
 object DataModel {
     private lateinit var context: Context
     // TODO: ArrayDeque の動作が想定と違うので、どこかで見直す。
-    private val screenStack = ArrayDeque<ScreenInformation>()
+    private val screenStack = ArrayDeque<String>()
 
     private var serviceList: List<ServiceItemInformation>? = null
     private var applicationList: List<ApplicationItemInformation>? = null
@@ -48,11 +48,11 @@ object DataModel {
             .subscribe()
     }
 
-    fun pushScreen(screen: ScreenInformation) {
+    fun pushScreen(screen: String) {
         screenStack.push(screen)
     }
 
-    fun popScreen(): ScreenInformation? {
+    fun popScreen(): String? {
         return try {
             screenStack.pop()
         } catch (e: NoSuchElementException) {
@@ -60,7 +60,7 @@ object DataModel {
         }
     }
 
-    fun peekScreen(): ScreenInformation? {
+    fun peekScreen(): String? {
         return try {
             screenStack.peek()
         } catch (e: NoSuchElementException) {
@@ -86,7 +86,7 @@ object DataModel {
     }
 
     fun getItemList(): List<Item> {
-        val filterName = peekScreen()?.title ?: "root"
+        val filterName = peekScreen() ?: "root"
         val list = serviceList?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
         return list ?: emptyList()
     }

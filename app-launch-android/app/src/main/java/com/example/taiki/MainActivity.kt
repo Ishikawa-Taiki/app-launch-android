@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun resetScreen() {
         setContentView(R.layout.activity)
-        val titleName = DataModel.peekScreen()?.title
+        val titleName = DataModel.peekScreen()
         setTitle(titleName ?: getString(R.string.app_name))
 
         val adapter = RecyclerViewAdapter()
@@ -36,16 +36,16 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
-            override fun onGroupItemClick(index: Int, item: GroupItem) {
-                DataModel.pushScreen(ScreenInformation(index, item.name))
+            override fun onGroupItemClick(item: GroupItem) {
+                DataModel.pushScreen(item.name)
                 resetScreen()
             }
 
-            override fun onApplicationItemClick(index: Int, item: ApplicationItem) {
+            override fun onApplicationItemClick(item: ApplicationItem) {
                 startActivity(DataModel.getAppIntent(item.packageName))
             }
 
-            override fun onInformationItemClick(index: Int, item: InformationItem) {
+            override fun onInformationItemClick(item: InformationItem) {
                 item.linkURL?.let { startActivity(DataModel.getLinkIntent(it)) }
             }
         })
