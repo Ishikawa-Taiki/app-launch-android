@@ -117,8 +117,10 @@ class MainActivity : AppCompatActivity() {
                     println(responseHeaders.name(i) + ": " + responseHeaders.value(i))
                     i++
                 }
+                val responseBody = response.body()
+                val responseBodyString = responseBody!!.string()
 
-                println(response.body()!!.string())
+                println(responseBodyString)
             }
         })
     }
