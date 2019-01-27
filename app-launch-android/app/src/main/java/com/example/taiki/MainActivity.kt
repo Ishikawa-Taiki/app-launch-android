@@ -12,15 +12,6 @@ import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
 import com.example.taiki.model.*
-import com.example.taiki.model.api.ApiClient
-import com.example.taiki.model.api.ApplicationItemInformation
-import com.example.taiki.model.api.ServiceItemInformation
-import okhttp3.*
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
-import java.io.IOException
-import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -105,22 +96,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun testRequest() {
-        ApiClient.application().services().
-            subscribeOn(Schedulers.newThread()).
-            observeOn(AndroidSchedulers.mainThread()).
-            subscribe(object : Subscriber<List<ServiceItemInformation>>(){
-                override fun onCompleted() {
-                    println("Completed")
-                }
-
-                override fun onNext(r: List<ServiceItemInformation>?) {
-                    r?.let { println(it) }
-                }
-
-                override fun onError(e: Throwable?) {
-                    e?.printStackTrace()
-                }
-            })
+        DataModel.refreshSaveData()
+        resetScreen()
     }
 }

@@ -5,6 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import com.example.taiki.model.api.ApiClient
+import com.example.taiki.model.api.ApplicationItemInformation
+import com.example.taiki.model.api.ServiceItemInformation
+import com.example.taiki.model.api.onNext
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import java.util.*
 
 object DataModel {
@@ -12,8 +18,28 @@ object DataModel {
     // TODO: ArrayDeque の動作が想定と違うので、どこかで見直す。
     private val screenStack = ArrayDeque<ScreenInformation>()
 
+    private var serviceList: List<ServiceItemInformation>? = null
+    private var applicationList: List<ApplicationItemInformation>? = null
+
     fun init(appContext: Context) {
         context = appContext
+    }
+
+    fun refreshSaveData() {
+        val apiClient = ApiClient.application()
+        apiClient.services()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onNext {
+                serviceList = it
+            }
+            .subscribe()
+        apiClient.androidApplications()
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onNext {
+                applicationList = it
+            }.subscribe()
     }
 
     fun pushScreen(screen: ScreenInformation) {
@@ -36,30 +62,32 @@ object DataModel {
         }
     }
 
-    private fun getRoot(): Map<String, Item> {
-        return ShoppingConstant.groupMap
+    private fun convertItemFromWebAPIData(data: ServiceItemInformation): Item {
+        return if (data.type.equals("group")) {
+            GroupItem(data.data)
+        }
+        else if (data.type.equals("text")) {
+            InformationItem(data.data)
+        }
+        else if (data.type.equals("title-text")) {
+            InformationItem(data.data)
+        }
+        else if (data.type.equals("link")) {
+            InformationItem("LINK：", data.data)
+        }
+        else if (data.type.equals("application")) {
+            val targetApp = applicationList?.find { it.shortName.equals(data.data) }
+            ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)
+        }
+        else {
+            InformationItem(data.data)
+        }
     }
 
-    // TODO: データ構造を誤って気持ち悪いコードになってしまったので余力で直す
     fun getItemList(): List<Item> {
-        val rootMap = getRoot()
-        val queue = screenStack.clone()
-        if (queue.size == 0) {
-            return rootMap.values.toList()
-        }
-        if (queue.size == 1) {
-            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
-            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
-            return select_1_list
-        }
-        if (queue.size == 2) {
-            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
-            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
-            val select_2 = queue.pollLast()?.let { select_1_list[it.index] }
-            val select_2_list = if (select_2 is GroupItem) select_2.items else emptyList()
-            return select_2_list
-        }
-        return emptyList()
+        val filterName = peekScreen()?.title ?: "root"
+        val list = serviceList?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
+        return list ?: emptyList()
     }
 
     fun getAppIntent(packageName: String): Intent {
