@@ -19,7 +19,7 @@ object ApiClient {
         val moshi = Moshi.Builder()
             .build()
 
-        val timeOut: Long = 60
+        val timeOut: Long = 30
         val okClient = OkHttpClient.Builder()
             .callTimeout(timeOut, TimeUnit.SECONDS)
             .readTimeout(timeOut, TimeUnit.SECONDS)
