@@ -19,11 +19,9 @@ object DataModel {
     private lateinit var context: Context
     private val screenStack = ArrayDeque<String>()
 
-    private var serviceList: List<ServiceItemInformation>? = null
-    private var applicationList: List<ApplicationItemInformation>? = null
-
     fun init(appContext: Context) {
         context = appContext
+        SaveData.init(appContext)
     }
 
     fun refreshSaveData(completed: ((Boolean) -> Unit)? = null) {
@@ -36,8 +34,8 @@ object DataModel {
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .onNext {
-                serviceList = it.first
-                applicationList = it.second
+                SaveData.saveServiceList(it.first)
+                SaveData.saveApplicationList(it.second)
             }
             .onError {
                 Toast.makeText(context, "データ取得失敗", Toast.LENGTH_SHORT).show();
@@ -81,7 +79,7 @@ object DataModel {
         } else if (data.type.equals("link")) {
             InformationItem("LINK：", data.data)
         } else if (data.type.equals("application")) {
-            val targetApp = applicationList?.find { it.shortName.equals(data.data) }
+            val targetApp = SaveData.loadApplicationList()?.find { it.shortName.equals(data.data) }
             ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)
         } else {
             InformationItem(data.data)
@@ -90,7 +88,7 @@ object DataModel {
 
     fun getItemList(): List<Item> {
         val filterName = peekScreen() ?: "root"
-        val list = serviceList?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
+        val list = SaveData.loadServiceList()?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
         return list ?: emptyList()
     }
 
