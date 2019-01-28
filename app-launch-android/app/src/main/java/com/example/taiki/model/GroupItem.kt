@@ -1,6 +1,5 @@
 package com.example.taiki.model
 
-class GroupItem(name: String, items: List<Item> = emptyList<Item>()): Item {
+class GroupItem(name: String): Item {
     val name = name
-    val items = items
 }

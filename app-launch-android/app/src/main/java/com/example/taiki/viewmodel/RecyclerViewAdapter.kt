@@ -23,13 +23,13 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                 val index = holder.adapterPosition
                 list.get(index)?.let {
                     if (it is GroupItem) {
-                        listener?.onGroupItemClick(index, it)
+                        listener?.onGroupItemClick(it)
                     }
                     if (it is ApplicationItem) {
-                        listener?.onApplicationItemClick(index, it)
+                        listener?.onApplicationItemClick(it)
                     }
                     if (it is InformationItem) {
-                        listener?.onInformationItemClick(index, it)
+                        listener?.onInformationItemClick(it)
                     }
                 }
             }
@@ -75,8 +75,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     }
 
     interface onItemClickListener {
-        fun onGroupItemClick(index: Int, item: GroupItem)
-        fun onApplicationItemClick(index: Int, item: ApplicationItem)
-        fun onInformationItemClick(index: Int, item: InformationItem)
+        fun onGroupItemClick(item: GroupItem)
+        fun onApplicationItemClick(item: ApplicationItem)
+        fun onInformationItemClick(item: InformationItem)
     }
 }

@@ -5,22 +5,55 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.widget.Toast
+import com.example.taiki.model.api.ApiClient
+import com.example.taiki.model.api.ApplicationItemInformation
+import com.example.taiki.model.api.ServiceItemInformation
+import com.example.taiki.model.api.onNext
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 import java.util.*
 
 object DataModel {
     private lateinit var context: Context
-    // TODO: ArrayDeque の動作が想定と違うので、どこかで見直す。
-    private val screenStack = ArrayDeque<ScreenInformation>()
+    private val screenStack = ArrayDeque<String>()
 
     fun init(appContext: Context) {
         context = appContext
+        SaveData.init(appContext)
     }
 
-    fun pushScreen(screen: ScreenInformation) {
+    fun refreshSaveData(completed: ((Boolean) -> Unit)? = null) {
+        val apiClient = ApiClient.application()
+        Toast.makeText(context, "データ取得開始", Toast.LENGTH_SHORT).show();
+        Observable.zip(
+            apiClient.services(),
+            apiClient.androidApplications(),
+            { o1: List<ServiceItemInformation>, o2: List<ApplicationItemInformation> -> Pair(o1, o2) })
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .onNext {
+                SaveData.saveServiceList(it.first)
+                SaveData.saveApplicationList(it.second)
+            }
+            .onError {
+                Toast.makeText(context, "データ取得失敗", Toast.LENGTH_SHORT).show();
+                it.printStackTrace()
+                completed?.let { it(false) }
+            }
+            .onCompleted {
+                Toast.makeText(context, "データ取得成功", Toast.LENGTH_SHORT).show();
+                completed?.let { it(true) }
+            }
+            .subscribe()
+    }
+
+    fun pushScreen(screen: String) {
         screenStack.push(screen)
     }
 
-    fun popScreen(): ScreenInformation? {
+    fun popScreen(): String? {
         return try {
             screenStack.pop()
         } catch (e: NoSuchElementException) {
@@ -28,7 +61,7 @@ object DataModel {
         }
     }
 
-    fun peekScreen(): ScreenInformation? {
+    fun peekScreen(): String? {
         return try {
             screenStack.peek()
         } catch (e: NoSuchElementException) {
@@ -36,30 +69,27 @@ object DataModel {
         }
     }
 
-    private fun getRoot(): Map<String, Item> {
-        return ShoppingConstant.groupMap
+    private fun convertItemFromWebAPIData(data: ServiceItemInformation): Item {
+        return if (data.type.equals("group")) {
+            GroupItem(data.data)
+        } else if (data.type.equals("text")) {
+            InformationItem(data.data)
+        } else if (data.type.equals("title-text")) {
+            InformationItem(data.data)
+        } else if (data.type.equals("link")) {
+            InformationItem("LINK：", data.data)
+        } else if (data.type.equals("application")) {
+            val targetApp = SaveData.loadApplicationList()?.find { it.shortName.equals(data.data) }
+            ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)
+        } else {
+            InformationItem(data.data)
+        }
     }
 
-    // TODO: データ構造を誤って気持ち悪いコードになってしまったので余力で直す
     fun getItemList(): List<Item> {
-        val rootMap = getRoot()
-        val queue = screenStack.clone()
-        if (queue.size == 0) {
-            return rootMap.values.toList()
-        }
-        if (queue.size == 1) {
-            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
-            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
-            return select_1_list
-        }
-        if (queue.size == 2) {
-            val select_1 = queue.pollLast()?.let { rootMap[it.title] }
-            val select_1_list = if (select_1 is GroupItem) select_1.items else emptyList()
-            val select_2 = queue.pollLast()?.let { select_1_list[it.index] }
-            val select_2_list = if (select_2 is GroupItem) select_2.items else emptyList()
-            return select_2_list
-        }
-        return emptyList()
+        val filterName = peekScreen() ?: "root"
+        val list = SaveData.loadServiceList()?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
+        return list ?: emptyList()
     }
 
     fun getAppIntent(packageName: String): Intent {

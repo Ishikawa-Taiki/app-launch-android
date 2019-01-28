@@ -11,6 +11,7 @@ import android.widget.Button
 import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
+import android.widget.Toast
 import com.example.taiki.model.*
 
 
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun resetScreen() {
         setContentView(R.layout.activity)
-        val titleName = DataModel.peekScreen()?.title
+        val titleName = DataModel.peekScreen()
         setTitle(titleName ?: getString(R.string.app_name))
 
         val adapter = RecyclerViewAdapter()
@@ -36,27 +37,37 @@ class MainActivity : AppCompatActivity() {
         rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
-            override fun onGroupItemClick(index: Int, item: GroupItem) {
-                DataModel.pushScreen(ScreenInformation(index, item.name))
+            override fun onGroupItemClick(item: GroupItem) {
+                DataModel.pushScreen(item.name)
                 resetScreen()
             }
 
-            override fun onApplicationItemClick(index: Int, item: ApplicationItem) {
+            override fun onApplicationItemClick(item: ApplicationItem) {
                 startActivity(DataModel.getAppIntent(item.packageName))
             }
 
-            override fun onInformationItemClick(index: Int, item: InformationItem) {
+            override fun onInformationItemClick(item: InformationItem) {
                 item.linkURL?.let { startActivity(DataModel.getLinkIntent(it)) }
             }
         })
 
         val returnButton = findViewById<Button>(R.id.return_button)
-        returnButton.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                backOperation()
-            }
-        })
-        returnButton.visibility = if (titleName == null) View.GONE else View.VISIBLE
+        returnButton.visibility = View.VISIBLE
+        if (titleName == null) {
+            returnButton.text = "再読み込み"
+            returnButton.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View) {
+                    rebuild()
+                }
+            })
+        } else {
+            returnButton.text = "戻る"
+            returnButton.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View) {
+                    backOperation()
+                }
+            })
+        }
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
@@ -80,9 +91,19 @@ class MainActivity : AppCompatActivity() {
 
         if (currentScreen != null) {
             resetScreen()
-        }
-        else {
+        } else {
             finish()
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun rebuild() {
+        DataModel.refreshSaveData(
+            {
+                if (it) {
+                    resetScreen()
+                }
+            }
+        )
     }
 }
