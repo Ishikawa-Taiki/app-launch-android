@@ -31,6 +31,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                     if (it is InformationItem) {
                         listener?.onInformationItemClick(it)
                     }
+                    if (it is LinkItem) {
+                        listener?.onLinkItemClick(it)
+                    }
                 }
             }
         })
@@ -45,6 +48,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
 
             holder.iconView.setImageResource(R.drawable.ic_home_black_24dp)
             holder.iconView.visibility = View.VISIBLE
+            holder.iconSpace.visibility = View.GONE
         }
         if (targetItem is ApplicationItem) {
             holder.titleView.setText(targetItem.appName)
@@ -57,12 +61,21 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                 holder.iconView.setImageResource(R.mipmap.ic_launcher)
             }
             holder.iconView.visibility = View.VISIBLE
+            holder.iconSpace.visibility = View.GONE
         }
         if (targetItem is InformationItem) {
             holder.titleView.setText(targetItem.text)
-            holder.titleView.setTextColor(if (targetItem.linkURL != null) Color.BLUE else Color.RED)
+            holder.titleView.setTextColor(Color.BLACK)
 
-            holder.iconView.visibility = View.INVISIBLE
+            holder.iconView.visibility = View.GONE
+            holder.iconSpace.visibility = View.VISIBLE
+        }
+        if (targetItem is LinkItem) {
+            holder.titleView.setText(targetItem.url)
+            holder.titleView.setTextColor(Color.BLUE)
+
+            holder.iconView.visibility = View.GONE
+            holder.iconSpace.visibility = View.VISIBLE
         }
     }
 
@@ -78,5 +91,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
         fun onGroupItemClick(item: GroupItem)
         fun onApplicationItemClick(item: ApplicationItem)
         fun onInformationItemClick(item: InformationItem)
+        fun onLinkItemClick(item: LinkItem)
     }
 }

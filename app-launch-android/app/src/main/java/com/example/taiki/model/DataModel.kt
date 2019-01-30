@@ -77,7 +77,7 @@ object DataModel {
         } else if (data.type.equals("title-text")) {
             InformationItem(data.data)
         } else if (data.type.equals("link")) {
-            InformationItem("LINK：", data.data)
+            LinkItem(data.data)
         } else if (data.type.equals("application")) {
             val targetApp = SaveData.loadApplicationList()?.find { it.shortName.equals(data.data) }
             ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)

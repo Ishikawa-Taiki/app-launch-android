@@ -11,9 +11,16 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_margin="8dp" />
+
+        <Space
+            android:id="@+id/icon_space"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/title"
