@@ -1,5 +1,5 @@
 package com.example.taiki.model
 
-class InformationItem(text: String): Item {
+class TitleTextItem(text: String): Item {
     val text = text
 }

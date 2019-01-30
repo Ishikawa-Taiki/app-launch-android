@@ -45,7 +45,10 @@ class MainActivity : AppCompatActivity() {
                 startActivity(DataModel.getAppIntent(item.packageName))
             }
 
-            override fun onInformationItemClick(item: InformationItem) {
+            override fun onTitleTextItemClick(item: TitleTextItem) {
+            }
+
+            override fun onTextItemClick(item: TextItem) {
             }
 
             override fun onLinkItemClick(item: LinkItem) {
