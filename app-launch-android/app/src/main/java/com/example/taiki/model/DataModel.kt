@@ -72,17 +72,16 @@ object DataModel {
     private fun convertItemFromWebAPIData(data: ServiceItemInformation): Item {
         return if (data.type.equals("group")) {
             GroupItem(data.data)
-        } else if (data.type.equals("text")) {
-            InformationItem(data.data)
-        } else if (data.type.equals("title-text")) {
-            InformationItem(data.data)
-        } else if (data.type.equals("link")) {
-            InformationItem("LINK：", data.data)
         } else if (data.type.equals("application")) {
             val targetApp = SaveData.loadApplicationList()?.find { it.shortName.equals(data.data) }
             ApplicationItem(targetApp!!.shortName, targetApp!!.packageName)
+        } else if (data.type.equals("link")) {
+            LinkItem(data.data)
+        } else if (data.type.equals("title-text")) {
+            TitleTextItem(data.data)
         } else {
-            InformationItem(data.data)
+            // data.type.equals("text")
+            TextItem(data.data)
         }
     }
 

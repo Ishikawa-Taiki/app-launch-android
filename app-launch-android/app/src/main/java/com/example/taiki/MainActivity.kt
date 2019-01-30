@@ -11,7 +11,6 @@ import android.widget.Button
 import com.example.taiki.viewmodel.RecyclerViewAdapter
 import android.support.v7.widget.DividerItemDecoration
 import android.view.KeyEvent
-import android.widget.Toast
 import com.example.taiki.model.*
 
 
@@ -46,8 +45,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(DataModel.getAppIntent(item.packageName))
             }
 
-            override fun onInformationItemClick(item: InformationItem) {
-                item.linkURL?.let { startActivity(DataModel.getLinkIntent(it)) }
+            override fun onTitleTextItemClick(item: TitleTextItem) {
+            }
+
+            override fun onTextItemClick(item: TextItem) {
+            }
+
+            override fun onLinkItemClick(item: LinkItem) {
+                startActivity(DataModel.getLinkIntent(item.url))
             }
         })
 

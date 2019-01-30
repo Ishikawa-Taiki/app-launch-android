@@ -28,8 +28,14 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                     if (it is ApplicationItem) {
                         listener?.onApplicationItemClick(it)
                     }
-                    if (it is InformationItem) {
-                        listener?.onInformationItemClick(it)
+                    if (it is TitleTextItem) {
+                        listener?.onTitleTextItemClick(it)
+                    }
+                    if (it is TextItem) {
+                        listener?.onTextItemClick(it)
+                    }
+                    if (it is LinkItem) {
+                        listener?.onLinkItemClick(it)
                     }
                 }
             }
@@ -40,13 +46,16 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         var targetItem = list.get(position)
         if (targetItem is GroupItem) {
+            holder.itemContainer.setBackgroundColor(Color.WHITE)
             holder.titleView.setText(targetItem.name)
             holder.titleView.setTextColor(Color.BLACK)
 
             holder.iconView.setImageResource(R.drawable.ic_home_black_24dp)
             holder.iconView.visibility = View.VISIBLE
+            holder.iconSpace.visibility = View.GONE
         }
         if (targetItem is ApplicationItem) {
+            holder.itemContainer.setBackgroundColor(Color.WHITE)
             holder.titleView.setText(targetItem.appName)
             holder.titleView.setTextColor(Color.BLACK)
 
@@ -57,12 +66,31 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                 holder.iconView.setImageResource(R.mipmap.ic_launcher)
             }
             holder.iconView.visibility = View.VISIBLE
+            holder.iconSpace.visibility = View.GONE
         }
-        if (targetItem is InformationItem) {
+        if (targetItem is TitleTextItem) {
+            holder.itemContainer.setBackgroundColor(Color.DKGRAY)
             holder.titleView.setText(targetItem.text)
-            holder.titleView.setTextColor(if (targetItem.linkURL != null) Color.BLUE else Color.RED)
+            holder.titleView.setTextColor(Color.WHITE)
 
-            holder.iconView.visibility = View.INVISIBLE
+            holder.iconView.visibility = View.GONE
+            holder.iconSpace.visibility = View.GONE
+        }
+        if (targetItem is TextItem) {
+            holder.itemContainer.setBackgroundColor(Color.LTGRAY)
+            holder.titleView.setText(targetItem.text)
+            holder.titleView.setTextColor(Color.BLACK)
+
+            holder.iconView.visibility = View.GONE
+            holder.iconSpace.visibility = View.VISIBLE
+        }
+        if (targetItem is LinkItem) {
+            holder.itemContainer.setBackgroundColor(Color.WHITE)
+            holder.titleView.setText(targetItem.url)
+            holder.titleView.setTextColor(Color.BLUE)
+
+            holder.iconView.visibility = View.GONE
+            holder.iconSpace.visibility = View.VISIBLE
         }
     }
 
@@ -77,6 +105,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     interface onItemClickListener {
         fun onGroupItemClick(item: GroupItem)
         fun onApplicationItemClick(item: ApplicationItem)
-        fun onInformationItemClick(item: InformationItem)
+        fun onTitleTextItemClick(item: TitleTextItem)
+        fun onTextItemClick(item: TextItem)
+        fun onLinkItemClick(item: LinkItem)
     }
 }
