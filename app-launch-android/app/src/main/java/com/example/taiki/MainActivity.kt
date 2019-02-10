@@ -16,14 +16,12 @@ import com.example.taiki.model.*
 
 class MainActivity : AppCompatActivity() {
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         DataModel.init(applicationContext)
         resetScreen()
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun resetScreen() {
         setContentView(R.layout.activity)
         val titleName = DataModel.peekScreen()
@@ -82,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         dividerItemDecoration.setDrawable(getDrawable(R.drawable.divider));
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return if (keyCode == KeyEvent.KEYCODE_BACK) {
             backOperation()
@@ -90,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         } else false
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun backOperation() {
         val currentScreen = DataModel.popScreen() // 現在のスクリーンは破棄
 
@@ -101,7 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun rebuild() {
         DataModel.refreshSaveData(
             {
