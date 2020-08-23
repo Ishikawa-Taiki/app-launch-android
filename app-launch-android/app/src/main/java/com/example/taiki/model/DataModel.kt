@@ -14,6 +14,12 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.util.*
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.support.v4.content.ContextCompat.getSystemService
+
+
 
 object DataModel {
     private lateinit var context: Context
@@ -119,5 +125,15 @@ object DataModel {
             null
         }
         return icon
+    }
+
+    fun copyText(text: String): Boolean {
+        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager;
+        if (clipboardManager == null) {
+            return false;
+        }
+        clipboardManager.setPrimaryClip(ClipData.newPlainText("", text));
+        Toast.makeText(context, "コピーしました("+text+")", Toast.LENGTH_SHORT).show();
+        return true;
     }
 }

@@ -51,6 +51,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(DataModel.getLinkIntent(item.url))
             }
         })
+        adapter.setOnItemLongClickListener(object : RecyclerViewAdapter.onItemLongClickListener {
+            override fun onApplicationItemLongClick(item: ApplicationItem): Boolean {
+                return DataModel.copyText(item.appName+"="+item.packageName);
+            }
+        })
 
         val returnButton = findViewById<Button>(R.id.return_button)
         returnButton.visibility = View.VISIBLE
