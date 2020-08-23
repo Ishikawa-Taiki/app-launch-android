@@ -14,6 +14,7 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     private val list = DataModel.getItemList()
 
     private var listener: onItemClickListener? = null
+    private var longListener: onItemLongClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val inflate = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
@@ -38,6 +39,31 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
                         listener?.onLinkItemClick(it)
                     }
                 }
+            }
+        })
+        holder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
+            override fun onLongClick(v: View?): Boolean {
+                val index = holder.adapterPosition
+                // TODO:綺麗なチェーンの書き方に直せるはずなので、Kotlin力が上がったら直す。
+                var flag = false;
+                list.get(index)?.let {
+//                    if (it is GroupItem) {
+//                        longListener?.onGroupItemLongClick(it)
+//                    }
+                    if (it is ApplicationItem) {
+                        flag = longListener?.onApplicationItemLongClick(it) ?: false;
+                    }
+//                    if (it is TitleTextItem) {
+//                        longListener?.onTitleTextItemLongClick(it)
+//                    }
+//                    if (it is TextItem) {
+//                        longListener?.onTextItemLongClick(it)
+//                    }
+//                    if (it is LinkItem) {
+//                        longListener?.onLinkItemLongClick(it)
+//                    }
+                }
+                return flag;
             }
         })
         return holder
@@ -101,6 +127,9 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
     fun setOnItemClickListener(listener: onItemClickListener) {
         this.listener = listener
     }
+    fun setOnItemLongClickListener(listener: onItemLongClickListener) {
+        this.longListener = listener
+    }
 
     interface onItemClickListener {
         fun onGroupItemClick(item: GroupItem)
@@ -108,5 +137,8 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewHolder>() {
         fun onTitleTextItemClick(item: TitleTextItem)
         fun onTextItemClick(item: TextItem)
         fun onLinkItemClick(item: LinkItem)
+    }
+    interface onItemLongClickListener {
+        fun onApplicationItemLongClick(item: ApplicationItem): Boolean
     }
 }
