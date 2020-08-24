@@ -14,10 +14,12 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import java.util.*
+import android.content.pm.ApplicationInfo
+
+
 
 object DataModel {
     private lateinit var context: Context
-    private val screenStack = ArrayDeque<String>()
 
     fun init(appContext: Context) {
         context = appContext
@@ -49,26 +51,6 @@ object DataModel {
             .subscribe()
     }
 
-    fun pushScreen(screen: String) {
-        screenStack.push(screen)
-    }
-
-    fun popScreen(): String? {
-        return try {
-            screenStack.pop()
-        } catch (e: NoSuchElementException) {
-            null
-        }
-    }
-
-    fun peekScreen(): String? {
-        return try {
-            screenStack.peek()
-        } catch (e: NoSuchElementException) {
-            null
-        }
-    }
-
     private fun convertItemFromWebAPIData(data: ServiceItemInformation): Item {
         return if (data.type.equals("group")) {
             GroupItem(data.data)
@@ -85,10 +67,18 @@ object DataModel {
         }
     }
 
-    fun getItemList(): List<Item> {
-        val filterName = peekScreen() ?: "root"
+
+    fun getFilterItemList(filterName: String): List<Item> {
         val list = SaveData.loadServiceList()?.filter { it.parentName.equals(filterName) }?.map { convertItemFromWebAPIData(it) }
         return list ?: emptyList()
+    }
+
+    fun getInstalledItemList(): List<Item> {
+        val pm = context.getPackageManager();
+        val installedAppList = pm.getInstalledApplications(0);
+        return installedAppList.map { ApplicationItem(it.loadLabel(pm).toString(), it.packageName) }.sortedWith(
+            compareBy(String.CASE_INSENSITIVE_ORDER, { it.appName })
+        )
     }
 
     fun getAppIntent(packageName: String): Intent {

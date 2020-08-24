@@ -11,9 +11,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.example.taiki.model.*
 import com.example.taiki.viewmodel.RecyclerViewAdapter
+import com.example.taiki.viewmodel.ScreenStack
 
 
 class MainFragment : Fragment() {
+
+    private var screen = ScreenStack();
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment, container, false)
@@ -21,14 +24,22 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resetScreen()
+        if (savedInstanceState != null) {
+            screen = savedInstanceState.getSerializable("screen") as ScreenStack ?: ScreenStack();
+        }
+        refreshScreen()
     }
 
-    private fun resetScreen() {
-        val titleName = DataModel.peekScreen()
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("screen", screen)
+    }
+
+    private fun refreshScreen() {
+        val titleName = screen.peekScreen()
         activity!!.setTitle(titleName ?: getString(R.string.app_name))
 
-        val adapter = RecyclerViewAdapter()
+        val adapter = RecyclerViewAdapter(DataModel.getFilterItemList(titleName ?: "root"))
         val rv = activity!!.findViewById(R.id.listView) as RecyclerView
         val llm = LinearLayoutManager(getContext())
         rv.setHasFixedSize(true)
@@ -36,8 +47,8 @@ class MainFragment : Fragment() {
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onGroupItemClick(item: GroupItem) {
-                DataModel.pushScreen(item.name)
-                resetScreen()
+                screen.pushScreen(item.name)
+                refreshScreen()
             }
 
             override fun onApplicationItemClick(item: ApplicationItem) {
@@ -85,17 +96,17 @@ class MainFragment : Fragment() {
         DataModel.refreshSaveData(
             {
                 if (it) {
-                    resetScreen()
+                    refreshScreen()
                 }
             }
         )
     }
 
     private fun backOperation() {
-        val currentScreen = DataModel.popScreen() // 現在のスクリーンは破棄
+        val currentScreen = screen.popScreen() // 現在のスクリーンは破棄
 
         if (currentScreen != null) {
-            resetScreen()
+            refreshScreen()
         } else {
             // TODO: 考える
 //            finish()

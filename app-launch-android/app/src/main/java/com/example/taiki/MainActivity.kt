@@ -3,6 +3,7 @@ package com.example.taiki
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.design.widget.TabLayout
+import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
 import com.example.taiki.model.DataModel
@@ -11,7 +12,7 @@ import com.example.taiki.viewmodel.FragmentPagerAdapter
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = FragmentPagerAdapter(supportFragmentManager)
         val viewPager = findViewById(R.id.viewPager) as ViewPager
-        viewPager.setOffscreenPageLimit(2)
+        viewPager.setOffscreenPageLimit(0)
         viewPager.setAdapter(adapter)
 
         val tabLayout = findViewById(R.id.tabLayout) as TabLayout

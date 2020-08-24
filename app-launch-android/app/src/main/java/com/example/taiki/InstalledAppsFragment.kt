@@ -8,36 +8,45 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import com.example.taiki.model.*
 import com.example.taiki.viewmodel.RecyclerViewAdapter
+import com.example.taiki.viewmodel.ScreenStack
 
 
-class MainFragment2 : Fragment() {
+class InstalledAppsFragment : Fragment() {
+
+    private var screen = ScreenStack();
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment2, container, false)
+        return inflater.inflate(R.layout.installed_apps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resetScreen()
+        if (savedInstanceState != null) {
+            screen = savedInstanceState.getSerializable("installedAppsScreen") as ScreenStack ?: ScreenStack();
+        }
+        refreshScreen()
     }
 
-    private fun resetScreen() {
-        val titleName = DataModel.peekScreen()
-        activity!!.setTitle(titleName ?: getString(R.string.app_name))
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("installedAppsScreen", screen)
+    }
 
-        val adapter = RecyclerViewAdapter()
-        val rv = activity!!.findViewById(R.id.listView) as RecyclerView
+    private fun refreshScreen() {
+        val titleName = screen.peekScreen()
+
+        val adapter = RecyclerViewAdapter(DataModel.getInstalledItemList())
+        val rv = activity!!.findViewById(R.id.installedAppsList) as RecyclerView
         val llm = LinearLayoutManager(getContext())
         rv.setHasFixedSize(true)
         rv.layoutManager = llm
         rv.adapter = adapter
         adapter.setOnItemClickListener(object : RecyclerViewAdapter.onItemClickListener {
             override fun onGroupItemClick(item: GroupItem) {
-                DataModel.pushScreen(item.name)
-                resetScreen()
+                screen.pushScreen(item.name)
+                refreshScreen()
             }
 
             override fun onApplicationItemClick(item: ApplicationItem) {
@@ -55,50 +64,11 @@ class MainFragment2 : Fragment() {
             }
         })
 
-        val returnButton = activity!!.findViewById<Button>(R.id.return_button)
-        returnButton.visibility = View.VISIBLE
-        if (titleName == null) {
-            returnButton.text = "再読み込み"
-            returnButton.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    rebuild()
-                }
-            })
-        } else {
-            returnButton.text = "戻る"
-            returnButton.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    backOperation()
-                }
-            })
-        }
-
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
             llm.orientation
         )
         rv.addItemDecoration(dividerItemDecoration)
         dividerItemDecoration.setDrawable(activity!!.getDrawable(R.drawable.divider));
-    }
-
-    private fun rebuild() {
-        DataModel.refreshSaveData(
-            {
-                if (it) {
-                    resetScreen()
-                }
-            }
-        )
-    }
-
-    private fun backOperation() {
-        val currentScreen = DataModel.popScreen() // 現在のスクリーンは破棄
-
-        if (currentScreen != null) {
-            resetScreen()
-        } else {
-            // TODO: 考える
-//            finish()
-        }
     }
 }

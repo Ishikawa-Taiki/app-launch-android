@@ -2,15 +2,14 @@ package com.example.taiki.viewmodel
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import com.example.taiki.MainFragment
-import android.os.Bundle
-import com.example.taiki.MainFragment2
+import com.example.taiki.InstalledAppsFragment
 
 
-class FragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class FragmentPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
-    private val tabTitles = arrayOf<CharSequence>("タブ1", "タブ2")
+    private val tabTitles = arrayOf<CharSequence>("お買い物", "アプリ一覧")
 
     override fun getPageTitle(position: Int): CharSequence? {
         return tabTitles[position]
@@ -19,7 +18,7 @@ class FragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         when (position) {
             0 -> return MainFragment()
-            1 -> return MainFragment2()
+            1 -> return InstalledAppsFragment()
             else -> return null
         }
     }
