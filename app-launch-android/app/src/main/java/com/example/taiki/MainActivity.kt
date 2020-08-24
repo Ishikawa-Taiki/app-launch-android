@@ -1,16 +1,12 @@
 package com.example.taiki
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewPager
 import android.view.KeyEvent
 import com.example.taiki.model.DataModel
 import com.example.taiki.viewmodel.FragmentPagerAdapter
-
-
-
 
 class MainActivity : FragmentActivity() {
 

@@ -63,6 +63,11 @@ class InstalledAppsFragment : Fragment() {
                 startActivity(DataModel.getLinkIntent(item.url))
             }
         })
+        adapter.setOnItemLongClickListener(object : RecyclerViewAdapter.onItemLongClickListener {
+            override fun onApplicationItemLongClick(item: ApplicationItem): Boolean {
+                return DataModel.copyText(item.appName+"="+item.packageName);
+            }
+        })
 
         val dividerItemDecoration = DividerItemDecoration(
             rv.getContext(),
