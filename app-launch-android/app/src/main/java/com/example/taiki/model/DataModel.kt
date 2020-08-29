@@ -15,6 +15,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.pm.ApplicationInfo
 
 object DataModel {
     private lateinit var context: Context
@@ -73,8 +74,8 @@ object DataModel {
 
     fun getInstalledItemList(): List<Item> {
         val pm = context.getPackageManager();
-        val installedAppList = pm.getInstalledApplications(0);
-        return installedAppList.map { ApplicationItem(it.loadLabel(pm).toString(), it.packageName) }.sortedWith(
+        val installedAppList = pm.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES);
+        return installedAppList.filter{ it.flags and ApplicationInfo.FLAG_SYSTEM == 0 }.map { ApplicationItem(it.loadLabel(pm).toString(), it.packageName) }.sortedWith(
             compareBy(String.CASE_INSENSITIVE_ORDER, { it.appName })
         )
     }
