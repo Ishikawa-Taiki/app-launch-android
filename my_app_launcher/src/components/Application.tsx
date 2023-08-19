@@ -3,14 +3,13 @@ import { ViewSpec } from "../const";
 
 export type ApplicationProps = {
 	onPress?: () => void;
-	title: string;
 	packageName: string;
 }
 
 export const Application = (props: ApplicationProps) => (
 	<Pressable style={styles.item} onPress={props.onPress}>
 		<View style={styles.icon} />
-		<Text style={styles.title}>{props.title}</Text>
+		<Text style={styles.title}>{props.packageName}</Text>
 	</Pressable>
 )
 
