@@ -4,12 +4,14 @@ export const ViewSpec = {
 	},
 	FontStyle: {
 		linkColor: '#0000ee',
+		displayTextColor: '#888888',
 	},
 	ImageSize: {
 		listIcon: 48,
 	},
 	Color: {
 		listBackground: '#ffffff',
+		disableListBackground: '#CCCCCC',
 		todo: '#ff00ff',
 	},
 	Margin: {
