@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ApplicationList from './src/pages/ApplicationList';
-import Shopping from './src/pages/shopping';
+import Shopping from './src/pages/Shopping';
 import ShoppingDetail from './src/pages/ShoppingDetail';
 
 const Tab = createMaterialTopTabNavigator();
