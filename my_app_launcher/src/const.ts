@@ -7,11 +7,11 @@ export const ViewSpec = {
 	},
 	Color: {
 		listBackground: '#ffffff',
-		todo: '#ff0000',
+		todo: '#ff00ff',
 	},
 	Margin: {
 		listItem: 8,
-		imageText: 16,
+		imageText: 12,
 	},
 	BorderStyle: {
 		listBorderColor: '#E1E6E6',
