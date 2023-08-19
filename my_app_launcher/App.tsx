@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ApplicationList from './src/pages/ApplicationList';
 import Shopping from './src/pages/Shopping';
 import ShoppingDetail from './src/pages/ShoppingDetail';
+import { ViewSpec } from './src/const';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -12,27 +13,31 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Feed"
+      <Stack.Navigator
         screenOptions={{
-          tabBarActiveTintColor: '#e91e63',
-          tabBarLabelStyle: { fontSize: 12 },
-          tabBarStyle: { backgroundColor: 'powderblue' },
+          headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
+          headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
         }}>
-        <Tab.Screen name="ShoppingStack" component={ShoppingStack}
-          options={{ tabBarLabel: 'お買い物' }} />
-        <Tab.Screen name="ApplicationList" component={ApplicationList}
-          options={{ tabBarLabel: 'アプリ一覧' }} />
-      </Tab.Navigator>
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="ShoppingDetail" component={ShoppingDetail} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function ShoppingStack() {
+function Tabs() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Shopping" component={Shopping} />
-      <Stack.Screen name="ShoppingDetail" component={ShoppingDetail}/>
-    </Stack.Navigator>
+    <Tab.Navigator
+      initialRouteName="Feed"
+      screenOptions={{
+        tabBarActiveTintColor: ViewSpec.FontStyle.tabNavigatorTextColor,
+        tabBarLabelStyle: { fontSize: ViewSpec.FontSize.tabNavigatorText },
+        tabBarStyle: { backgroundColor: ViewSpec.Color.tabNavigatorBackground },
+      }}>
+      <Tab.Screen name="Shopping" component={Shopping}
+        options={{ tabBarLabel: ViewSpec.TextDefinition.shoppingTab }} />
+      <Tab.Screen name="ApplicationList" component={ApplicationList}
+        options={{ tabBarLabel: ViewSpec.TextDefinition.applicationListTab }} />
+    </Tab.Navigator>
   )
 }
