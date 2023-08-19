@@ -10,6 +10,7 @@ export const ViewSpec = {
 	FontStyle: {
 		linkColor: '#0000ee',
 		displayTextColor: '#888888',
+		headlineTextColor: '#EEEEEE',
 		appTopNavigatorTextColor: 'white',
 		tabNavigatorTextColor: '#e91e63',
 	},
@@ -21,6 +22,7 @@ export const ViewSpec = {
 		tabNavigatorBackground: 'powderblue',
 		listBackground: '#ffffff',
 		disableListBackground: '#CCCCCC',
+		headlineBackground: '#555555',
 		todo: '#ff00ff',
 	},
 	Margin: {
