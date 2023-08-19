@@ -1,11 +1,11 @@
-import { requestWebAPI } from "./WebAPI";
+import { requestWebAPI } from './WebAPI';
 
 export type AndroidApplication = {
-	shortName: string,
-	longName: string,
-	packageName: string
-}
+  shortName: string;
+  longName: string;
+  packageName: string;
+};
 
 export async function fetchAndroidApplications() {
-	return requestWebAPI<AndroidApplication[]>("exec?file=AndroidApplications&sheet=shopping");
+  return requestWebAPI<AndroidApplication[]>('exec?file=AndroidApplications&sheet=shopping');
 }
