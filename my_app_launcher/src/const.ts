@@ -1,15 +1,24 @@
 export const ViewSpec = {
+	TextDefinition: {
+		shoppingTab: "お買い物",
+		applicationListTab: "アプリ一覧",
+	},
 	FontSize: {
+		tabNavigatorText: 24,
 		listItem: 24,
 	},
 	FontStyle: {
 		linkColor: '#0000ee',
 		displayTextColor: '#888888',
+		appTopNavigatorTextColor: 'white',
+		tabNavigatorTextColor: '#e91e63',
 	},
 	ImageSize: {
 		listIcon: 48,
 	},
 	Color: {
+		appTopNavigatorBackground: 'tomato',
+		tabNavigatorBackground: 'powderblue',
 		listBackground: '#ffffff',
 		disableListBackground: '#CCCCCC',
 		todo: '#ff00ff',

@@ -5,6 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ApplicationList from './src/pages/ApplicationList';
 import Shopping from './src/pages/Shopping';
 import ShoppingDetail from './src/pages/ShoppingDetail';
+import { ViewSpec } from './src/const';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -12,7 +13,11 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
+          headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
+        }}>
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="ShoppingDetail" component={ShoppingDetail} />
       </Stack.Navigator>
@@ -25,14 +30,14 @@ function Tabs() {
     <Tab.Navigator
       initialRouteName="Feed"
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
-        tabBarLabelStyle: { fontSize: 12 },
-        tabBarStyle: { backgroundColor: 'powderblue' },
+        tabBarActiveTintColor: ViewSpec.FontStyle.tabNavigatorTextColor,
+        tabBarLabelStyle: { fontSize: ViewSpec.FontSize.tabNavigatorText },
+        tabBarStyle: { backgroundColor: ViewSpec.Color.tabNavigatorBackground },
       }}>
       <Tab.Screen name="Shopping" component={Shopping}
-        options={{ tabBarLabel: 'お買い物' }} />
+        options={{ tabBarLabel: ViewSpec.TextDefinition.shoppingTab }} />
       <Tab.Screen name="ApplicationList" component={ApplicationList}
-        options={{ tabBarLabel: 'アプリ一覧' }} />
+        options={{ tabBarLabel: ViewSpec.TextDefinition.applicationListTab }} />
     </Tab.Navigator>
   )
 }
