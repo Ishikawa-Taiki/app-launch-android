@@ -1,14 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default function sample1({ navigation }) {
+export default function ShoppingDetail({ navigation }) {
 	return (
 		<View style={styles.container}>
-			<Text>sample1</Text>
-			<StatusBar style="auto" />
+			<Text>ShoppingDetail</Text>
 			<Button
 				onPress={() => {
-					navigation.push('sample1')
+					navigation.push('ShoppingDetail')
 				}}
 				title="TEST"
 				color="#841584"

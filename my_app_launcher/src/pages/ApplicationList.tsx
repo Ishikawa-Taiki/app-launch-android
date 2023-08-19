@@ -1,11 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-export default function sample2() {
+export default function ApplicationList({ navigation }) {
 	return (
 		<View style={styles.container}>
-			<Text>sample2</Text>
-			<StatusBar style="auto" />
+			<Text>ApplicationList</Text>
 		</View>
 	);
 }
