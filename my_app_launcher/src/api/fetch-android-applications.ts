@@ -1,3 +1,4 @@
+import { requestWebAPI } from "./WebAPI";
 
 export type AndroidApplication = {
 	shortName: string,
