@@ -1,15 +1,14 @@
 import { StyleSheet, Pressable, View, Text } from "react-native";
 import { ViewSpec } from "../const";
 
-export type DirectoryProps = {
+export type LinkProps = {
 	onPress?: () => void;
-	title: string;
+	url: string;
 }
 
-export const Directory = (props: DirectoryProps) => (
+export const Link = (props: LinkProps) => (
 	<Pressable style={styles.item} onPress={props.onPress}>
-		<View style={styles.icon} />
-		<Text style={styles.title}>{props.title}</Text>
+		<Text style={styles.title}>{props.url}</Text>
 	</Pressable>
 )
 
@@ -23,13 +22,9 @@ const styles = StyleSheet.create({
 		borderWidth: ViewSpec.BorderStyle.listBorderWidth,
 		borderColor: ViewSpec.BorderStyle.listBorderColor,
 	},
-	icon: {
-		backgroundColor: ViewSpec.Color.todo,
-		width: ViewSpec.ImageSize.listIcon,
-		height: ViewSpec.ImageSize.listIcon,
-	},
 	title: {
-		marginLeft: ViewSpec.Margin.imageText,
 		fontSize: ViewSpec.FontSize.listItem,
+		color: ViewSpec.FontStyle.linkColor,
+		textDecorationLine: 'underline',
 	},
 });

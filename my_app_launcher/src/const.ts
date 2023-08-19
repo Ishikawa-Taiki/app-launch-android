@@ -2,6 +2,9 @@ export const ViewSpec = {
 	FontSize: {
 		listItem: 24,
 	},
+	FontStyle: {
+		linkColor: '#0000ee',
+	},
 	ImageSize: {
 		listIcon: 48,
 	},
