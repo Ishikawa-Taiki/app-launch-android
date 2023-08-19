@@ -17,9 +17,10 @@ export default function App() {
         screenOptions={{
           headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
           headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
-        }}>
-        <Stack.Screen name="Tabs" component={Tabs} />
-        <Stack.Screen name="ShoppingDetail" component={ShoppingDetail} />
+        }}
+      >
+        <Stack.Screen name='Tabs' component={Tabs} />
+        <Stack.Screen name='ShoppingDetail' component={ShoppingDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -28,16 +29,23 @@ export default function App() {
 function Tabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName='Feed'
       screenOptions={{
         tabBarActiveTintColor: ViewSpec.FontStyle.tabNavigatorTextColor,
         tabBarLabelStyle: { fontSize: ViewSpec.FontSize.tabNavigatorText },
         tabBarStyle: { backgroundColor: ViewSpec.Color.tabNavigatorBackground },
-      }}>
-      <Tab.Screen name="Shopping" component={Shopping}
-        options={{ tabBarLabel: ViewSpec.TextDefinition.shoppingTab }} />
-      <Tab.Screen name="ApplicationList" component={ApplicationList}
-        options={{ tabBarLabel: ViewSpec.TextDefinition.applicationListTab }} />
+      }}
+    >
+      <Tab.Screen
+        name='Shopping'
+        component={Shopping}
+        options={{ tabBarLabel: ViewSpec.TextDefinition.shoppingTab }}
+      />
+      <Tab.Screen
+        name='ApplicationList'
+        component={ApplicationList}
+        options={{ tabBarLabel: ViewSpec.TextDefinition.applicationListTab }}
+      />
     </Tab.Navigator>
-  )
+  );
 }

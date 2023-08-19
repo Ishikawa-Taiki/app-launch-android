@@ -1,25 +1,12 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ShoppingService, fetchShoppingServices } from '../api/fetch-shopping-services';
+import ShoppingServiceList from '../template/ShoppingServiceList';
 
 export default function Shopping({ navigation }) {
-	return (
-		<View style={styles.container}>
-			<Text>Shopping</Text>
-			<Button
-				onPress={() => {
-					navigation.push('ShoppingDetail')
-				}}
-				title="TEST"
-				color="#841584"
-			/>
-		</View>
-	);
-}
+  const [data, setData] = useState<ShoppingService[]>([]);
+  useEffect(() => {
+    fetchShoppingServices().then(setData);
+  }, []);
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
+  return ShoppingServiceList(data, 'root', navigation);
+}

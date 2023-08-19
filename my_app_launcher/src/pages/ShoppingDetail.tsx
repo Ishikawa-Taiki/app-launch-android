@@ -1,25 +1,11 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
+import ShoppingServiceList from '../template/ShoppingServiceList';
+import { ShoppingService } from '../api/fetch-shopping-services';
 
-export default function ShoppingDetail({ navigation }) {
-	return (
-		<View style={styles.container}>
-			<Text>ShoppingDetail</Text>
-			<Button
-				onPress={() => {
-					navigation.push('ShoppingDetail')
-				}}
-				title="TEST"
-				color="#841584"
-			/>
-		</View>
-	);
+export default function ShoppingDetail(props) {
+  return ShoppingServiceList(
+    props.route.params.items as ShoppingService[],
+    props.route.params.filter,
+    props.navigation,
+  );
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
