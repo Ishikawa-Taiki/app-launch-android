@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my_app_launcher",
-    "slug": "my_app_launcher",
+    "name": "My App Launcher",
+    "slug": "myAppLauncher",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
