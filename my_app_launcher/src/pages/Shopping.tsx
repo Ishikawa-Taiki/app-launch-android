@@ -5,9 +5,7 @@ import { useAppDispatch } from '../app/hooks';
 import { prepare } from '../features/shopping/slice';
 
 export default function Shopping({ navigation }) {
-  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(prepare());
     // fetchShoppingServices().then(setData);
   }, []);
 

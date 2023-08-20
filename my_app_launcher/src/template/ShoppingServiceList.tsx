@@ -7,17 +7,17 @@ import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
 import { useAppSelector } from '../app/hooks';
-import { makeSelectServicesByParentName } from '../features/shopping/slice';
+import { selectServices } from '../features/shopping/slice';
 
 export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
-  console.log('filter!!!!:' + props.filter);
-  const selectServicesByParentName = useMemo(makeSelectServicesByParentName, []);
-  const list = useAppSelector((state) => {
-    console.log('filter2!!!!:' + props.filter);
-    return selectServicesByParentName(state, props.filter);
-  });
+  const list = useAppSelector(selectServices);
 
-  return <FlatList data={list} renderItem={({ item }) => Item(item, props.navigation)} />;
+  return (
+    <FlatList
+      data={list.filter((service) => service.parentName === props.filter)}
+      renderItem={({ item }) => Item(item, props.navigation)}
+    />
+  );
 }
 
 const Item = (itemData: ShoppingService, navigation) => {
@@ -27,7 +27,6 @@ const Item = (itemData: ShoppingService, navigation) => {
         <Directory
           onPress={() => {
             const params = { filter: itemData.data };
-            console.log(JSON.stringify(params));
             navigation.push('ShoppingDetail', params);
           }}
           title={itemData.data}

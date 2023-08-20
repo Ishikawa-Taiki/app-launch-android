@@ -15,24 +15,39 @@ const initialState: State = {
 const dummyData = [
   {
     data: 'data1',
-    parentName: 'parentName1',
+    parentName: 'root',
     type: 'group',
   },
   {
     data: 'data2',
-    parentName: 'parentName2',
+    parentName: 'root',
     type: 'group',
   },
   {
     data: 'data3',
+    parentName: 'root',
+    type: 'text',
+  },
+  {
+    data: 'data4',
+    parentName: 'data1',
+    type: 'title-text',
+  },
+  {
+    data: 'data5',
+    parentName: 'data1',
+    type: 'link',
+  },
+  {
+    data: 'data6',
     parentName: 'parentName3',
-    type: 'group',
+    type: 'application',
   },
 ] as ShoppingService[];
 
 export const counterSlice = createSlice({
   name: 'shopping',
-  initialState,
+  initialState: { services: dummyData },
   reducers: {
     prepare: (state) => {
       state.services = dummyData;
@@ -43,15 +58,6 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { prepare } = counterSlice.actions;
 
-const selectServices = (state: RootState) => state.shopping;
-const selectParentName = (state: RootState, parentName: string) => parentName;
-export const makeSelectServicesByParentName = () => {
-  const selectServicesByParentName = createSelector(
-    [selectServices, selectParentName],
-    (shopping: State, parentName: string) =>
-      shopping.services.filter((service) => service.parentName === parentName),
-  );
-  return selectServicesByParentName;
-};
+export const selectServices = (state: RootState) => state.shopping.services;
 
 export default counterSlice.reducer;
