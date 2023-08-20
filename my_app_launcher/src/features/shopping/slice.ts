@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ShoppingService, fetchShoppingServices } from '../../api/fetch-shopping-services';
+import { ShoppingService, fetchShoppingServices } from './fetch-shopping-services';
 import { load, save } from '../../app/storage';
 
 // Define a type for the slice state
