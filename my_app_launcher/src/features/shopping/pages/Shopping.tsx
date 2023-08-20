@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ShoppingServiceList from '../template/ShoppingServiceList';
-import { useAppDispatch } from '../app/hooks';
-import { prepare } from '../features/shopping/slice';
+import { useAppDispatch } from '../../../common/hooks';
+import { prepare } from '../slice';
 
 export default function Shopping({ navigation }) {
   const dispatch = useAppDispatch();

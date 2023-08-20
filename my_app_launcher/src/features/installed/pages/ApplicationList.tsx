@@ -1,6 +1,6 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { update } from '../features/shopping/slice';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { update } from '../../shopping/slice';
+import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 
 export default function ApplicationList({ navigation }) {
   const dispatch = useAppDispatch();
