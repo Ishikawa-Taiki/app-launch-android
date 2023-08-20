@@ -59,5 +59,7 @@ export const counterSlice = createSlice({
 export const { prepare } = counterSlice.actions;
 
 export const selectServices = (state: RootState) => state.shopping.services;
+export const selectServicesByParentName = (state: RootState, parentName: string) =>
+  state.shopping.services.filter((service) => service.parentName === parentName);
 
 export default counterSlice.reducer;

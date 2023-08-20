@@ -7,17 +7,12 @@ import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
 import { useAppSelector } from '../app/hooks';
-import { selectServices } from '../features/shopping/slice';
+import { selectServicesByParentName } from '../features/shopping/slice';
 
 export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
-  const list = useAppSelector(selectServices);
+  const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
 
-  return (
-    <FlatList
-      data={list.filter((service) => service.parentName === props.filter)}
-      renderItem={({ item }) => Item(item, props.navigation)}
-    />
-  );
+  return <FlatList data={list} renderItem={({ item }) => Item(item, props.navigation)} />;
 }
 
 const Item = (itemData: ShoppingService, navigation) => {
