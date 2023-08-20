@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import shopping from '../features/shopping/slice';
 
-export default configureStore({
+export const store = configureStore({
   reducer: {
     shopping: shopping,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

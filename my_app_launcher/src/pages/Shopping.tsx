@@ -5,7 +5,7 @@ import ShoppingServiceList from '../template/ShoppingServiceList';
 export default function Shopping({ navigation }) {
   const [data, setData] = useState<ShoppingService[]>([]);
   useEffect(() => {
-    fetchShoppingServices().then(setData);
+    // fetchShoppingServices().then(setData);
   }, []);
 
   return ShoppingServiceList(data, 'root', navigation);

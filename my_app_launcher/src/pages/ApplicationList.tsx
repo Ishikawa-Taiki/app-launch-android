@@ -1,13 +1,13 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment } from '../features/shopping/slice';
+import { increment, selectCount } from '../features/shopping/slice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 export default function ApplicationList({ navigation }) {
-  const count = useSelector((state) => state.shopping.value);
-  const dispatch = useDispatch();
+  const count = useAppSelector(selectCount);
+  const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
-      <Text>ApplicationList: {count}</Text>
+      <Text>ApplicationList: {count} !!! </Text>
       <Button
         onPress={() => {
           console.log('pressed!');

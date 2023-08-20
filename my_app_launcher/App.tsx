@@ -7,7 +7,7 @@ import Shopping from './src/pages/Shopping';
 import ShoppingDetail from './src/pages/ShoppingDetail';
 import { ViewSpec } from './src/const';
 import { Provider } from 'react-redux';
-import store from './src/app/store';
+import { store } from './src/app/store';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
