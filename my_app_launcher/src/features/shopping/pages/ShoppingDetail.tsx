@@ -1,7 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import ShoppingServiceList from '../template/ShoppingServiceList';
-import { ShoppingService } from '../fetch-shopping-services';
 
-export default function ShoppingDetail(props: { route: { params: any[] } }) {
-  return <ShoppingServiceList filter={props.route.params.filter} />;
+export default function ShoppingDetail() {
+  const route = useRoute() as { params: { filter: string } };
+  return <ShoppingServiceList filter={route.params.filter} />;
 }
