@@ -33,9 +33,17 @@ const ShoppingContents = (props: { status: LoadingStatus; error: any }) => {
     case 'idle':
       return null;
     case 'loading':
-      return <ActivityIndicator size='large' />;
+      return (
+        <View style={styles.loadingAndErrorContainer}>
+          <ActivityIndicator size='large' />
+        </View>
+      );
     case 'failed':
-      return <Text style={styles.errorText}>{JSON.stringify(props.error)}</Text>;
+      return (
+        <View style={styles.loadingAndErrorContainer}>
+          <Text style={styles.errorText}>エラー：{JSON.stringify(props.error)}</Text>
+        </View>
+      );
     case 'succeeded':
       return <ShoppingServiceList filter={'root'} />;
   }
@@ -45,6 +53,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+  },
+  loadingAndErrorContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   errorText: {
     fontSize: ViewSpec.FontSize.listItem,
