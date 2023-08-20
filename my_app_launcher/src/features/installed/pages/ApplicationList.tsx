@@ -1,19 +1,10 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { update } from '../../shopping/slice';
-import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 
-export default function ApplicationList({ navigation }) {
-  const dispatch = useAppDispatch();
+export default function ApplicationList() {
   return (
     <View style={styles.container}>
       <Text>ApplicationList</Text>
-      <Button
-        onPress={() => {
-          dispatch(update());
-        }}
-        title='button'
-        color='#841584'
-      />
+      <Button onPress={() => {}} title='button' color='#841584' />
     </View>
   );
 }

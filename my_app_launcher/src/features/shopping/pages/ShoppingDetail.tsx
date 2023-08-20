@@ -1,7 +1,27 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import ShoppingServiceList from '../template/ShoppingServiceList';
+import { OptionButton } from '../components/OptionButton';
+import { StyleSheet, View } from 'react-native';
 
 export default function ShoppingDetail() {
   const route = useRoute() as { params: { filter: string } };
-  return <ShoppingServiceList filter={route.params.filter} />;
+  const navigation = useNavigation();
+  return (
+    <View style={styles.container}>
+      <ShoppingServiceList filter={route.params.filter} />
+      <OptionButton
+        title='戻る'
+        onPress={() => {
+          navigation.goBack();
+        }}
+      />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});

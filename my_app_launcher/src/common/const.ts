@@ -10,18 +10,20 @@ export const ViewSpec = {
   FontStyle: {
     linkColor: '#0000ee',
     displayTextColor: '#888888',
+    optionButtonTextColor: '#222222',
     headlineTextColor: '#EEEEEE',
     appTopNavigatorTextColor: 'white',
-    tabNavigatorTextColor: '#e91e63',
+    tabNavigatorTextColor: 'white',
   },
   ImageSize: {
     listIcon: 48,
   },
   Color: {
     appTopNavigatorBackground: 'tomato',
-    tabNavigatorBackground: 'powderblue',
+    tabNavigatorBackground: 'tomato',
     listBackground: '#ffffff',
     disableListBackground: '#CCCCCC',
+    optionButtonBackground: 'powderblue',
     headlineBackground: '#555555',
     todo: '#ff00ff',
   },
