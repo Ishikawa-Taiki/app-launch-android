@@ -1,13 +1,13 @@
 import { FlatList, Linking } from 'react-native';
 import React from 'react';
-import { ShoppingService } from '../fetch-shopping-services';
+import { ShoppingService } from '../api/fetch-shopping-services';
 import { Headline } from '../components/Headline';
 import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
 import { useAppSelector } from '../../../common/hooks';
-import { selectServicesByParentName } from '../slice';
+import { selectServicesByParentName } from '../selector';
 import { useNavigation } from '@react-navigation/native';
 
 export default function ShoppingServiceList(props: { filter: string }) {
@@ -34,7 +34,7 @@ const Item = (props: { itemData: ShoppingService }) => {
     case 'text':
       return <DisplayText text={props.itemData.data} />;
     case 'application':
-      return <Application packageName={props.itemData.data} />;
+      return <Application shortName={props.itemData.data} />;
     case 'link':
       return (
         <Link onPress={() => Linking.openURL(props.itemData.data)} url={props.itemData.data} />

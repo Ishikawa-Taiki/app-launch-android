@@ -1,17 +1,22 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { ViewSpec } from '../../../common/const';
+import { useAppSelector } from '../../../common/hooks';
+import { selectApplicationsByShortName } from '../selector';
 
 export type ApplicationProps = {
   onPress?: () => void;
-  packageName: string;
+  shortName: string;
 };
 
-export const Application = (props: ApplicationProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
-    <View style={styles.icon} />
-    <Text style={styles.title}>{props.packageName}</Text>
-  </Pressable>
-);
+export const Application = (props: ApplicationProps) => {
+  const item = useAppSelector((state) => selectApplicationsByShortName(state, props.shortName));
+  return (
+    <Pressable style={styles.item} onPress={props.onPress}>
+      <View style={styles.icon} />
+      <Text style={styles.title}>{item?.shortName}</Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   item: {

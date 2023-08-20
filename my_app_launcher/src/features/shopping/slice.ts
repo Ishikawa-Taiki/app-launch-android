@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
 import { ShoppingService, fetchShoppingServices } from './api/fetch-shopping-services';
 import { AndroidApplication, fetchAndroidApplications } from './api/fetch-android-applications';
 import { load, save } from '../../common/storage';
@@ -58,13 +57,6 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {} = counterSlice.actions;
 
-export const selectServices = (state: RootState) => state.shopping.data.services;
-export const selectServicesByParentName = (state: RootState, parentName: string) =>
-  state.shopping.data.services.filter((service) => service.parentName === parentName);
-export const selectApplications = (state: RootState) => state.shopping.data.applications;
-export const selectApplicationsByShortName = (state: RootState, shortName: string) =>
-  state.shopping.data.applications.filter((application) => application.shortName === shortName);
-
 const SHOPPING_STORAGE_KEY = 'shopping-services';
 const APPLICATION_STORAGE_KEY = 'android-applications';
 
@@ -77,6 +69,7 @@ export const prepare = createAsyncThunk('shopping/prepare', async () => {
     : [];
   return { services, applications };
 });
+
 export const update = createAsyncThunk('shopping/update', async () => {
   const services = await fetchShoppingServices();
   const applications = await fetchAndroidApplications();
