@@ -1,4 +1,4 @@
-import { requestWebAPI } from './WebAPI';
+import { requestWebAPI } from './api';
 
 export type DataType =
   | 'group' // 子供をまとめるグループに使用する	ただの文字情報なのでなんでもOK
