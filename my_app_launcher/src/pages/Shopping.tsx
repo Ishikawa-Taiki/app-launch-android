@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
-import { ShoppingService, fetchShoppingServices } from '../api/fetch-shopping-services';
+import { useEffect } from 'react';
 import ShoppingServiceList from '../template/ShoppingServiceList';
+import { useAppDispatch } from '../app/hooks';
+import { prepare } from '../features/shopping/slice';
 
 export default function Shopping({ navigation }) {
-  const [data, setData] = useState<ShoppingService[]>([]);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    fetchShoppingServices().then(setData);
+    console.log('pressed!');
+    dispatch(prepare());
   }, []);
 
-  return ShoppingServiceList(data, 'root', navigation);
+  return <ShoppingServiceList filter={'root'} navigation={navigation} />;
 }

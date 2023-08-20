@@ -6,23 +6,27 @@ import ApplicationList from './src/pages/ApplicationList';
 import Shopping from './src/pages/Shopping';
 import ShoppingDetail from './src/pages/ShoppingDetail';
 import { ViewSpec } from './src/const';
+import { Provider } from 'react-redux';
+import { store } from './src/app/store';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
-          headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
-        }}
-      >
-        <Stack.Screen name='Tabs' component={Tabs} />
-        <Stack.Screen name='ShoppingDetail' component={ShoppingDetail} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
+            headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
+          }}
+        >
+          <Stack.Screen name='Tabs' component={Tabs} />
+          <Stack.Screen name='ShoppingDetail' component={ShoppingDetail} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

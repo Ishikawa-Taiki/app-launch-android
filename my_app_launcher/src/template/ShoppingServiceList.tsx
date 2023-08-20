@@ -1,26 +1,27 @@
 import { FlatList, Linking } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ShoppingService } from '../api/fetch-shopping-services';
 import { Headline } from '../components/Headline';
 import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
+import { useAppSelector } from '../app/hooks';
+import { selectServicesByParentName } from '../features/shopping/slice';
 
-export default function ShoppingServiceList(items: ShoppingService[], filter: string, navigation) {
-  const list = items.filter((value) => !!value.data && value.parentName === filter);
+export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
+  const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
 
-  return <FlatList data={list} renderItem={({ item }) => Item(items, item, navigation)} />;
+  return <FlatList data={list} renderItem={({ item }) => Item(item, props.navigation)} />;
 }
 
-const Item = (items: ShoppingService[], itemData: ShoppingService, navigation) => {
+const Item = (itemData: ShoppingService, navigation) => {
   switch (itemData.type) {
     case 'group':
       return (
         <Directory
           onPress={() => {
-            const params = { items: items, filter: itemData.data };
-            console.log(JSON.stringify(params));
+            const params = { filter: itemData.data };
             navigation.push('ShoppingDetail', params);
           }}
           title={itemData.data}
