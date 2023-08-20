@@ -6,7 +6,6 @@ import { prepare } from '../features/shopping/slice';
 export default function Shopping({ navigation }) {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log('pressed!');
     dispatch(prepare());
   }, []);
 
