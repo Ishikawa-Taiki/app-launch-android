@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ShoppingServiceList from '../../../template/ShoppingServiceList';
+import ShoppingServiceList from '../template/ShoppingServiceList';
 import { useAppDispatch } from '../../../app/hooks';
 import { prepare } from '../slice';
 

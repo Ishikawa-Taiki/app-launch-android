@@ -1,13 +1,13 @@
 import { FlatList, Linking } from 'react-native';
 import React, { useMemo } from 'react';
-import { ShoppingService } from '../api/fetch-shopping-services';
-import { Headline } from '../features/shopping/components/Headline';
-import { Directory } from '../features/shopping/components/Directory';
-import { DisplayText } from '../features/shopping/components/DisplayText';
-import { Application } from '../features/shopping/components/Application';
-import { Link } from '../features/shopping/components/Link';
-import { useAppSelector } from '../app/hooks';
-import { selectServicesByParentName } from '../features/shopping/slice';
+import { ShoppingService } from '../../../api/fetch-shopping-services';
+import { Headline } from '../components/Headline';
+import { Directory } from '../components/Directory';
+import { DisplayText } from '../components/DisplayText';
+import { Application } from '../components/Application';
+import { Link } from '../components/Link';
+import { useAppSelector } from '../../../app/hooks';
+import { selectServicesByParentName } from '../slice';
 
 export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
   const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
