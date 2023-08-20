@@ -1,12 +1,12 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
-import { ViewSpec } from '../const';
+import { ViewSpec } from '../../../const';
 
-export type DisplayTextProps = {
+export type HeadlineProps = {
   onPress?: () => void;
   text: string;
 };
 
-export const DisplayText = (props: DisplayTextProps) => (
+export const Headline = (props: HeadlineProps) => (
   <Pressable style={styles.item} onPress={props.onPress}>
     <Text style={styles.title}>{props.text}</Text>
   </Pressable>
@@ -14,17 +14,16 @@ export const DisplayText = (props: DisplayTextProps) => (
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: ViewSpec.Color.disableListBackground,
+    backgroundColor: ViewSpec.Color.headlineBackground,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: ViewSpec.Margin.listItem,
-    height: ViewSpec.ImageSize.listIcon + ViewSpec.Margin.listItem * 2,
     borderWidth: ViewSpec.BorderStyle.listBorderWidth,
     borderColor: ViewSpec.BorderStyle.listBorderColor,
   },
   title: {
     fontSize: ViewSpec.FontSize.listItem,
-    color: ViewSpec.FontStyle.displayTextColor,
-    fontStyle: 'italic',
+    color: ViewSpec.FontStyle.headlineTextColor,
+    fontWeight: 'bold',
   },
 });

@@ -1,5 +1,5 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
-import { ViewSpec } from '../const';
+import { ViewSpec } from '../../../const';
 
 export type DirectoryProps = {
   onPress?: () => void;
