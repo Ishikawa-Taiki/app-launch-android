@@ -1,5 +1,15 @@
+import { StyleSheet } from 'react-native';
+
+const CommonSpec = {
+  Color: {
+    main: 'tomato',
+    sub: 'powderblue',
+  },
+};
+
 export const ViewSpec = {
   TextDefinition: {
+    headerTitleDefault: 'My App Launcher',
     shoppingTab: 'お買い物',
     applicationListTab: 'アプリ一覧',
   },
@@ -10,19 +20,23 @@ export const ViewSpec = {
   FontStyle: {
     linkColor: '#0000ee',
     displayTextColor: '#888888',
+    optionButtonTextColor: '#222222',
     headlineTextColor: '#EEEEEE',
+    headlineMinHeight: 32,
     appTopNavigatorTextColor: 'white',
-    tabNavigatorTextColor: '#e91e63',
+    tabNavigatorTextColor: 'white',
   },
   ImageSize: {
     listIcon: 48,
   },
   Color: {
-    appTopNavigatorBackground: 'tomato',
-    tabNavigatorBackground: 'powderblue',
+    appTopNavigatorBackground: CommonSpec.Color.main,
+    tabNavigatorBackground: CommonSpec.Color.main,
     listBackground: '#ffffff',
     disableListBackground: '#CCCCCC',
+    optionButtonBackground: CommonSpec.Color.sub,
     headlineBackground: '#555555',
+    directoryIcon: CommonSpec.Color.main,
     todo: '#ff00ff',
   },
   Margin: {
@@ -31,6 +45,6 @@ export const ViewSpec = {
   },
   BorderStyle: {
     listBorderColor: '#E1E6E6',
-    listBorderWidth: 1,
+    listBorderWidth: StyleSheet.hairlineWidth,
   },
 };
