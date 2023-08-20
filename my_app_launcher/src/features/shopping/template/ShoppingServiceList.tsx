@@ -6,7 +6,7 @@ import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
-import { useAppSelector } from '../../../app/hooks';
+import { useAppSelector } from '../../../common/hooks';
 import { selectServicesByParentName } from '../slice';
 
 export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
