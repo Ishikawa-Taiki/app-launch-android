@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk, createSelector, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { ShoppingService, fetchShoppingServices } from '../../api/fetch-shopping-services';
+import { load, save } from '../../app/storage';
 
 // Define a type for the slice state
 export interface State {
@@ -16,57 +17,31 @@ const initialState: State = {
   error: null,
 };
 
-const dummyData = [
-  {
-    data: 'data1',
-    parentName: 'root',
-    type: 'group',
-  },
-  {
-    data: 'data2',
-    parentName: 'root',
-    type: 'group',
-  },
-  {
-    data: 'data3',
-    parentName: 'root',
-    type: 'text',
-  },
-  {
-    data: 'data4',
-    parentName: 'data1',
-    type: 'title-text',
-  },
-  {
-    data: 'data5',
-    parentName: 'data1',
-    type: 'link',
-  },
-  {
-    data: 'data6',
-    parentName: 'parentName3',
-    type: 'application',
-  },
-] as ShoppingService[];
-
 export const counterSlice = createSlice({
   name: 'shopping',
   initialState,
-  reducers: {
-    prepare: (state) => {
-      state.services = dummyData;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetch.pending, (state, action) => {
+      .addCase(prepare.pending, (state, action) => {
         state.status = 'loading';
       })
-      .addCase(fetch.fulfilled, (state, action) => {
+      .addCase(prepare.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.services = action.payload;
       })
-      .addCase(fetch.rejected, (state, action) => {
+      .addCase(prepare.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(update.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(update.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.services = action.payload;
+      })
+      .addCase(update.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
@@ -74,14 +49,25 @@ export const counterSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { prepare } = counterSlice.actions;
+export const {} = counterSlice.actions;
 
 export const selectServices = (state: RootState) => state.shopping.services;
 export const selectServicesByParentName = (state: RootState, parentName: string) =>
   state.shopping.services.filter((service) => service.parentName === parentName);
 
-export const fetch = createAsyncThunk('shopping/fetch', async () => {
-  return await fetchShoppingServices();
+const STORAGE_KEY = 'shopping-services';
+
+export const prepare = createAsyncThunk('shopping/prepare', async () => {
+  const stringData = await load(STORAGE_KEY);
+  console.log('load: ' + stringData);
+  return !!stringData ? (JSON.parse(stringData) as ShoppingService[]) : [];
+});
+export const update = createAsyncThunk('shopping/update', async () => {
+  const data = await fetchShoppingServices();
+  const stringData = JSON.stringify(data);
+  console.log('save: ' + stringData);
+  await save(STORAGE_KEY, stringData);
+  return data;
 });
 
 export default counterSlice.reducer;
