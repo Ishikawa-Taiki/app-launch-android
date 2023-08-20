@@ -1,5 +1,7 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import { ViewSpec } from '../../../common/const';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesomeIcon from '../../../common/icons';
 
 export type DirectoryProps = {
   onPress?: () => void;
@@ -8,7 +10,11 @@ export type DirectoryProps = {
 
 export const Directory = (props: DirectoryProps) => (
   <Pressable style={styles.item} onPress={props.onPress}>
-    <View style={styles.icon} />
+    <FontAwesomeIcon
+      iconName='folder-open'
+      size={ViewSpec.ImageSize.listIcon}
+      color={ViewSpec.Color.directoryIcon}
+    />
     <Text style={styles.title}>{props.title}</Text>
   </Pressable>
 );
@@ -22,11 +28,6 @@ const styles = StyleSheet.create({
     height: ViewSpec.ImageSize.listIcon + ViewSpec.Margin.listItem * 2,
     borderWidth: ViewSpec.BorderStyle.listBorderWidth,
     borderColor: ViewSpec.BorderStyle.listBorderColor,
-  },
-  icon: {
-    backgroundColor: ViewSpec.Color.todo,
-    width: ViewSpec.ImageSize.listIcon,
-    height: ViewSpec.ImageSize.listIcon,
   },
   title: {
     marginLeft: ViewSpec.Margin.imageText,

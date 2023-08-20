@@ -1,3 +1,10 @@
+const CommonSpec = {
+  Color: {
+    main: 'tomato',
+    sub: 'powderblue',
+  },
+};
+
 export const ViewSpec = {
   TextDefinition: {
     shoppingTab: 'お買い物',
@@ -12,6 +19,7 @@ export const ViewSpec = {
     displayTextColor: '#888888',
     optionButtonTextColor: '#222222',
     headlineTextColor: '#EEEEEE',
+    headlineMinHeight: 32,
     appTopNavigatorTextColor: 'white',
     tabNavigatorTextColor: 'white',
   },
@@ -19,12 +27,13 @@ export const ViewSpec = {
     listIcon: 48,
   },
   Color: {
-    appTopNavigatorBackground: 'tomato',
-    tabNavigatorBackground: 'tomato',
+    appTopNavigatorBackground: CommonSpec.Color.main,
+    tabNavigatorBackground: CommonSpec.Color.main,
     listBackground: '#ffffff',
     disableListBackground: '#CCCCCC',
-    optionButtonBackground: 'powderblue',
+    optionButtonBackground: CommonSpec.Color.sub,
     headlineBackground: '#555555',
+    directoryIcon: CommonSpec.Color.main,
     todo: '#ff00ff',
   },
   Margin: {

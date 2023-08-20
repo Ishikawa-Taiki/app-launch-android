@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: ViewSpec.Margin.listItem,
-    height: ViewSpec.ImageSize.listIcon + ViewSpec.Margin.listItem * 2,
+    minHeight: ViewSpec.ImageSize.listIcon + ViewSpec.Margin.listItem * 2,
     borderWidth: ViewSpec.BorderStyle.listBorderWidth,
     borderColor: ViewSpec.BorderStyle.listBorderColor,
   },
