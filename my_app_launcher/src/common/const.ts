@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 const CommonSpec = {
   Color: {
     main: 'tomato',
@@ -7,6 +9,7 @@ const CommonSpec = {
 
 export const ViewSpec = {
   TextDefinition: {
+    headerTitleDefault: 'My App Launcher',
     shoppingTab: 'お買い物',
     applicationListTab: 'アプリ一覧',
   },
@@ -42,6 +45,6 @@ export const ViewSpec = {
   },
   BorderStyle: {
     listBorderColor: '#E1E6E6',
-    listBorderWidth: 1,
+    listBorderWidth: StyleSheet.hairlineWidth,
   },
 };

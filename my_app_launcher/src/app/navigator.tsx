@@ -17,6 +17,7 @@ export default function RootNavigator(): JSX.Element {
         screenOptions={{
           headerTintColor: ViewSpec.FontStyle.appTopNavigatorTextColor,
           headerStyle: { backgroundColor: ViewSpec.Color.appTopNavigatorBackground },
+          headerTitle: ViewSpec.TextDefinition.headerTitleDefault,
         }}
       >
         <Stack.Screen name='Tabs' component={Tabs} />
