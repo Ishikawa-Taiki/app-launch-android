@@ -1,5 +1,5 @@
 import { FlatList, Linking } from 'react-native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ShoppingService } from '../fetch-shopping-services';
 import { Headline } from '../components/Headline';
 import { Directory } from '../components/Directory';
