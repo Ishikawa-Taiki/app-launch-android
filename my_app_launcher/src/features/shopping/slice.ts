@@ -47,7 +47,7 @@ const dummyData = [
 
 export const counterSlice = createSlice({
   name: 'shopping',
-  initialState: { services: dummyData },
+  initialState,
   reducers: {
     prepare: (state) => {
       state.services = dummyData;
