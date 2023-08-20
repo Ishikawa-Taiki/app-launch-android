@@ -6,3 +6,5 @@ export const selectServicesByParentName = (state: RootState, parentName: string)
 export const selectApplications = (state: RootState) => state.shopping.data.applications;
 export const selectApplicationsByShortName = (state: RootState, shortName: string) =>
   state.shopping.data.applications.find((application) => application.shortName === shortName);
+export const selectLoadingStatus = (state: RootState) => state.shopping.status;
+export const selectErrorStatus = (state: RootState) => state.shopping.error;

@@ -3,13 +3,15 @@ import { ShoppingService, fetchShoppingServices } from './api/fetch-shopping-ser
 import { AndroidApplication, fetchAndroidApplications } from './api/fetch-android-applications';
 import { load, save } from '../../common/storage';
 
+export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+
 // Define a type for the slice state
 export interface State {
   data: {
     services: ShoppingService[];
     applications: AndroidApplication[];
   };
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: LoadingStatus;
   error: any;
 }
 
