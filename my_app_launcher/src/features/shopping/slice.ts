@@ -59,13 +59,11 @@ const STORAGE_KEY = 'shopping-services';
 
 export const prepare = createAsyncThunk('shopping/prepare', async () => {
   const stringData = await load(STORAGE_KEY);
-  console.log('load: ' + stringData);
   return !!stringData ? (JSON.parse(stringData) as ShoppingService[]) : [];
 });
 export const update = createAsyncThunk('shopping/update', async () => {
   const data = await fetchShoppingServices();
   const stringData = JSON.stringify(data);
-  console.log('save: ' + stringData);
   await save(STORAGE_KEY, stringData);
   return data;
 });
