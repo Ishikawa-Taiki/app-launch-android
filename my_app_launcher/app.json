@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ressac.myapplauncher"
@@ -23,7 +21,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.ressac.my_app_launcher"
+      "permissions": ["android.permission.QUERY_ALL_PACKAGES"],
+      "package": "com.ressac.myapplauncher"
     },
     "web": {
       "favicon": "./assets/favicon.png"
