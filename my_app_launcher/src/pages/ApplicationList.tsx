@@ -1,5 +1,5 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { prepare } from '../features/shopping/slice';
+import { fetch } from '../features/shopping/slice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 export default function ApplicationList({ navigation }) {
@@ -10,7 +10,7 @@ export default function ApplicationList({ navigation }) {
       <Button
         onPress={() => {
           console.log('pressed!');
-          dispatch(prepare());
+          dispatch(fetch());
         }}
         title='button'
         color='#841584'
