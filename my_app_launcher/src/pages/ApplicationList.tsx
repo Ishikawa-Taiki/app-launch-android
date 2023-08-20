@@ -1,17 +1,16 @@
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { increment, selectCount } from '../features/shopping/slice';
+import { prepare } from '../features/shopping/slice';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 export default function ApplicationList({ navigation }) {
-  const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   return (
     <View style={styles.container}>
-      <Text>ApplicationList: {count} !!! </Text>
+      <Text>ApplicationList</Text>
       <Button
         onPress={() => {
           console.log('pressed!');
-          dispatch(increment());
+          dispatch(prepare());
         }}
         title='button'
         color='#841584'

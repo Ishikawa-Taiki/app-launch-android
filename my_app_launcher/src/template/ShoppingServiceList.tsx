@@ -1,25 +1,32 @@
 import { FlatList, Linking } from 'react-native';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ShoppingService } from '../api/fetch-shopping-services';
 import { Headline } from '../components/Headline';
 import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
 import { Application } from '../components/Application';
 import { Link } from '../components/Link';
+import { useAppSelector } from '../app/hooks';
+import { makeSelectServicesByParentName } from '../features/shopping/slice';
 
-export default function ShoppingServiceList(items: ShoppingService[], filter: string, navigation) {
-  const list = items.filter((value) => !!value.data && value.parentName === filter);
+export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
+  console.log('filter!!!!:' + props.filter);
+  const selectServicesByParentName = useMemo(makeSelectServicesByParentName, []);
+  const list = useAppSelector((state) => {
+    console.log('filter2!!!!:' + props.filter);
+    return selectServicesByParentName(state, props.filter);
+  });
 
-  return <FlatList data={list} renderItem={({ item }) => Item(items, item, navigation)} />;
+  return <FlatList data={list} renderItem={({ item }) => Item(item, props.navigation)} />;
 }
 
-const Item = (items: ShoppingService[], itemData: ShoppingService, navigation) => {
+const Item = (itemData: ShoppingService, navigation) => {
   switch (itemData.type) {
     case 'group':
       return (
         <Directory
           onPress={() => {
-            const params = { items: items, filter: itemData.data };
+            const params = { filter: itemData.data };
             console.log(JSON.stringify(params));
             navigation.push('ShoppingDetail', params);
           }}
