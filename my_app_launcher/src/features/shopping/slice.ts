@@ -1,18 +1,26 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
-import { ShoppingService, fetchShoppingServices } from './fetch-shopping-services';
+import { ShoppingService, fetchShoppingServices } from './api/fetch-shopping-services';
+import { AndroidApplication, fetchAndroidApplications } from './api/fetch-android-applications';
 import { load, save } from '../../common/storage';
+
+export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
 // Define a type for the slice state
 export interface State {
-  services: ShoppingService[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  data: {
+    services: ShoppingService[];
+    applications: AndroidApplication[];
+  };
+  status: LoadingStatus;
   error: any;
 }
 
 // Define the initial state using that type
 const initialState: State = {
-  services: [],
+  data: {
+    services: [],
+    applications: [],
+  },
   status: 'idle',
   error: null,
 };
@@ -28,7 +36,7 @@ export const counterSlice = createSlice({
       })
       .addCase(prepare.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.services = action.payload;
+        state.data = action.payload;
       })
       .addCase(prepare.rejected, (state, action) => {
         state.status = 'failed';
@@ -39,7 +47,7 @@ export const counterSlice = createSlice({
       })
       .addCase(update.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.services = action.payload;
+        state.data = action.payload;
       })
       .addCase(update.rejected, (state, action) => {
         state.status = 'failed';
@@ -51,21 +59,25 @@ export const counterSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const {} = counterSlice.actions;
 
-export const selectServices = (state: RootState) => state.shopping.services;
-export const selectServicesByParentName = (state: RootState, parentName: string) =>
-  state.shopping.services.filter((service) => service.parentName === parentName);
-
-const STORAGE_KEY = 'shopping-services';
+const SHOPPING_STORAGE_KEY = 'shopping-services';
+const APPLICATION_STORAGE_KEY = 'android-applications';
 
 export const prepare = createAsyncThunk('shopping/prepare', async () => {
-  const stringData = await load(STORAGE_KEY);
-  return !!stringData ? (JSON.parse(stringData) as ShoppingService[]) : [];
+  const servicesString = await load(SHOPPING_STORAGE_KEY);
+  const applicationsString = await load(APPLICATION_STORAGE_KEY);
+  const services = !!servicesString ? (JSON.parse(servicesString) as ShoppingService[]) : [];
+  const applications = !!applicationsString
+    ? (JSON.parse(applicationsString) as AndroidApplication[])
+    : [];
+  return { services, applications };
 });
+
 export const update = createAsyncThunk('shopping/update', async () => {
-  const data = await fetchShoppingServices();
-  const stringData = JSON.stringify(data);
-  await save(STORAGE_KEY, stringData);
-  return data;
+  const services = await fetchShoppingServices();
+  const applications = await fetchAndroidApplications();
+  await save(SHOPPING_STORAGE_KEY, JSON.stringify(services));
+  await save(APPLICATION_STORAGE_KEY, JSON.stringify(applications));
+  return { services, applications };
 });
 
 export default counterSlice.reducer;
