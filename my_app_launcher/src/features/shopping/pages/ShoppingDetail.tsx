@@ -5,12 +5,13 @@ import { StyleSheet, View } from 'react-native';
 
 export default function ShoppingDetail() {
   const route = useRoute() as { params: { filter: string } };
+  const filter = route.params.filter;
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <ShoppingServiceList filter={route.params.filter} />
+      <ShoppingServiceList filter={filter} />
       <OptionButton
-        title='戻る'
+        title={filter + '/ 戻る'}
         onPress={() => {
           navigation.goBack();
         }}
