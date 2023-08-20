@@ -8,33 +8,37 @@ import { Application } from '../components/Application';
 import { Link } from '../components/Link';
 import { useAppSelector } from '../../../common/hooks';
 import { selectServicesByParentName } from '../slice';
+import { useNavigation } from '@react-navigation/native';
 
-export default function ShoppingServiceList(props: { filter: string; navigation: any }) {
+export default function ShoppingServiceList(props: { filter: string }) {
   const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
 
-  return <FlatList data={list} renderItem={({ item }) => Item(item, props.navigation)} />;
+  return <FlatList data={list} renderItem={({ item }) => <Item itemData={item} />} />;
 }
 
-const Item = (itemData: ShoppingService, navigation) => {
-  switch (itemData.type) {
+const Item = (props: { itemData: ShoppingService }) => {
+  const navigation = useNavigation();
+  switch (props.itemData.type) {
     case 'group':
       return (
         <Directory
           onPress={() => {
-            const params = { filter: itemData.data };
+            const params = { filter: props.itemData.data };
             navigation.push('ShoppingDetail', params);
           }}
-          title={itemData.data}
+          title={props.itemData.data}
         />
       );
     case 'title-text':
-      return <Headline text={itemData.data} />;
+      return <Headline text={props.itemData.data} />;
     case 'text':
-      return <DisplayText text={itemData.data} />;
+      return <DisplayText text={props.itemData.data} />;
     case 'application':
-      return <Application packageName={itemData.data} />;
+      return <Application packageName={props.itemData.data} />;
     case 'link':
-      return <Link onPress={() => Linking.openURL(itemData.data)} url={itemData.data} />;
+      return (
+        <Link onPress={() => Linking.openURL(props.itemData.data)} url={props.itemData.data} />
+      );
     default:
       return null;
   }
