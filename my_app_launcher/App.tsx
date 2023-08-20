@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import ApplicationList from './src/features/installed/pages/ApplicationList';
 import Shopping from './src/features/shopping/pages/Shopping';
 import ShoppingDetail from './src/features/shopping/pages/ShoppingDetail';
-import { ViewSpec } from './src/app/const';
+import { ViewSpec } from './src/common/const';
 import { Provider } from 'react-redux';
 import { store } from './src/app/store';
 
