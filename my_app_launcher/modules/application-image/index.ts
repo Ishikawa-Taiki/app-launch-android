@@ -16,6 +16,9 @@ export function hello(): string {
 export async function setValueAsync(value: string) {
   return await ApplicationImageModule.setValueAsync(value);
 }
+export async function launchForPackageName(packageName: string): Promise<void> {
+  return await ApplicationImageModule.launchForPackageName(packageName);
+}
 
 const emitter = new EventEmitter(ApplicationImageModule ?? NativeModulesProxy.ApplicationImage);
 

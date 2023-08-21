@@ -42,6 +42,13 @@ class ApplicationImageModule : Module() {
       ))
     }
 
+    AsyncFunction("launchForPackageName") { packageName: String ->
+      val context = appContext.reactContext;
+      context?.packageManager?.getLaunchIntentForPackage(packageName)?.let {
+        context.startActivity(it)
+      }
+    }
+
     // Enables the module to be used as a native view. Definition components that are accepted as part of
     // the view definition: Prop, Events.
     View(ApplicationImageView::class) {
