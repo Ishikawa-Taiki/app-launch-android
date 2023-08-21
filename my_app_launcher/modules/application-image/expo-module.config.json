@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["ApplicationImageModule"]
+  },
+  "android": {
+    "modules": ["com.ressac.modules.applicationimage.ApplicationImageModule"]
+  }
+}
