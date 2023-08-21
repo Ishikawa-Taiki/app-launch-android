@@ -1,5 +1,6 @@
 package com.ressac.modules.applicationimage
 
+import android.content.pm.PackageManager
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
@@ -29,6 +30,12 @@ class ApplicationImageModule : Module() {
     // Defines a JavaScript function that always returns a Promise and whose native code
     // is by default dispatched on the different thread than the JavaScript runtime runs on.
     AsyncFunction("setValueAsync") { value: String ->
+      val pm = appContext.reactContext?.packageManager;
+//      val installedAppList = pm?.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES);
+//      println("async function called!!!" + installedAppList?.first())
+      println("async function called!!! : " + value)
+      val intent = pm?.getLaunchIntentForPackage(value)
+      appContext.reactContext?.startActivity(intent)
       // Send an event to JavaScript.
       sendEvent("onChange", mapOf(
         "value" to value

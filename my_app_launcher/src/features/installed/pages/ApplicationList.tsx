@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Linking, StyleSheet, Text, View } from 'react-native';
 import ApplicationImageModule from '../../../../modules/application-image/src/ApplicationImageModule';
 
 export default function ApplicationList() {
@@ -7,8 +7,11 @@ export default function ApplicationList() {
       <Text>ApplicationList</Text>
       <Button
         onPress={() => {
-          const value = ApplicationImageModule.hello();
-          console.log(value);
+          const samplePackageName = 'jp.co.mcdonalds.android';
+          // これでアプリは開ける
+          ApplicationImageModule.setValueAsync(samplePackageName);
+          // これでストアも開ける
+          // Linking.openURL('market://details?id=' + samplePackageName);
         }}
         title='button'
         color='#841584'
