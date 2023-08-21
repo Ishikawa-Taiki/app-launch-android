@@ -33,3 +33,14 @@ TODO: Android キーストアは適当に自動生成した。
 見直した方が良さそうならどこかで。
 
 https://expo.dev/accounts/ishikawa-taiki/projects/myAppLauncher
+
+## 開発用のモジュール作成コマンド
+
+npx create-expo-module@latest --local
+
+で質問に色々答えていく
+
+ライブラリは
+com.ressac.modules.パッケージ名
+
+としておく
