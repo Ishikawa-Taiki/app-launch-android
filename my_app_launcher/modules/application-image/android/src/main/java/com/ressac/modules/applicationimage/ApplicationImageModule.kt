@@ -1,13 +1,21 @@
 package com.ressac.modules.applicationimage
 
+import android.annotation.SuppressLint
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.os.Build
+import androidx.annotation.RequiresApi
+import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import kotlinx.coroutines.Dispatchers
 
 class ApplicationImageModule : Module() {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
+  @RequiresApi(Build.VERSION_CODES.N)
+  @SuppressLint("QueryPermissionsNeeded")
   override fun definition() = ModuleDefinition {
     // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
@@ -23,7 +31,7 @@ class ApplicationImageModule : Module() {
     Events("onChange")
 
     // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
+    AsyncFunction("hello") {
       "Hello world! 👋"
     }
 
@@ -44,8 +52,17 @@ class ApplicationImageModule : Module() {
 
     AsyncFunction("launchForPackageName") { packageName: String ->
       val context = appContext.reactContext;
-      context?.packageManager?.getLaunchIntentForPackage(packageName)?.let {
+      val pm = context?.packageManager;
+      pm?.getLaunchIntentForPackage(packageName)?.let {
         context.startActivity(it)
+      }
+    }
+
+    AsyncFunction("installedPackages") {
+      val context = appContext.reactContext;
+      val pm = context?.packageManager;
+      pm?.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES)?.let {
+        it.filter{ it.flags and ApplicationInfo.FLAG_SYSTEM == 0 }.map{it.packageName}
       }
     }
 
