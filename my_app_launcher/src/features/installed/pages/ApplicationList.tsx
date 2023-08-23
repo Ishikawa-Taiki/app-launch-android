@@ -1,12 +1,4 @@
-import { Button, Linking, StyleSheet, Text, View } from 'react-native';
-
-import {
-  installedPackages,
-  launchForPackageName,
-  hello,
-} from '../../../../modules/application-image';
-import { ImageView } from '../../../../modules/expo-installed-application-view';
-import { WebView } from '../../../../modules/expo-web-view';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function ApplicationList() {
   // return (
@@ -22,13 +14,12 @@ export default function ApplicationList() {
           // launchForPackageName(samplePackageName);
           // これでストアも開ける
           // Linking.openURL('market://details?id=' + samplePackageName);
-          const apps = await installedPackages();
-          console.log(apps);
+          // const apps = await installedPackages();
+          // console.log(apps);
         }}
         title='button'
         color='#841584'
       />
-      <WebView style={{ flex: 1, backgroundColor: 'purple' }} />
     </View>
   );
 }
