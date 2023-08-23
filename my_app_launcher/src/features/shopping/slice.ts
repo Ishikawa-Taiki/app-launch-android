@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { ShoppingService, fetchShoppingServices } from './api/fetch-shopping-services';
+
 import { AndroidApplication, fetchAndroidApplications } from './api/fetch-android-applications';
+import { ShoppingService, fetchShoppingServices } from './api/fetch-shopping-services';
 import { load, save } from '../../common/storage';
 
 export type LoadingStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -65,8 +66,8 @@ const APPLICATION_STORAGE_KEY = 'android-applications';
 export const prepare = createAsyncThunk('shopping/prepare', async () => {
   const servicesString = await load(SHOPPING_STORAGE_KEY);
   const applicationsString = await load(APPLICATION_STORAGE_KEY);
-  const services = !!servicesString ? (JSON.parse(servicesString) as ShoppingService[]) : [];
-  const applications = !!applicationsString
+  const services = servicesString ? (JSON.parse(servicesString) as ShoppingService[]) : [];
+  const applications = applicationsString
     ? (JSON.parse(applicationsString) as AndroidApplication[])
     : [];
   return { services, applications };

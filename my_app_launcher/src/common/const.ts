@@ -14,8 +14,8 @@ export const ViewSpec = {
     applicationListTab: 'アプリ一覧',
   },
   FontSize: {
-    tabNavigatorText: 24,
-    listItem: 24,
+    tabNavigatorText: 18,
+    listItem: 18,
   },
   FontStyle: {
     linkColor: '#0000ee',

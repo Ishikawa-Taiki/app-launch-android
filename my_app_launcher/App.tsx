@@ -1,7 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from './src/app/store';
+
 import RootNavigator from './src/app/navigator';
+import { store } from './src/app/store';
 
 export default function App() {
   return (

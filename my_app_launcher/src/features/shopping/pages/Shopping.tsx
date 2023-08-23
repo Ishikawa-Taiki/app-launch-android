@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import ShoppingServiceList from '../template/ShoppingServiceList';
-import { useAppDispatch, useAppSelector } from '../../../common/hooks';
-import { LoadingStatus, prepare, update } from '../slice';
 import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
+
+import { ViewSpec } from '../../../common/const';
+import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { OptionButton } from '../components/OptionButton';
 import { selectErrorStatus, selectLoadingStatus } from '../selector';
-import { ViewSpec } from '../../../common/const';
+import { LoadingStatus, prepare, update } from '../slice';
+import ShoppingServiceList from '../template/ShoppingServiceList';
 
 export default function Shopping() {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ const ShoppingContents = (props: { status: LoadingStatus; error: any }) => {
         </View>
       );
     case 'succeeded':
-      return <ShoppingServiceList filter={'root'} />;
+      return <ShoppingServiceList filter='root' />;
   }
 };
 

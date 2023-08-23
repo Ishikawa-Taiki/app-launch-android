@@ -1,14 +1,15 @@
-import { FlatList, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { FlatList, Linking } from 'react-native';
+
+import { useAppSelector } from '../../../common/hooks';
 import { ShoppingService } from '../api/fetch-shopping-services';
-import { Headline } from '../components/Headline';
+import { Application } from '../components/Application';
 import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
-import { Application } from '../components/Application';
+import { Headline } from '../components/Headline';
 import { Link } from '../components/Link';
-import { useAppSelector } from '../../../common/hooks';
 import { selectServicesByParentName } from '../selector';
-import { useNavigation } from '@react-navigation/native';
 
 export default function ShoppingServiceList(props: { filter: string }) {
   const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
