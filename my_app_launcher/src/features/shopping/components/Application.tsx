@@ -9,7 +9,6 @@ import { useAppSelector } from '../../../common/hooks';
 import { selectApplicationsByShortName } from '../selector';
 
 export type ApplicationProps = {
-  onPress?: () => void;
   shortName: string;
 };
 
