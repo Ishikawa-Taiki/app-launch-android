@@ -52,4 +52,7 @@ export const ViewSpec = {
     listBorderColor: '#E1E6E6',
     listBorderWidth: StyleSheet.hairlineWidth,
   },
+  Operation: {
+    delayLongPress: 300,
+  },
 };

@@ -23,6 +23,10 @@ export const Application = (props: ApplicationProps) => {
           Linking.openURL('market://details?id=' + packageName);
         });
       }}
+      onLongPress={() => {
+        console.log('long pressed');
+      }}
+      delayLongPress={ViewSpec.Operation.delayLongPress}
     >
       <InstalledApplicationView packageName={packageName} style={styles.icon} />
       <Text style={styles.title}>{item?.shortName}</Text>
