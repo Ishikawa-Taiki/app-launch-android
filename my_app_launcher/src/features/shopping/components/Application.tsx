@@ -1,7 +1,7 @@
 import { StyleSheet, Pressable, Text, Linking } from 'react-native';
 
 import {
-  ImageView,
+  InstalledApplicationView,
   launchForPackageName,
 } from '../../../../modules/expo-installed-application-view';
 import { ViewSpec } from '../../../common/const';
@@ -25,7 +25,7 @@ export const Application = (props: ApplicationProps) => {
         });
       }}
     >
-      <ImageView packageName={packageName} style={styles.icon} />
+      <InstalledApplicationView packageName={packageName} style={styles.icon} />
       <Text style={styles.title}>{item?.shortName}</Text>
     </Pressable>
   );

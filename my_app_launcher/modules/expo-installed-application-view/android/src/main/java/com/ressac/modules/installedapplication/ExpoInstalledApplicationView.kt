@@ -10,14 +10,6 @@ import expo.modules.kotlin.views.ExpoView
 class ExpoInstalledApplicationView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
     internal val imageView = ImageView(context).also {
         it.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-
-//        var icon: Drawable? = try {
-//            context.getPackageManager().getApplicationIcon("jp.co.mcdonalds.android")
-//        } catch (e: PackageManager.NameNotFoundException) {
-//            null
-//        }
-//
-//        it.setImageDrawable(icon)
         addView(it)
     }
 }
