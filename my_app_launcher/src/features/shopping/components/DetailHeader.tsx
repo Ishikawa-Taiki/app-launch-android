@@ -1,27 +1,26 @@
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { ViewSpec } from '../../../common/const';
 import FontAwesomeIcon from '../../../common/icons';
 
-export type DirectoryProps = {
-  onPress?: () => void;
+export type DetailHeaderProps = {
   title: string;
 };
 
-export const Directory = (props: DirectoryProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
+export const DetailHeader = (props: DetailHeaderProps) => (
+  <View style={styles.item}>
     <FontAwesomeIcon
-      iconName='folder'
+      iconName='folder-open'
       size={ViewSpec.ImageSize.listIcon}
-      color={ViewSpec.Color.directoryIcon}
+      color={ViewSpec.Color.navigateIcon}
     />
     <Text style={styles.title}>{props.title}</Text>
-  </Pressable>
+  </View>
 );
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: ViewSpec.Color.listBackground,
+    backgroundColor: ViewSpec.Color.tabNavigatorBackground,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: ViewSpec.Margin.listItem,
@@ -31,6 +30,8 @@ const styles = StyleSheet.create({
   },
   title: {
     marginLeft: ViewSpec.Margin.imageText,
-    fontSize: ViewSpec.FontSize.listItem,
+    fontSize: ViewSpec.FontSize.tabNavigatorText,
+    color: ViewSpec.FontStyle.detailHeaderTextColor,
+    fontWeight: 'bold',
   },
 });

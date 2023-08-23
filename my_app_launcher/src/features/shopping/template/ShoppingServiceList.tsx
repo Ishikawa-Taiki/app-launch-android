@@ -18,7 +18,7 @@ export default function ShoppingServiceList(props: { filter: string }) {
 }
 
 const Item = (props: { itemData: ShoppingService }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation() as any;
   switch (props.itemData.type) {
     case 'group':
       return (

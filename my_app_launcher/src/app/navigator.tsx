@@ -1,11 +1,12 @@
-import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+
 import { ViewSpec } from '../common/const';
-import ShoppingDetail from '../features/shopping/pages/ShoppingDetail';
-import Shopping from '../features/shopping/pages/Shopping';
 import ApplicationList from '../features/installed/pages/ApplicationList';
+import Shopping from '../features/shopping/pages/Shopping';
+import ShoppingDetail from '../features/shopping/pages/ShoppingDetail';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,7 +31,6 @@ export default function RootNavigator(): JSX.Element {
 function Tabs() {
   return (
     <Tab.Navigator
-      initialRouteName='Feed'
       screenOptions={{
         tabBarActiveTintColor: ViewSpec.FontStyle.tabNavigatorTextColor,
         tabBarLabelStyle: { fontSize: ViewSpec.FontSize.tabNavigatorText },
