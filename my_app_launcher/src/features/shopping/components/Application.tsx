@@ -1,6 +1,9 @@
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { StyleSheet, Pressable, Text, Linking } from 'react-native';
 
-import { ImageView } from '../../../../modules/expo-installed-application-view';
+import {
+  ImageView,
+  launchForPackageName,
+} from '../../../../modules/expo-installed-application-view';
 import { ViewSpec } from '../../../common/const';
 import { useAppSelector } from '../../../common/hooks';
 import { selectApplicationsByShortName } from '../selector';
@@ -12,9 +15,17 @@ export type ApplicationProps = {
 
 export const Application = (props: ApplicationProps) => {
   const item = useAppSelector((state) => selectApplicationsByShortName(state, props.shortName));
+  const packageName = item?.packageName ?? '';
   return (
-    <Pressable style={styles.item} onPress={props.onPress}>
-      <ImageView packageName={item?.packageName ?? ''} style={styles.icon} />
+    <Pressable
+      style={styles.item}
+      onPress={() => {
+        launchForPackageName(packageName).catch((_e: any) => {
+          Linking.openURL('market://details?id=' + packageName);
+        });
+      }}
+    >
+      <ImageView packageName={packageName} style={styles.icon} />
       <Text style={styles.title}>{item?.shortName}</Text>
     </Pressable>
   );

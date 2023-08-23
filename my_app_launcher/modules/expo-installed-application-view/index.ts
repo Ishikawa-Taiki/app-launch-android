@@ -30,4 +30,14 @@
 
 // export { ExpoInstalledApplicationView, ExpoInstalledApplicationViewProps, ChangeEventPayload };
 
+import ExpoInstalledApplicationViewModule from './src/ExpoInstalledApplicationViewModule';
+
+export function launchForPackageName(packageName: string) {
+  return ExpoInstalledApplicationViewModule.launchForPackageName(packageName);
+}
+
+// export function setTheme(theme: string): void {
+//   return ExpoSettingsModule.setTheme(theme);
+// }
+
 export { default as ImageView, Props as ImageViewProps } from './src/ExpoInstalledApplicationView';
