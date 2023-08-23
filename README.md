@@ -44,3 +44,22 @@ npx create-expo-module@latest --local
 com.ressac.modules.パッケージ名
 
 としておく
+
+# 一時メモ後で消すかも
+
+$ npx create-expo-module@latest --local expo-installed-application-view
+
+The local module will be created in the modules directory in the root of your project. Learn more: https://expo.fyi/expo-module-local-autolinking.md
+
+✔ What is the name of the local module? … expo-installed-application-view
+✔ What is the native module name? … ExpoInstalledApplicationView
+✔ What is the Android package name? … com.ressac.modules.installedapplication
+
+✔ Downloaded module template from npm
+✔ Created the module from template files
+
+✅ Successfully created Expo module in modules/expo-installed-application-view
+
+You can now import this module inside your application.
+For example, you can add this line to your App.js or App.tsx file:
+import { hello } from './modules/expo-installed-application-view';

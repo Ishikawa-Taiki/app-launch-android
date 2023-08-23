@@ -1,17 +1,23 @@
 package com.ressac.modules.installedapplication
 
 import android.content.Context
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.views.ExpoView
 
 class ExpoInstalledApplicationView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
-    internal val webView = WebView(context).also {
+    internal val imageView = ImageView(context).also {
         it.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        it.webViewClient = object : WebViewClient() {}
-        addView(it)
 
-        it.loadUrl("https://docs.expo.dev/modules/")
+//        var icon: Drawable? = try {
+//            context.getPackageManager().getApplicationIcon("jp.co.mcdonalds.android")
+//        } catch (e: PackageManager.NameNotFoundException) {
+//            null
+//        }
+//
+//        it.setImageDrawable(icon)
+        addView(it)
     }
 }

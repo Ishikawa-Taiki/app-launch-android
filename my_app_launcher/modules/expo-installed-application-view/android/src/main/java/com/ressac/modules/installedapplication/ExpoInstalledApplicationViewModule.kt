@@ -1,5 +1,8 @@
 package com.ressac.modules.installedapplication
 
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
@@ -50,6 +53,33 @@ class ExpoInstalledApplicationViewModule : Module() {
   override fun definition() = ModuleDefinition {
     Name("ExpoInstalledApplicationView")
 
-    View(ExpoInstalledApplicationView::class) {}
+    AsyncFunction("launchForPackageName") { packageName: String ->
+      val context = appContext.reactContext;
+      val pm = context?.packageManager;
+      pm?.getLaunchIntentForPackage(packageName)?.let {
+        context.startActivity(it)
+      }
+    }
+
+    AsyncFunction("installedPackages") {
+      val context = appContext.reactContext;
+      val pm = context?.packageManager;
+      pm?.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES)?.let {
+        it.filter{ it.flags and ApplicationInfo.FLAG_SYSTEM == 0 }.map{ it.packageName }
+      }
+    }
+
+    View(ExpoInstalledApplicationView::class) {
+      Prop("packageName") { view: ExpoInstalledApplicationView, packageName: String ->
+        val context = appContext.reactContext;
+        val pm = context?.packageManager;
+        var icon: Drawable? = try {
+          pm?.getApplicationIcon(packageName)
+        } catch (e: PackageManager.NameNotFoundException) {
+          null
+        }
+        view.imageView.setImageDrawable(icon)
+      }
+    }
   }
 }

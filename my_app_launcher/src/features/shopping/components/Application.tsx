@@ -1,4 +1,6 @@
 import { StyleSheet, Pressable, View, Text } from 'react-native';
+
+import { ImageView } from '../../../../modules/expo-installed-application-view';
 import { ViewSpec } from '../../../common/const';
 import { useAppSelector } from '../../../common/hooks';
 import { selectApplicationsByShortName } from '../selector';
@@ -12,7 +14,7 @@ export const Application = (props: ApplicationProps) => {
   const item = useAppSelector((state) => selectApplicationsByShortName(state, props.shortName));
   return (
     <Pressable style={styles.item} onPress={props.onPress}>
-      <View style={styles.icon} />
+      <ImageView packageName={item?.packageName ?? ''} style={styles.icon} />
       <Text style={styles.title}>{item?.shortName}</Text>
     </Pressable>
   );
@@ -29,7 +31,6 @@ const styles = StyleSheet.create({
     borderColor: ViewSpec.BorderStyle.listBorderColor,
   },
   icon: {
-    backgroundColor: ViewSpec.Color.todo,
     width: ViewSpec.ImageSize.listIcon,
     height: ViewSpec.ImageSize.listIcon,
   },

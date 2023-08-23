@@ -14,7 +14,7 @@ import { requireNativeViewManager } from 'expo-modules-core';
 import * as React from 'react';
 import { ViewProps } from 'react-native';
 
-export type Props = ViewProps;
+export type Props = { packageName: string } & ViewProps;
 
 const NativeView: React.ComponentType<Props> = requireNativeViewManager(
   'ExpoInstalledApplicationView',
