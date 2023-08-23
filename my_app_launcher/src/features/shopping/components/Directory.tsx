@@ -1,23 +1,32 @@
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Pressable, Text } from 'react-native';
+
 import { ViewSpec } from '../../../common/const';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import FontAwesomeIcon from '../../../common/icons';
 
 export type DirectoryProps = {
-  onPress?: () => void;
   title: string;
 };
 
-export const Directory = (props: DirectoryProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
-    <FontAwesomeIcon
-      iconName='folder-open'
-      size={ViewSpec.ImageSize.listIcon}
-      color={ViewSpec.Color.directoryIcon}
-    />
-    <Text style={styles.title}>{props.title}</Text>
-  </Pressable>
-);
+export const Directory = (props: DirectoryProps) => {
+  const navigation = useNavigation() as any;
+  return (
+    <Pressable
+      style={styles.item}
+      onPress={() => {
+        const params = { filter: props.title };
+        navigation.push('ShoppingDetail', params);
+      }}
+    >
+      <FontAwesomeIcon
+        iconName='folder'
+        size={ViewSpec.ImageSize.listIcon}
+        color={ViewSpec.Color.directoryIcon}
+      />
+      <Text style={styles.title}>{props.title}</Text>
+    </Pressable>
+  );
+};
 
 const styles = StyleSheet.create({
   item: {

@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import shopping from '../features/shopping/slice';
 
 export const store = configureStore({
   reducer: {
-    shopping: shopping,
+    shopping,
   },
 });
 

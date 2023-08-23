@@ -1,13 +1,13 @@
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { StyleSheet, Pressable, Text, Linking } from 'react-native';
+
 import { ViewSpec } from '../../../common/const';
 
 export type LinkProps = {
-  onPress?: () => void;
   url: string;
 };
 
 export const Link = (props: LinkProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
+  <Pressable style={styles.item} onPress={() => Linking.openURL(props.url)}>
     <Text style={styles.title}>{props.url}</Text>
   </Pressable>
 );

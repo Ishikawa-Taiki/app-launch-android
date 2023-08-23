@@ -1,15 +1,15 @@
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+
 import { ViewSpec } from '../../../common/const';
 
 export type HeadlineProps = {
-  onPress?: () => void;
   text: string;
 };
 
 export const Headline = (props: HeadlineProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
+  <View style={styles.item}>
     <Text style={styles.title}>{props.text}</Text>
-  </Pressable>
+  </View>
 );
 
 const styles = StyleSheet.create({

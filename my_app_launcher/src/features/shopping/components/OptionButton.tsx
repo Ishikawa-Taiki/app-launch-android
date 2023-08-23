@@ -1,4 +1,5 @@
-import { StyleSheet, Pressable, View, Text, Button } from 'react-native';
+import { StyleSheet, Pressable, Text } from 'react-native';
+
 import { ViewSpec } from '../../../common/const';
 
 export type OptionButtonProps = {

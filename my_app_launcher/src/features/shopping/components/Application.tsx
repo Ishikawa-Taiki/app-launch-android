@@ -1,3 +1,4 @@
+import * as Clipboard from 'expo-clipboard';
 import { StyleSheet, Pressable, Text, Linking } from 'react-native';
 
 import {
@@ -9,13 +10,13 @@ import { useAppSelector } from '../../../common/hooks';
 import { selectApplicationsByShortName } from '../selector';
 
 export type ApplicationProps = {
-  onPress?: () => void;
   shortName: string;
 };
 
 export const Application = (props: ApplicationProps) => {
   const item = useAppSelector((state) => selectApplicationsByShortName(state, props.shortName));
   const packageName = item?.packageName ?? '';
+  const shortName = item?.shortName ?? '';
   return (
     <Pressable
       style={styles.item}
@@ -24,9 +25,13 @@ export const Application = (props: ApplicationProps) => {
           Linking.openURL('market://details?id=' + packageName);
         });
       }}
+      onLongPress={() => {
+        Clipboard.setStringAsync(shortName + '=' + packageName);
+      }}
+      delayLongPress={ViewSpec.Operation.delayLongPress}
     >
       <InstalledApplicationView packageName={packageName} style={styles.icon} />
-      <Text style={styles.title}>{item?.shortName}</Text>
+      <Text style={styles.title}>{shortName}</Text>
     </Pressable>
   );
 };

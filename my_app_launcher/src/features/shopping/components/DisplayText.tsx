@@ -1,15 +1,15 @@
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+
 import { ViewSpec } from '../../../common/const';
 
 export type DisplayTextProps = {
-  onPress?: () => void;
   text: string;
 };
 
 export const DisplayText = (props: DisplayTextProps) => (
-  <Pressable style={styles.item} onPress={props.onPress}>
+  <View style={styles.item}>
     <Text style={styles.title}>{props.text}</Text>
-  </Pressable>
+  </View>
 );
 
 const styles = StyleSheet.create({

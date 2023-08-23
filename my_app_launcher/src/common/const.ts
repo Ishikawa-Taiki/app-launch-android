@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
 
+// https://reactnative.dev/docs/colors
+
 const CommonSpec = {
   Color: {
-    main: 'tomato',
-    sub: 'powderblue',
+    main: 'orange',
+    sub: 'skyblue',
   },
 };
 
@@ -26,6 +28,7 @@ export const ViewSpec = {
     headlineMinHeight: 32,
     appTopNavigatorTextColor: 'white',
     tabNavigatorTextColor: 'white',
+    detailHeaderTextColor: 'white',
   },
   ImageSize: {
     listIcon: 48,
@@ -33,12 +36,13 @@ export const ViewSpec = {
   Color: {
     appTopNavigatorBackground: CommonSpec.Color.main,
     tabNavigatorBackground: CommonSpec.Color.main,
-    listBackground: '#ffffff',
+    navigateIcon: 'white',
+    listBackground: 'white',
     disableListBackground: '#CCCCCC',
     optionButtonBackground: CommonSpec.Color.sub,
     headlineBackground: '#555555',
     directoryIcon: CommonSpec.Color.main,
-    todo: '#ff00ff',
+    todo: 'magenta',
   },
   Margin: {
     listItem: 8,
@@ -47,5 +51,8 @@ export const ViewSpec = {
   BorderStyle: {
     listBorderColor: '#E1E6E6',
     listBorderWidth: StyleSheet.hairlineWidth,
+  },
+  Operation: {
+    delayLongPress: 300,
   },
 };

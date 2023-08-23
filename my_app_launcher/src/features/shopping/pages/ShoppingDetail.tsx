@@ -1,7 +1,9 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
-import ShoppingServiceList from '../template/ShoppingServiceList';
-import { OptionButton } from '../components/OptionButton';
 import { StyleSheet, View } from 'react-native';
+
+import { DetailHeader } from '../components/DetailHeader';
+import { OptionButton } from '../components/OptionButton';
+import ShoppingServiceList from '../template/ShoppingServiceList';
 
 export default function ShoppingDetail() {
   const route = useRoute() as { params: { filter: string } };
@@ -9,13 +11,9 @@ export default function ShoppingDetail() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <DetailHeader title={filter} />
       <ShoppingServiceList filter={filter} />
-      <OptionButton
-        title={filter + '/ 戻る'}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      />
+      <OptionButton title='戻る' onPress={navigation.goBack} />
     </View>
   );
 }
