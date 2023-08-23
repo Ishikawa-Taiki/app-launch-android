@@ -5,10 +5,11 @@ import {
   launchForPackageName,
   hello,
 } from '../../../../modules/application-image';
+import { ImageView } from '../../../../modules/expo-installed-application-view';
 import { WebView } from '../../../../modules/expo-web-view';
 
 export default function ApplicationList() {
-  return <WebView style={{ flex: 1, backgroundColor: 'blue' }} />;
+  return <ImageView style={{ flex: 1, backgroundColor: 'blue' }} />;
   // return (
   //   <View style={styles.container}>
   //     <Text>ApplicationList</Text>
