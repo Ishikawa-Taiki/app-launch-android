@@ -9,10 +9,12 @@ import { Directory } from '../components/Directory';
 import { DisplayText } from '../components/DisplayText';
 import { Headline } from '../components/Headline';
 import { Link } from '../components/Link';
-import { selectServicesByParentName } from '../selector';
+import { selectServices, selectServicesByParentName } from '../selector';
 
 export default function ShoppingServiceList(props: { filter: string }) {
-  const list = useAppSelector((state) => selectServicesByParentName(state, props.filter));
+  const list = useAppSelector((state) => selectServices(state)).filter(
+    (service) => service.parentName === props.filter,
+  );
 
   return <FlatList data={list} renderItem={({ item }) => <Item itemData={item} />} />;
 }
