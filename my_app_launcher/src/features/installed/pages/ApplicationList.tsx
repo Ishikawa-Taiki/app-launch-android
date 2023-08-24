@@ -15,7 +15,9 @@ export default function ApplicationList() {
   }, []);
 
   const listData = searchText
-    ? appPackages.filter((appPackage) => appPackage.loadLabel.includes(searchText))
+    ? appPackages.filter((appPackage) =>
+        appPackage.loadLabel.toUpperCase().includes(searchText.toUpperCase()),
+      )
     : appPackages;
 
   return (
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
   searchBox: {
     backgroundColor: ViewSpec.Color.disableListBackground,
     margin: ViewSpec.Margin.listItem,
+    paddingLeft: ViewSpec.Margin.listItem,
     height: ViewSpec.ImageSize.listIcon,
     borderWidth: ViewSpec.BorderStyle.listBorderWidth,
     borderColor: ViewSpec.BorderStyle.listBorderColor,
