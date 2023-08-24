@@ -7,7 +7,9 @@ import { ApplicationCommon } from '../../../common/components/ApplicationCommon'
 export default function ApplicationList() {
   const [appPackages, setAppPackages] = useState([] as Package[]);
   useEffect(() => {
-    installedPackages().then(setAppPackages);
+    installedPackages().then((packages) => {
+      setAppPackages(packages.sort((a, b) => a.loadLabel.localeCompare(b.loadLabel)));
+    });
   }, []);
 
   return (
