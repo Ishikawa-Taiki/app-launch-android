@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ressac.myapplauncher"
@@ -23,10 +21,13 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.QUERY_ALL_PACKAGES"
-      ],
+      "permissions": ["android.permission.QUERY_ALL_PACKAGES"],
       "package": "com.ressac.myapplauncher"
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#ffa500",
+      "translucent": false
     },
     "web": {
       "favicon": "./assets/favicon.png"
