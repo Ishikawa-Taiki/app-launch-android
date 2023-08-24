@@ -16,6 +16,7 @@ export const ViewSpec = {
     headerTitleDefault: 'My App Launcher',
     shoppingTab: 'お買い物',
     applicationListTab: 'アプリ一覧',
+    searchBoxPlaceholder: 'アプリ名で検索',
   },
   FontSize: {
     tabNavigatorText: 24,

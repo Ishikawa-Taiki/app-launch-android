@@ -2,6 +2,9 @@
 
 個人用です
 
+app-launch-android：試作運用中の kotlin ネイティブベースのプロジェクト
+my_app_launcher：本運用開始用の ReactNative(Expo)ベースのプロジェクト
+
 # コマンド類のメモ
 
 ## 通常作業
@@ -27,6 +30,13 @@ eas build --profile development --platform android
 叩くと、以下管理画面上のビルドジョブが動くのでそこからバイナリがダウンロードできる。
 PC 側でバンドラは立ち上げる必要がある。
 
+### Android エミュレータ/デバイス の プレビュー版
+
+eas build --profile preview --platform android
+
+こちらも叩くと、以下管理画面上のビルドジョブが動くのでそこからバイナリがダウンロードできる。
+パッケージ中に JS も組み込まれるので、バンドラを立ち上げる必要はない。(リリースしないならこれで通常運用可能)
+
 ## Expo 管理画面
 
 TODO: Android キーストアは適当に自動生成した。
@@ -44,22 +54,3 @@ npx create-expo-module@latest --local
 com.ressac.modules.パッケージ名
 
 としておく
-
-# 一時メモ後で消すかも
-
-$ npx create-expo-module@latest --local expo-installed-application-view
-
-The local module will be created in the modules directory in the root of your project. Learn more: https://expo.fyi/expo-module-local-autolinking.md
-
-✔ What is the name of the local module? … expo-installed-application-view
-✔ What is the native module name? … ExpoInstalledApplicationView
-✔ What is the Android package name? … com.ressac.modules.installedapplication
-
-✔ Downloaded module template from npm
-✔ Created the module from template files
-
-✅ Successfully created Expo module in modules/expo-installed-application-view
-
-You can now import this module inside your application.
-For example, you can add this line to your App.js or App.tsx file:
-import { hello } from './modules/expo-installed-application-view';

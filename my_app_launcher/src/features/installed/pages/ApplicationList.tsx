@@ -1,34 +1,58 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+
+import { Package, installedPackages } from '../../../../modules/expo-installed-application-view';
+import { ApplicationCommon } from '../../../common/components/ApplicationCommon';
+import { ViewSpec } from '../../../common/const';
 
 export default function ApplicationList() {
-  // return (
-  //   <ImageView packageName='jp.co.mcdonalds.android' style={{ flex: 1, backgroundColor: 'blue' }} />
-  // );
+  const [appPackages, setAppPackages] = useState([] as Package[]);
+  const [searchText, onChangeSearchText] = useState('');
+  useEffect(() => {
+    installedPackages().then((packages) => {
+      setAppPackages(packages.sort((a, b) => a.loadLabel.localeCompare(b.loadLabel)));
+    });
+  }, []);
+
+  const listData = searchText
+    ? appPackages.filter((appPackage) =>
+        appPackage.loadLabel.toUpperCase().includes(searchText.toUpperCase()),
+      )
+    : appPackages;
+
   return (
     <View style={styles.container}>
-      <Text>ApplicationList</Text>
-      <Button
-        onPress={async () => {
-          // const samplePackageName = 'com.kouzoh.mercari';
-          // // これでアプリは開ける
-          // launchForPackageName(samplePackageName);
-          // これでストアも開ける
-          // Linking.openURL('market://details?id=' + samplePackageName);
-          // const apps = await installedPackages();
-          // console.log(apps);
-        }}
-        title='button'
-        color='#841584'
+      <FlatList data={listData} renderItem={({ item }) => <Item appPackage={item} />} />
+      <TextInput
+        style={styles.searchBox}
+        onChangeText={onChangeSearchText}
+        value={searchText}
+        placeholder={ViewSpec.TextDefinition.searchBoxPlaceholder}
       />
     </View>
   );
 }
 
+const Item = (props: { appPackage: Package }) => {
+  return (
+    <ApplicationCommon
+      packageName={props.appPackage.packageName}
+      shortName={props.appPackage.loadLabel}
+    />
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  searchBox: {
+    backgroundColor: ViewSpec.Color.disableListBackground,
+    margin: ViewSpec.Margin.listItem,
+    paddingLeft: ViewSpec.Margin.listItem,
+    height: ViewSpec.ImageSize.listIcon,
+    borderWidth: ViewSpec.BorderStyle.listBorderWidth,
+    borderColor: ViewSpec.BorderStyle.listBorderColor,
   },
 });

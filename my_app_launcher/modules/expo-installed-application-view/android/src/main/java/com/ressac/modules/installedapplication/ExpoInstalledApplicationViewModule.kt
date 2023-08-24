@@ -3,8 +3,6 @@ package com.ressac.modules.installedapplication
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import expo.modules.kotlin.Promise
-import expo.modules.kotlin.exception.CodedException
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
@@ -25,7 +23,8 @@ class ExpoInstalledApplicationViewModule : Module() {
       val context = appContext.reactContext;
       val pm = context?.packageManager;
       pm?.getInstalledApplications(PackageManager.MATCH_UNINSTALLED_PACKAGES)?.let {
-        it.filter{ it.flags and ApplicationInfo.FLAG_SYSTEM == 0 }.map{ it.packageName }
+        it.filter{ it.flags and ApplicationInfo.FLAG_SYSTEM == 0 }
+                .map{ mapOf("packageName" to it.packageName, "loadLabel" to it.loadLabel(pm)) }
       }
     }
 
