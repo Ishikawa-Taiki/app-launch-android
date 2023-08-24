@@ -1,34 +1,34 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+
+import { Package, installedPackages } from '../../../../modules/expo-installed-application-view';
+import { ApplicationCommon } from '../../../common/components/ApplicationCommon';
 
 export default function ApplicationList() {
-  // return (
-  //   <ImageView packageName='jp.co.mcdonalds.android' style={{ flex: 1, backgroundColor: 'blue' }} />
-  // );
+  const [appPackages, setAppPackages] = useState([] as Package[]);
+  useEffect(() => {
+    installedPackages().then(setAppPackages);
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>ApplicationList</Text>
-      <Button
-        onPress={async () => {
-          // const samplePackageName = 'com.kouzoh.mercari';
-          // // これでアプリは開ける
-          // launchForPackageName(samplePackageName);
-          // これでストアも開ける
-          // Linking.openURL('market://details?id=' + samplePackageName);
-          // const apps = await installedPackages();
-          // console.log(apps);
-        }}
-        title='button'
-        color='#841584'
-      />
+      <FlatList data={appPackages} renderItem={({ item }) => <Item appPackage={item} />} />
     </View>
   );
 }
+
+const Item = (props: { appPackage: Package }) => {
+  return (
+    <ApplicationCommon
+      packageName={props.appPackage.packageName}
+      shortName={props.appPackage.loadLabel}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

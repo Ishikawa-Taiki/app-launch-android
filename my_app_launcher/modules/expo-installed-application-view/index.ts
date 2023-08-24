@@ -4,7 +4,8 @@ export function launchForPackageName(packageName: string) {
   return ExpoInstalledApplicationViewModule.launchForPackageName(packageName);
 }
 
-export function installedPackages() {
+export type Package = { loadLabel: string; packageName: string };
+export async function installedPackages(): Promise<Package[]> {
   return ExpoInstalledApplicationViewModule.installedPackages();
 }
 
