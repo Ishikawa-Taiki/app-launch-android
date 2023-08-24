@@ -33,8 +33,17 @@ function Tabs() {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: ViewSpec.FontStyle.tabNavigatorTextColor,
-        tabBarLabelStyle: { fontSize: ViewSpec.FontSize.tabNavigatorText },
-        tabBarStyle: { backgroundColor: ViewSpec.Color.tabNavigatorBackground },
+        tabBarStyle: {
+          backgroundColor: ViewSpec.Color.tabNavigatorBackground,
+          height: ViewSpec.ImageSize.listIcon + ViewSpec.Margin.listItem * 2,
+          justifyContent: 'center',
+        },
+        tabBarLabelStyle: {
+          fontSize: ViewSpec.FontSize.tabNavigatorText,
+          color: ViewSpec.FontStyle.detailHeaderTextColor,
+          fontWeight: 'bold',
+        },
+        tabBarPressColor: ViewSpec.Color.tabNavigatorPressBackground,
       }}
     >
       <Tab.Screen

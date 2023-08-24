@@ -5,7 +5,9 @@ import { StyleSheet } from 'react-native';
 const CommonSpec = {
   Color: {
     main: 'orange',
+    mainChanged: 'darkorange',
     sub: 'skyblue',
+    subChanged: 'deepskyblue',
   },
 };
 
@@ -16,7 +18,7 @@ export const ViewSpec = {
     applicationListTab: 'アプリ一覧',
   },
   FontSize: {
-    tabNavigatorText: 18,
+    tabNavigatorText: 24,
     listItem: 18,
   },
   FontStyle: {
@@ -36,6 +38,7 @@ export const ViewSpec = {
   Color: {
     appTopNavigatorBackground: CommonSpec.Color.main,
     tabNavigatorBackground: CommonSpec.Color.main,
+    tabNavigatorPressBackground: CommonSpec.Color.mainChanged,
     navigateIcon: 'white',
     listBackground: 'white',
     disableListBackground: '#CCCCCC',
