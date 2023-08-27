@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: ViewSpec.FontSize.listItem,
     color: ViewSpec.FontStyle.headlineTextColor,
     fontWeight: 'bold',
-    minHeight: ViewSpec.FontStyle.headlineMinHeight,
+    minHeight: ViewSpec.FontStyle.headlineHeight,
+    textAlignVertical: 'center',
   },
 });
