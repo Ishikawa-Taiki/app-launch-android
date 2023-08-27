@@ -92,6 +92,13 @@ https://docs.github.com/ja/actions/security-guides/encrypted-secrets#creating-en
 
 そうするとリポジトリの所定の場所に配置した.ymlが設定を読み取り、ビルドをキックしてくれる
 
+.yml ファイルの例としては、以下も参考になる
+https://github.com/expo/expo-github-action#example-workflows
+
+アクセストークンの値は再確認できないので、問題があったら一度無効化/再生成するようにする
+https://expo.dev/accounts/ishikawa-taiki/settings/access-tokens
+https://github.com/Ishikawa-Taiki/app-launch-android/settings/secrets/actions
+
 # TODO
 
 Expo 管理画面にて、Android キーストアは適当に自動生成した
