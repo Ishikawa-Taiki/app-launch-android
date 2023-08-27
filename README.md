@@ -4,6 +4,16 @@
 本運用開始用の ReactNative(Expo)ベースのプロジェクト
 ※ 試作運用中の kotlin ネイティブベースのプロジェクトは削除済みのため、必要に応じてログから確認すること
 
+# バージョニング
+
+セマンティックバージョニングをベースとするが、個人用のためざっくりで以下くらいの方針とする
+
+メジャー：Expo等フレームワーク/ネイティブレベル/WebAPIでのAPI互換性が変化した時
+
+マイナー：TS/JS上のみで機能追加等を行った時
+
+パッチ　：不具合修正/微調整を行った時
+
 # コマンド類のメモ
 
 ## 環境セットアップ(clone直後)
@@ -66,6 +76,21 @@ yarn lint
 lint をかける
 ./src 配下のみを対象としており、App.tsx 等はかからないはず
 現状適当に拾ってきたルールを適用してるだけで、prettier 含めてそこまでちゃんと見直しをしていない
+
+# 自動ビルド(Github Actions)
+
+.github/workflows/eas-build.yml によって制御されている
+
+対応時の手順概要は以下の通り
+https://docs.expo.dev/build/building-on-ci/
+
+詳細手順としては、Expo 側で作成した個人用アクセストークンを
+https://docs.expo.dev/accounts/programmatic-access/#personal-access-tokens
+
+リポジトリのGithub Actions設定側のsecret値として入力している
+https://docs.github.com/ja/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+
+そうするとリポジトリの所定の場所に配置した.ymlが設定を読み取り、ビルドをキックしてくれる
 
 # TODO
 
