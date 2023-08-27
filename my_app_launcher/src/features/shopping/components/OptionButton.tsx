@@ -1,5 +1,6 @@
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
+import { AppPressable } from '../../../common/components/AppPressable';
 import { ViewSpec } from '../../../common/const';
 
 export type OptionButtonProps = {
@@ -8,9 +9,9 @@ export type OptionButtonProps = {
 };
 
 export const OptionButton = (props: OptionButtonProps) => (
-  <Pressable style={styles.container} onPress={props.onPress}>
+  <AppPressable style={styles.container} onPress={props.onPress}>
     <Text style={styles.title}>{props.title}</Text>
-  </Pressable>
+  </AppPressable>
 );
 
 const styles = StyleSheet.create({

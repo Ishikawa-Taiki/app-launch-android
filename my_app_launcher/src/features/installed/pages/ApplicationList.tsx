@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Pressable, StyleSheet, TextInput, View, Text } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View, Text } from 'react-native';
 
 import { Package, installedPackages } from '../../../../modules/expo-installed-application-view';
+import { AppPressable } from '../../../common/components/AppPressable';
 import { ApplicationCommon } from '../../../common/components/ApplicationCommon';
 import { ViewSpec } from '../../../common/const';
 
@@ -30,9 +31,9 @@ export default function ApplicationList() {
           value={searchText}
           placeholder={ViewSpec.TextDefinition.searchBoxPlaceholder}
         />
-        <Pressable style={styles.clearButton} onPress={() => onChangeSearchText('')}>
+        <AppPressable style={styles.clearButton} onPress={() => onChangeSearchText('')}>
           <Text style={styles.clearButtonText}>クリア</Text>
-        </Pressable>
+        </AppPressable>
       </View>
     </View>
   );

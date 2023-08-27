@@ -57,5 +57,6 @@ export const ViewSpec = {
   },
   Operation: {
     delayLongPress: 300,
+    pressedOpacity: 0.2,
   },
 };

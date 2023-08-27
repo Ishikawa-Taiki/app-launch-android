@@ -1,6 +1,7 @@
 import * as Clipboard from 'expo-clipboard';
-import { StyleSheet, Pressable, Text, Linking } from 'react-native';
+import { StyleSheet, Text, Linking } from 'react-native';
 
+import { AppPressable } from './AppPressable';
 import {
   InstalledApplicationView,
   launchForPackageName,
@@ -16,7 +17,7 @@ export const ApplicationCommon = (props: ApplicationCommonProps) => {
   const packageName = props.packageName;
   const shortName = props.shortName;
   return (
-    <Pressable
+    <AppPressable
       style={styles.item}
       onPress={() => {
         launchForPackageName(packageName).catch((_e: any) => {
@@ -26,11 +27,10 @@ export const ApplicationCommon = (props: ApplicationCommonProps) => {
       onLongPress={() => {
         Clipboard.setStringAsync(shortName + '=' + packageName);
       }}
-      delayLongPress={ViewSpec.Operation.delayLongPress}
     >
       <InstalledApplicationView packageName={packageName} style={styles.icon} />
       <Text style={styles.title}>{shortName}</Text>
-    </Pressable>
+    </AppPressable>
   );
 };
 

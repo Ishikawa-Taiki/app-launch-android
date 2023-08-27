@@ -1,6 +1,7 @@
 import * as Clipboard from 'expo-clipboard';
-import { StyleSheet, Pressable, Text, Linking } from 'react-native';
+import { StyleSheet, Text, Linking } from 'react-native';
 
+import { AppPressable } from '../../../common/components/AppPressable';
 import { ViewSpec } from '../../../common/const';
 
 export type LinkProps = {
@@ -8,16 +9,15 @@ export type LinkProps = {
 };
 
 export const Link = (props: LinkProps) => (
-  <Pressable
+  <AppPressable
     style={styles.item}
     onPress={() => Linking.openURL(props.url)}
     onLongPress={() => {
       Clipboard.setStringAsync(props.url);
     }}
-    delayLongPress={ViewSpec.Operation.delayLongPress}
   >
     <Text style={styles.title}>{props.url}</Text>
-  </Pressable>
+  </AppPressable>
 );
 
 const styles = StyleSheet.create({
