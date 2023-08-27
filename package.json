@@ -4,7 +4,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start --dev-client",
-    "dev-android": "expo run:android",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "build-android-dev": "eas build --profile development --platform android",
     "build-android-pre": "eas build --profile preview --platform android",
     "create-native-module": "npx create-expo-module@latest --local",
