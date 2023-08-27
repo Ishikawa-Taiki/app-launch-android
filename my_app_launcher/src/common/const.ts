@@ -24,11 +24,10 @@ export const ViewSpec = {
   },
   FontStyle: {
     linkColor: '#0000ee',
-    displayTextColor: '#888888',
     errorTextColor: '#ff0000',
     optionButtonTextColor: '#222222',
     headlineTextColor: '#EEEEEE',
-    headlineMinHeight: 32,
+    headlineHeight: 32,
     appTopNavigatorTextColor: 'white',
     tabNavigatorTextColor: 'white',
     detailHeaderTextColor: 'white',
@@ -58,5 +57,6 @@ export const ViewSpec = {
   },
   Operation: {
     delayLongPress: 300,
+    pressedOpacity: 0.2,
   },
 };

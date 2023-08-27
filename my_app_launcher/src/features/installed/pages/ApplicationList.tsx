@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, TextInput, View, Text } from 'react-native';
 
 import { Package, installedPackages } from '../../../../modules/expo-installed-application-view';
+import { AppPressable } from '../../../common/components/AppPressable';
 import { ApplicationCommon } from '../../../common/components/ApplicationCommon';
 import { ViewSpec } from '../../../common/const';
 
@@ -23,12 +24,17 @@ export default function ApplicationList() {
   return (
     <View style={styles.container}>
       <FlatList data={listData} renderItem={({ item }) => <Item appPackage={item} />} />
-      <TextInput
-        style={styles.searchBox}
-        onChangeText={onChangeSearchText}
-        value={searchText}
-        placeholder={ViewSpec.TextDefinition.searchBoxPlaceholder}
-      />
+      <View style={{ flexDirection: 'row' }}>
+        <TextInput
+          style={styles.searchBox}
+          onChangeText={onChangeSearchText}
+          value={searchText}
+          placeholder={ViewSpec.TextDefinition.searchBoxPlaceholder}
+        />
+        <AppPressable style={styles.clearButton} onPress={() => onChangeSearchText('')}>
+          <Text style={styles.clearButtonText}>クリア</Text>
+        </AppPressable>
+      </View>
     </View>
   );
 }
@@ -48,11 +54,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   searchBox: {
+    flex: 1,
     backgroundColor: ViewSpec.Color.disableListBackground,
     margin: ViewSpec.Margin.listItem,
     paddingLeft: ViewSpec.Margin.listItem,
     height: ViewSpec.ImageSize.listIcon,
     borderWidth: ViewSpec.BorderStyle.listBorderWidth,
     borderColor: ViewSpec.BorderStyle.listBorderColor,
+  },
+  clearButton: {
+    backgroundColor: ViewSpec.Color.optionButtonBackground,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: ViewSpec.Margin.listItem,
+    height: ViewSpec.ImageSize.listIcon,
+    borderWidth: ViewSpec.BorderStyle.listBorderWidth,
+    borderColor: ViewSpec.BorderStyle.listBorderColor,
+  },
+  clearButtonText: {
+    fontSize: ViewSpec.FontSize.listItem,
+    color: ViewSpec.FontStyle.optionButtonTextColor,
+    fontWeight: 'bold',
   },
 });

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
+import { AppPressable } from '../../../common/components/AppPressable';
 import { ViewSpec } from '../../../common/const';
 import FontAwesomeIcon from '../../../common/icons';
 
@@ -11,7 +12,7 @@ export type DirectoryProps = {
 export const Directory = (props: DirectoryProps) => {
   const navigation = useNavigation() as any;
   return (
-    <Pressable
+    <AppPressable
       style={styles.item}
       onPress={() => {
         const params = { filter: props.title };
@@ -24,7 +25,7 @@ export const Directory = (props: DirectoryProps) => {
         color={ViewSpec.Color.directoryIcon}
       />
       <Text style={styles.title}>{props.title}</Text>
-    </Pressable>
+    </AppPressable>
   );
 };
 

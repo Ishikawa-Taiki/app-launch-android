@@ -24,7 +24,5 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: ViewSpec.FontSize.listItem,
-    color: ViewSpec.FontStyle.displayTextColor,
-    fontStyle: 'italic',
   },
 });

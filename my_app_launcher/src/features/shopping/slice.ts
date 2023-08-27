@@ -58,7 +58,7 @@ export const counterSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = counterSlice.actions;
+// export const {} = counterSlice.actions;
 
 const SHOPPING_STORAGE_KEY = 'shopping-services';
 const APPLICATION_STORAGE_KEY = 'android-applications';
