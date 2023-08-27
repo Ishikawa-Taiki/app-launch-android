@@ -58,6 +58,10 @@ adb shell input text "com.ressac.myapplauncher://expo-development-client/?url=ht
 
 現状はリリースしないアプリなので production 用のコマンドは用意していない＆未確認な状態
 
+ビルド完了通知はメールで受け取るように設定しているので、必要に応じてこれを利用する
+
+https://expo.dev/accounts/ishikawa-taiki/projects/myAppLauncher/settings
+
 ## ネイティブモジュール作成コマンド
 
 yarn create-native-module
@@ -80,6 +84,10 @@ lint をかける
 # 自動ビルド(Github Actions)
 
 .github/workflows/eas-build.yml によって制御されている
+今は master ブランチ更新時に自動でビルドを行うようになっているので、特段何かをする必要はない
+以下にバイナリが出来るはず
+
+https://expo.dev/accounts/ishikawa-taiki/projects/myAppLauncher/builds
 
 対応時の手順概要は以下の通り
 https://docs.expo.dev/build/building-on-ci/
@@ -98,6 +106,38 @@ https://github.com/expo/expo-github-action#example-workflows
 アクセストークンの値は再確認できないので、問題があったら一度無効化/再生成するようにする
 https://expo.dev/accounts/ishikawa-taiki/settings/access-tokens
 https://github.com/Ishikawa-Taiki/app-launch-android/settings/secrets/actions
+
+# 料金周り
+
+個人のアプリなので、無料で利用することを前提に構築している
+外部サービス関連の料金プランは以下の通りで、実行時間や回数の制約があるので覚えておく
+
+## Github Actions
+
+現時点ではパブリックリポジトリは無制限だが、プライベートリポジトリでは以下となる
+超えたら使えなくなる様子
+
+GitHub Free：
+・Storage：500 MB
+・分 (月あたり)：2,000
+
+https://docs.github.com/ja/billing/managing-billing-for-github-actions/about-billing-for-github-actions
+
+現在のプランは以下で見ることができる。
+
+https://github.com/settings/billing/plans
+
+## Expo(EAS Build)
+
+毎月30回 の優先度の低いビルドキュー (そのうち iOS は最大 15 個) が利用可能
+ビルドコマンドを叩いた後、キューに空きがあればビルドが進む感じなので、長い時間待たされることもある
+ビルドタイムアウトは45分で、同時に実行できるのは1つのみ
+
+https://expo.dev/pricing
+
+現在のプランは以下で見ることができる。
+
+https://expo.dev/accounts/ishikawa-taiki/settings/billing
 
 # TODO
 
