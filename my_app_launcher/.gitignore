@@ -18,6 +18,10 @@ web-build/
 *.key
 *.mobileprovision
 
+# Gradle files
+.gradle/
+build/
+
 # Metro
 .metro-health-check*
 
