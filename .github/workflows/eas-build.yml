@@ -21,7 +21,5 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Install dependencies
         run: yarn install
-      - name: Build on EAS(Android Development)
-        run: eas build --profile development --platform android --non-interactive --no-wait
       - name: Build on EAS(Android Preview)
         run: eas build --profile preview --platform android --non-interactive --no-wait
