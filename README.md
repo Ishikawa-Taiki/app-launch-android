@@ -1,11 +1,16 @@
 # app-launch-android
 
-個人用です
-
-app-launch-android：試作運用中の kotlin ネイティブベースのプロジェクト
-my_app_launcher：本運用開始用の ReactNative(Expo)ベースのプロジェクト
+個人用
+本運用開始用の ReactNative(Expo)ベースのプロジェクト
+※ 試作運用中の kotlin ネイティブベースのプロジェクトは削除済みのため、必要に応じてログから確認すること
 
 # コマンド類のメモ
+
+## 環境セットアップ(clone直後)
+
+yarn install
+
+で必要なモジュールを導入する
 
 ## バンドラ起動
 
@@ -16,7 +21,7 @@ yarn start
 
 ## Android ビルド&実行(+自動バンドラ立ち上げ)
 
-yarn dev-android
+yarn android
 
 ネイティブモジュール含めたビルドが実行される
 出来上がるバイナリは development のもの(バンドラ経由でスクリプトをダウンロードするやつ)
